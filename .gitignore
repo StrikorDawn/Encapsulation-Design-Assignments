@@ -3,4 +3,4 @@
 *.vcxproj
 *.vcxproj.filters
 *vcxproj.user
-.vs/*
+*.vs/
