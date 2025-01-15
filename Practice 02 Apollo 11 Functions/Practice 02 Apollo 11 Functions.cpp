@@ -6,9 +6,17 @@
  * 3. Assignment Description:
  *      Compute how the Apollo lander will move across the screen
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      The hardest part was getting a GitHub page set up correctly
+ *		  so we could both work on the assignment together and share
+ *		  our changes with each other. We wanted to stream line the
+ *      process of sharing code for the remainder of the semester,
+ *		  but it proved to be a bit messy to initially set up because
+ *		  of the different operating systems we were using. The other
+ *		  difficult part of this assignment was figuring out the order
+ *		  that each of the functions we created needed to be called in
+ *		  to accurately calculate the data for the Apollo 11 Shuttle.
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, etc.
+ *      This assignment took us roughly 2.5 hrs to complete.
  **************************************************************/
 
 #include <iostream>  // for CIN and COUT
