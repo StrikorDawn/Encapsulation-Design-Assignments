@@ -7,20 +7,20 @@
  *      Compute how the Apollo lander will move across the screen
  * 4. What was the hardest part? Be as specific as possible.
  *      The hardest part was getting a GitHub page set up correctly
- *		  so we could both work on the assignment together and share
- *		  our changes with each other. We wanted to stream line the
+ *	so we could both work on the assignment together and share
+ *	our changes with each other. We wanted to stream line the
  *      process of sharing code for the remainder of the semester,
- *		  but it proved to be a bit messy to initially set up because
- *		  of the different operating systems we were using. The other
- *		  difficult part of this assignment was figuring out the order
- *		  that each of the functions we created needed to be called in
- *		  to accurately calculate the data for the Apollo 11 Shuttle.
+ *	but it proved to be a bit messy to initially set up because
+ *	of the different operating systems we were using. The other
+ *	difficult part of this assignment was figuring out the order
+ *	that each of the functions we created needed to be called in
+ *	to accurately calculate the data for the Apollo 11 Shuttle.
  * 5. How long did it take for you to complete the assignment?
  *      This assignment took us roughly 2.5 hrs to complete.
  **************************************************************/
 
 #include <iostream>  // for CIN and COUT
-#include <cmath>	// for MATH
+#include <cmath>     // for MATH
 using namespace std;
 
 #define M_PI       3.14159265358979323846 // pi; cmath didn't pi didnt work.
@@ -43,7 +43,7 @@ using namespace std;
  **************************************************/
 double computeDistance(double s, double v, double  a, double t)
 {
-	return (s + v * t + 0.5 * a * t * t);
+   return (s + v * t + 0.5 * a * t * t);
 }
 
 /**************************************************
@@ -59,7 +59,7 @@ double computeDistance(double s, double v, double  a, double t)
  ***************************************************/
 double computeAcceleration(double f, double m)
 {
-	return (f / m);
+   return (f / m);
 }
 
 /***********************************************
@@ -78,7 +78,7 @@ double computeAcceleration(double f, double m)
  ***********************************************/
 double computeVelocity(double v, double a, double t)
 {
-	return (v + a * t);
+   return (v + a * t);
 }
 
 /***********************************************
@@ -101,7 +101,7 @@ double computeVelocity(double v, double a, double t)
  ***********************************************/
 double computeVerticalComponent(double a, double total)
 {
-	return (cos(a) * total);
+   return (cos(a) * total);
 }
 
 /***********************************************
@@ -124,7 +124,7 @@ double computeVerticalComponent(double a, double total)
  ***********************************************/
 double computeHorizontalComponent(double a, double total)
 {
-	return (sin(a) * total);
+   return (sin(a) * total);
 }
 
 /************************************************
@@ -148,7 +148,7 @@ double computeHorizontalComponent(double a, double total)
  ***********************************************/
 double computeTotalComponent(double x, double y)
 {
-	return (sqrt(x * x + y * y));
+   return (sqrt(x * x + y * y));
 }
 
 
@@ -163,7 +163,7 @@ double computeTotalComponent(double x, double y)
  **************************************************/
 double radianasFromDegrees(double d)
 {
-	return ((d / 360) * (2 * M_PI));
+   return ((d / 360) * (2 * M_PI));
 }
 
 /**************************************************
@@ -176,10 +176,10 @@ double radianasFromDegrees(double d)
  ***************************************************/
 double prompt(string x)
 {
-	double y;
-	cout << x;
-	cin >> y;
-	return y;
+   double y;
+   cout << x;
+   cin >> y;
+   return y;
 }
 
 /****************************************************************
@@ -188,49 +188,49 @@ double prompt(string x)
  ****************************************************************/
 int main()
 {
-	// Prompt for input and variables to be computed
-	double dx = prompt("What is your horizontal velocity (m/s)? ");
-	double dy = prompt("What is your vertical velocity (m/s)? ");
-	double y = prompt("What is your altitude (m)? ");
-	double x = prompt("What is your position (m)? ");
-	double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
-	double t = prompt("What is the time interval (s)? ");
-	double aRadians;            // Angle in radians
-	double accelerationThrust;  // Acceleration due to thrust
-	double ddxThrust;           // Horizontal acceleration due to thrust
-	double ddyThrust;           // Vertical acceleration due to thrust
-	double ddx;                 // Total horizontal acceleration
-	double ddy;                 // Total vertical acceleration
-	double v;                   // Total velocity
+   // Prompt for input and variables to be computed
+   double dx = prompt("What is your horizontal velocity (m/s)? ");
+   double dy = prompt("What is your vertical velocity (m/s)? ");
+   double y = prompt("What is your altitude (m)? ");
+   double x = prompt("What is your position (m)? ");
+   double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
+   double t = prompt("What is the time interval (s)? ");
+   double aRadians;            // Angle in radians
+   double accelerationThrust;  // Acceleration due to thrust
+   double ddxThrust;           // Horizontal acceleration due to thrust
+   double ddyThrust;           // Vertical acceleration due to thrust
+   double ddx;                 // Total horizontal acceleration
+   double ddy;                 // Total vertical acceleration
+   double v;                   // Total velocity
 
-	// Go through the simulator five times
-	for (int i = 0; i < 5; i++) 
-	{
-		// Convert angle to radians 
-		aRadians = radianasFromDegrees(aDegrees);
-		// Compute acceleration due to thrust 
-		accelerationThrust = computeAcceleration(THRUST, WEIGHT);
-		// Compute horizontal and vertical components of thrust acceleration 
-		ddxThrust = computeHorizontalComponent(aRadians, accelerationThrust);
-		ddyThrust = computeVerticalComponent(aRadians, accelerationThrust);
-		// Compute total horizontal and vertical accelerations 
-		ddx = ddxThrust; ddy = ddyThrust + GRAVITY;
-		// Compute new position
-		x = computeDistance(x, dx, ddx, t);
-		y = computeDistance(y, dy, ddy, t);
-		// Compute new velocity 
-		dx = computeVelocity(dx, ddx, t);
-		dy = computeVelocity(dy, ddy, t);
-		//Compute total velocity 
-		v = computeTotalComponent(dx, dy);
+   // Go through the simulator five times
+   for (int i = 0; i < 5; i++) 
+   {
+      // Convert angle to radians 
+      aRadians = radianasFromDegrees(aDegrees);
+      // Compute acceleration due to thrust 
+      accelerationThrust = computeAcceleration(THRUST, WEIGHT);
+      // Compute horizontal and vertical components of thrust acceleration 
+      ddxThrust = computeHorizontalComponent(aRadians, accelerationThrust);
+      ddyThrust = computeVerticalComponent(aRadians, accelerationThrust);
+      // Compute total horizontal and vertical accelerations 
+      ddx = ddxThrust; ddy = ddyThrust + GRAVITY;
+      // Compute new position
+      x = computeDistance(x, dx, ddx, t);
+      y = computeDistance(y, dy, ddy, t);
+      // Compute new velocity 
+      dx = computeVelocity(dx, ddx, t);
+      dy = computeVelocity(dy, ddy, t);
+      //Compute total velocity 
+      v = computeTotalComponent(dx, dy);
 
-		// Output
-		cout.setf(ios::fixed | ios::showpoint);
-		cout.precision(2);
-		cout << "\tNew position:   (" << x << ", " << y << ")m\n";
-		cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
-		cout << "\tTotal velocity:  " << v << "m/s\n\n";
-	}
+      // Output
+      cout.setf(ios::fixed | ios::showpoint);
+      cout.precision(2);
+      cout << "\tNew position:   (" << x << ", " << y << ")m\n";
+      cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
+      cout << "\tTotal velocity:  " << v << "m/s\n\n";
+   }
 
-		return 0;
+   return 0;
 }
