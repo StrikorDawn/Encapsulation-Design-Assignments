@@ -6,3 +6,4 @@
 
 # Except C++ files
 !*.cpp
+!*.h
