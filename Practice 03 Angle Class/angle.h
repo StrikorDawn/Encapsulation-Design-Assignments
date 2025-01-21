@@ -18,6 +18,7 @@
 #include <math.h>    // for floor()
 #include <iostream>  // for cout
 #include <cassert>   // for assert()
+#include <cmath>     // for fmod()
 using namespace std;
 
 class TestAngle;
@@ -31,15 +32,14 @@ class Angle
    private:
       double normalize(double radian)
       {
-         while (radian < 0)
+         radian = fmod(radian, TWO_PI);
+         if (radian < 0)
             radian += TWO_PI;
-         while (radian >= TWO_PI)
-            radian -= TWO_PI;
          return radian;
       }
       double convertToDegrees(double radian)
       {
-         return normalize(radians * (360 / TWO_PI));
+         return normalize(radian) * (360 / TWO_PI);
       }
       double convertToRadians(double degrees)
       {
@@ -61,7 +61,7 @@ class Angle
       }
       void setRadians(double radian)
       {
-         radians = radian;
+         radians = normalize(radian);
       }
       void display(ostream& out) const
    {
