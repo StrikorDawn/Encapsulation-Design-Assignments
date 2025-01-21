@@ -28,61 +28,47 @@ class TestAngle;
 class Angle
 {
    friend TestAngle;
-   
-   double radians;
-
    private:
-
       double normalize(double radian)
       {
          while (radian < 0)
-         {
             radian += TWO_PI;
-         }
          while (radian >= TWO_PI)
-         {
             radian -= TWO_PI;
-         }
          return radian;
       }
-
       double convertToDegrees(double radian)
       {
-         return normalize(radian * (360 / TWO_PI)); // M_PI wasn't working
+         return normalize(radians * (360 / TWO_PI));
       }
-
-      double convertToRadians(double degree)
+      double convertToRadians(double degrees)
       {
-         return normalize(degree * (TWO_PI / 360)); // M_PI wasn't working
+         return normalize(degrees * (TWO_PI / 360));
       }
-
    public:
+      double radians = 0;
       double getDegrees()
       {
-         
+         return convertToDegrees(radians);
       }
-
       double getRadians()
       {
          return radians;
       }
-
-      double setDegrees()
+      void setDegrees(double degrees)
       {
-
+         radians = convertToRadians(degrees);
       }
-
-      double setRadians(double radian)
+      void setRadians(double radian)
       {
          radians = radian;
       }
-
-      ostream& display(ostream& out) const
-      {
-         cout.setf(ios::fixed);     // "fixed" means don't use scientific notation
-         cout.setf(ios::showpoint); // "showpoint" means always show the decimal point
-         cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
-      }
+      void display(ostream& out) const
+   {
+      cout.setf(ios::fixed);     // "fixed" means don't use scientific notation
+      cout.setf(ios::showpoint); // "showpoint" means always show the decimal point
+      cout.precision(1);         // Set the precision to 1 decimal place of accuracy.
+   }
 };
 
 
