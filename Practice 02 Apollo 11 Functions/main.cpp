@@ -2,25 +2,23 @@
  * 1. Name:
  *      Taden Marston & Mark Van Horn
  * 2. Assignment Name:
- *      Practice 02: Physics simulator
+ *      Lab 02: Apollo 11
  * 3. Assignment Description:
- *      Compute how the Apollo lander will move across the screen
+ *      Simulate the Apollo 11 landing
  * 4. What was the hardest part? Be as specific as possible.
- *      The hardest part was getting a GitHub page set up correctly
- *	so we could both work on the assignment together and share
- *	our changes with each other. We wanted to stream line the
- *      process of sharing code for the remainder of the semester,
- *	but it proved to be a bit messy to initially set up because
- *	of the different operating systems we were using. The other
- *	difficult part of this assignment was figuring out the order
- *	that each of the functions we created needed to be called in
- *	to accurately calculate the data for the Apollo 11 Shuttle.
+ *      The hardest part was adjusting the main function with
+ *      the modified outputs and user inputs. On top of that,
+ *      getting the indentation correct on the second counter
+ *      was something new.
  * 5. How long did it take for you to complete the assignment?
- *      This assignment took us roughly 2.5 hrs to complete.
+ *      This assignment took us roughly 0.5 hrs to complete.
  **************************************************************/
 
 #include <iostream>  // for CIN and COUT
 #include <cmath>     // for MATH
+#include <chrono>
+#include <thread>
+#include <iomanip> // Required for std::setw and std::right
 using namespace std;
 
 #define M_PI     3.14159265358979323846 // pi; cmath didn't pi didn't work.
@@ -161,7 +159,7 @@ double computeTotalComponent(double x, double y)
  * OUTPUT
  *     r : radians from 0 to 2pi
  **************************************************/
-double radianasFromDegrees(double d)
+double radiansFromDegrees(double d)
 {
    return ((d / 360) * (2 * M_PI));
 }
@@ -189,12 +187,13 @@ double prompt(string x)
 int main()
 {
    // Prompt for input and variables to be computed
-   double dx = prompt("What is your horizontal velocity (m/s)? ");
    double dy = prompt("What is your vertical velocity (m/s)? ");
+   double dx = prompt("What is your horizontal velocity (m/s)? ");
    double y = prompt("What is your altitude (m)? ");
-   double x = prompt("What is your position (m)? ");
-   double aDegrees = prompt("What is the angle of the LM where 0 is up (degrees)? ");
-   double t = prompt("What is the time interval (s)? ");
+   double x = 0; //prompt("What is your position (m)? ");
+   double aDegrees = prompt("What is the angle of the LM "
+                            "where 0 is up (degrees)? ");
+   double t = 1; //prompt("What is the time interval (s)? ");
    double aRadians;            // Angle in radians
    double accelerationThrust;  // Acceleration due to thrust
    double ddxThrust;           // Horizontal acceleration due to thrust
@@ -202,12 +201,17 @@ int main()
    double ddx;                 // Total horizontal acceleration
    double ddy;                 // Total vertical acceleration
    double v;                   // Total velocity
+   
+   // Output preamble outside loop so it's not repeated unnecessarily
+   cout << "\nFor the next 5 seconds with the main engine on, ";
+   cout << "the position of the lander is:\n\n";
 
-   // Go through the simulator five times
-   for (int i = 0; i < 5; i++) 
+   // Go through the simulator ten times, with a break halfway for angle
+   // readjustment.
+   for (int i = 0; i < 10; i++)
    {
       // Convert angle to radians 
-      aRadians = radianasFromDegrees(aDegrees);
+      aRadians = radiansFromDegrees(aDegrees);
       // Compute acceleration due to thrust 
       accelerationThrust = computeAcceleration(THRUST, WEIGHT);
       // Compute horizontal and vertical components of thrust acceleration 
@@ -227,9 +231,23 @@ int main()
       // Output
       cout.setf(ios::fixed | ios::showpoint);
       cout.precision(2);
-      cout << "\tNew position:   (" << x << ", " << y << ")m\n";
-      cout << "\tNew velocity:   (" << dx << ", " << dy << ")m/s\n";
-      cout << "\tTotal velocity:  " << v << "m/s\n\n";
+      
+      // Updates every 1 second
+      cout << right << setw(2) << i + 1;
+      cout << "s - x,y: (" << x << ", " << y << ")m  ";
+      cout << "dx,dy: (" << dx << ", " << dy << ")m/s  ";
+      cout << "speed:" << v << "m/s  angle:" << aDegrees << "deg" << endl;
+      
+      // Updates the angle after 5 seconds
+      if (i == 4) {
+         aDegrees = prompt("\nWhat is the new angle of the LM "
+                           "where 0 is up (degrees)? ");
+         cout << "\nFor the next 5 seconds with the main engine on, ";
+         cout << "the position of the lander is:\n\n";
+      }
+      
+      // 1 second sleep counter for visual splendor
+      this_thread::sleep_for(chrono::seconds(1));
    }
 
    return 0;
