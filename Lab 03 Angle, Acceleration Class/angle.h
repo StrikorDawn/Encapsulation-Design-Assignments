@@ -11,6 +11,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>   // for M_PI which is 3.14159
+#include <cmath> // for nice little abs() functions
 
 class TestPosition;
 class TestVelocity;
@@ -35,8 +36,8 @@ public:
    Angle(double degrees)   : radians(-99.9)  {}
 
    // Getters
-   double getDegrees() const { return -99.9; }
-   double getRadians() const { return -99.9; }
+   double getDegrees() const { return convertToDegrees(radians); }
+   double getRadians() const { return radians; }
 
    // Setters
    void setDegrees(double degrees) { }
@@ -46,10 +47,17 @@ public:
    void setRight()                 { }
    void setLeft()                  { }
    void reverse()                  { }
-   Angle& add(double delta) { radians = -99.9; return *this; }
+   Angle& add(double delta)
+   {
+      radians += delta;
+      radians = abs(radians);
+      return *this;
+   }
 
 private:
    double normalize(double radians) const;
+   double convertToDegrees(double radian) const { return 360 * radian / 2 * M_PI; }
+   double convertToRadians(double degrees) const { return (degrees / 360) * 2 * M_PI; }
 
    double radians;   // 360 degrees equals 2 PI radians
 };
