@@ -41,7 +41,7 @@ public:
 
    // Setters
    void setDegrees(double degrees) { radians = convertToRadians(degrees); }
-   void setRadians(double radian) { radians = radian; }
+   void setRadians(double radian) { radians = normalize(radian); }
    void setUp()                    { radians = convertToRadians(0); }
    void setDown()                  { radians = convertToRadians(180); }
    void setRight()                 { radians = convertToRadians(90); }
@@ -50,7 +50,7 @@ public:
    Angle& add(double delta)
    {
       radians += delta;
-      radians = abs(radians);
+      radians = normalize(radians);
       return *this;
    }
 
@@ -58,11 +58,11 @@ private:
    double normalize(double radians) const;
    double convertToDegrees(double radian) const
    {
-      return 360.0 * normalize(radian) / 2.0 * M_PI;
+      return normalize(radian) * (180 / M_PI);
    }
    double convertToRadians(double degrees) const
    {
-      return normalize((degrees / 360.0) * 2.0 * M_PI);
+      return normalize(degrees * (M_PI / 180));
    }
 
    double radians;   // 360 degrees equals 2 PI radians
