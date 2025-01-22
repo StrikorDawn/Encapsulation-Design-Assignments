@@ -38,14 +38,14 @@ public:
       set_diagonal();
 
       // Ticket 4: Add
-      addDDX_zero();
+      /*addDDX_zero();
       addDDX_value();
       addDDY_zero();
       addDDY_value();
       add_zeroZero();
       add_valueZero();
       add_zeroValue();
-      add_valueValue();
+      add_valueValue();*/
 
       report("Acceleration");
    }

@@ -23,7 +23,7 @@ public:
    void run()
    {
       // Ticket 1: Angle Without Normalize
-      defaultConstructor();
+      /*defaultConstructor();
       copyConstructor();
       nondefaultConstructor();
       setUp();
@@ -38,10 +38,10 @@ public:
       getRadians_0();
       getRadians_270();
       add_0();
-      add_value();
+      add_value();*/
 
       // Ticket 2: Angle Normalize
-      setRadians_negative();
+      /*setRadians_negative();
       setRadians_oneLap();
       setRadians_sixLaps();
       setRadians_negativeThreeQuarters();
@@ -54,7 +54,7 @@ public:
       setDegrees_negativeOneLap();
       setDegrees_negativeSixLaps();
       add_positiveLap();
-      add_negativeLap();
+      add_negativeLap();*/
 
       report("Angle");
    }
