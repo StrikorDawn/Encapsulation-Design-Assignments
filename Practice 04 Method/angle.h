@@ -42,7 +42,7 @@ class Angle
     ***************************************/
    
       // normalizes radians to 0 < radian < TWO_PI
-      double normalize(double radian)
+      double normalize(double radian) const
       {
          radian = fmod(radian, TWO_PI);
          if (radian < 0)
@@ -51,13 +51,13 @@ class Angle
       }
    
       // normalizes radians and then converts to degrees
-      double convertToDegrees(double radian)
+      double convertToDegrees(double radian) const
       {
          return normalize(radian) * (360 / TWO_PI);
       }
    
       // converts to radians and then normalizes
-      double convertToRadians(double degrees)
+      double convertToRadians(double degrees) const
       {
          return normalize(degrees * (TWO_PI / 360));
       }
@@ -68,7 +68,7 @@ class Angle
       // Default Constructor
       Angle()
       {
-         radians = 0;
+         radians = 0.0;
       };
 
       // copy constructor
@@ -77,16 +77,10 @@ class Angle
          radians = rhs.radians;
       };
 
-      // move constructor
-      Angle(Angle && rhs)
-      {
-         radians = move(rhs.radians);
-      };
-
       // non-default constructor
-      Angle(int radians)
+      Angle(double degrees)
       {
-         this->radians = radians;
+         this->radians = convertToRadians(degrees);
       };
       
       double radians;
@@ -96,16 +90,16 @@ class Angle
    ***************************************/
    
       // converts radians to degrees and returns the value
-      double getDegrees()
+      double getDegrees() const
       {
          return convertToDegrees(radians);
-      }
+      };
    
       // returns radians
       double getRadians() const
       {
          return radians;
-      }
+      };
    
    /***************************************
    * SET
@@ -115,20 +109,20 @@ class Angle
       void setDegrees(double degrees)
       {
          radians = convertToRadians(degrees);
-      }
+      };
    
       // sets radians to param value
       void setRadians(double radian)
       {
          radians = normalize(radian);
-      }
+      };
    
    /***************************************
     * DISPLAY
     ***************************************/
    
       //Displays radians variable in degrees format
-      ostream& display(ostream& out)
+      ostream& display(ostream& out) const
       {
          out.setf(ios::fixed);     // "fixed" means don't use scientific notation
          out.setf(ios::showpoint); // "showpoint" means always show the decimal point
