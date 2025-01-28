@@ -36,7 +36,7 @@ class Angle
 {
    friend TestAngle;
    private:
-   
+
    /***************************************
     * CONVERT
     ***************************************/
@@ -62,8 +62,35 @@ class Angle
          return normalize(degrees * (TWO_PI / 360));
       }
    public:
-      double radians = 0;
-   
+   /***************************************
+   * CONTSTRUCTORS
+   ***************************************/
+      // Default Constructor
+      Angle()
+      {
+         radians = 0;
+      };
+
+      // copy constructor
+      Angle(const Angle & rhs)
+      {
+         radians = rhs.radians;
+      };
+
+      // move constructor
+      Angle(Angle && rhs)
+      {
+         radians = move(rhs.radians);
+      };
+
+      // non-default constructor
+      Angle(int radians)
+      {
+         this->radians = radians;
+      };
+      
+      double radians;
+
    /***************************************
    * SET
    ***************************************/
@@ -75,7 +102,7 @@ class Angle
       }
    
       // returns radians
-      double getRadians()
+      double getRadians() const
       {
          return radians;
       }
