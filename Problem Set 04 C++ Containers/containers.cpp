@@ -1,14 +1,15 @@
 /*************************************************************
  * 1. Name:
- *      -your name-
+ *      Mark Van Horn & Taden Marston
  * 2. Assignment Name:
  *      Practice 04: Contaiers
  * 3. Assignment Description:
  *      Work with a list and a vector
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      Using an iterator on the listToVectorBackwards method.
+ *      Tripped us up a bit.
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, etc.
+ *      20 minutes
  **************************************************************/
 
 
@@ -19,7 +20,11 @@ using namespace std;
 
 list<string> arrayToList(string a[], int num)
 {
-   return list<string>();
+   list<string> listOfStrings;
+   for(int i = 0; i < num; ++i) {
+      listOfStrings.push_back(a[i]);
+   }
+   return listOfStrings;
 }
 
 /*****************************
@@ -27,7 +32,11 @@ list<string> arrayToList(string a[], int num)
  *****************************/
 list<string> arrayToListBackwards(string a[], int num)
 {
-   return list<string>();
+   list<string> listOfStrings;
+   for(int i = num - 1; i >= 0; --i) {
+      listOfStrings.push_back(a[i]);
+   }
+   return listOfStrings;
 }
 
 /*****************************
@@ -35,7 +44,11 @@ list<string> arrayToListBackwards(string a[], int num)
  *****************************/
 vector<string> listToVector(const list<string> & l)
 {
-   return vector<string>();
+   vector<string> vectorOfStrings;
+   for(const auto& num : l) {
+      vectorOfStrings.push_back(num);
+   }
+   return vectorOfStrings;
 }
 
 /*****************************
@@ -43,7 +56,11 @@ vector<string> listToVector(const list<string> & l)
  *****************************/
 vector<string> listToVectorBackwards(const list<string>& l)
 {
-   return vector<string>();
+   vector<string> vectorOfStrings;
+   for(auto it = l.rbegin(); it != l.rend(); ++it) {
+      vectorOfStrings.push_back(*it);
+   }
+   return vectorOfStrings;
 }
 
 /*****************************
@@ -51,6 +68,11 @@ vector<string> listToVectorBackwards(const list<string>& l)
  *****************************/
 bool findElementInVector(const vector<string> & v, const string& element)
 {
+   for(const auto& item : v) {
+      if(item == element) {
+         return true;
+      }
+   }
    return false;
 }
 
