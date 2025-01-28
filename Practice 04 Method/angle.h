@@ -2,19 +2,15 @@
  * 1. Name:
  *      Mark Van Horn & Taden Marston
  * 2. Assignment Name:
- *      Practice 03: Angle Class
+ *      Practice 04: C++ Method
  * 3. Assignment Description:
- *      A class to represent an angle
+ *      Extend this class appropriate use of the const modifier
+ *      and add three constructors.
  * 4. What was the hardest part? Be as specific as possible.
- *      This one was a learning process for us. Once we got the
- *      program to compile we got a ton of failed tests, but after
- *      an extremely helpful consultation we began the debugging
- *      process which solved 89.7% of our problems, we then got
- *      very stuck on the display portion, which was highly
- *      frustrating because while the output was exactly what was
- *      listed in the tests, the tests failed.
+ *      Figuring out where to place the constant Modifiers,
+ *      and which functions needed to be made constant.
  * 5. How long did it take for you to complete the assignment?
- *      2.5 hours :(
+ *      20 Minuets
  **************************************************************/
 
 #pragma once
@@ -86,7 +82,7 @@ class Angle
       double radians;
 
    /***************************************
-   * SET
+   * GET
    ***************************************/
    
       // converts radians to degrees and returns the value
