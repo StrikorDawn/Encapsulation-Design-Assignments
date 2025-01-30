@@ -30,8 +30,8 @@ class Position
 public:
    // constructors
    Position()                     : x(0.0), y(0.0) { }
-   Position(const Position & pos) : x(pos.x), y(pos.y) { }
    Position(double x, double y);
+   Position(const Position & pos) : x(pos.x), y(pos.y) { }
 
    // getters
    double getX() const { return x; }

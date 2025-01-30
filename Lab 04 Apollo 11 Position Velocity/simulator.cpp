@@ -22,14 +22,21 @@ class Simulator
 {
 public:
    // set up the simulator
-   Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
+   Simulator(const Position& posUpperRight)
+      : ground(posUpperRight), posLander(200, 200), posStar(250, 300), phase(0) {}
+   
        
    // display stuff on the screen
    void display();
   
 //   unsigned char phase;
-//   Angle a;
+   Angle a;
    Ground ground;
+   Position posLander;
+   Position posStar;
+   unsigned char phase;
+   
+
 };
 
 /**********************************************************
@@ -41,13 +48,14 @@ void Simulator::display()
    ogstream gout;
 
    // draw the ground
-// ground.draw(gout);
+   ground.draw(gout);
 
    // draw the lander
-// gout.drawLander(posLander, a.getRadians());
+   gout.drawLander(posLander, a.getRadians());
 
    // draw a star
-// gout.drawStar(posStar, phase);
+   gout.drawStar(posStar, phase);
+   phase++;
 }
 
 
@@ -64,11 +72,13 @@ void callBack(const Interface* pUI, void* p)
    // draw the game
    pSimulator->display();
 
+
+
    // handle input
    if (pUI->isRight())
-      ;   // rotate right here
+      pSimulator->a.add(-.15);   // rotate right here
    if (pUI->isLeft())
-      ;   // rotate left here
+      pSimulator->a.add(.15);   // rotate left here
 
 
 }
