@@ -6,9 +6,9 @@
  * 3. Assignment Description:
  *      A simple program to read/write to a file
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      The hardest part was debugging the file path for Marks Mac.
  * 5. How long did it take for you to complete the assignment?
- *      This assignment took us 
+ *      This assignment took us about 30 minuets
  *****************************************************************/
 
 #include <iostream>
@@ -62,14 +62,15 @@ void updateBalance(double &balance)
  ***********************************************/
 void writeBalance(double balance) 
 {
-    ofstream fout("./data.txt");  // Open file for writing
-    if (!fout) {  // Check if file opened successfully
-        cerr << "Unable to write balance to data.txt" << endl;
-        return;
-    }
-    fout << fixed << setprecision(2); // Set precision to 2 decimal places
-    fout << balance; // Write the balance to the file
-    cout << "Balance successfully written to data.txt" << endl;
+   ofstream fout("./data.txt");  // Open file for writing
+   if (!fout) 
+   {  // Check if file opened successfully
+      cerr << "Unable to write balance to data.txt" << endl;
+      return;
+   }
+   fout << fixed << setprecision(2); // Set precision to 2 decimal places
+   fout << balance; // Write the balance to the file
+   cout << "Balance successfully written to data.txt" << endl;
 }
 
 /**********************************************
