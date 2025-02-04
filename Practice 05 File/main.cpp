@@ -8,11 +8,12 @@
  * 4. What was the hardest part? Be as specific as possible.
  *      -a paragraph or two about how the assignment went for you-
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, and writing code-
+ *      This assignment took us 
  *****************************************************************/
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -20,7 +21,8 @@ using namespace std;
  * READ BALANCE
  * Reads the balance out of a data.txt file
  *******************************************/
-double readBalance() {
+double readBalance() 
+{
    ifstream fin("./data.txt");  // Open the file for reading
    double balance = 0.00;       // Default balance if file read fails
 
@@ -36,7 +38,9 @@ double readBalance() {
  * DISPLAY BALANCE
  * Displays the current account balance
  ***************************************/
-void displayBalance(double balance) {
+void displayBalance(double balance) 
+{
+   cout << fixed << setprecision(2); // Set precision to 2 decimal places
    cout << "Account balance: $" << balance << endl;
 }
 
@@ -44,7 +48,8 @@ void displayBalance(double balance) {
  * UPDATE BALANCE
  * Updates the balance based on user input
  *******************************************/
-void updateBalance(double &balance) {
+void updateBalance(double &balance) 
+{
    double change;
    cout << "Change: $";
    cin >> change;
@@ -55,13 +60,14 @@ void updateBalance(double &balance) {
  * WRITE BALANCE
  * Writes the updated balance back to "data.txt"
  ***********************************************/
-void writeBalance(double balance) {
+void writeBalance(double balance) 
+{
     ofstream fout("./data.txt");  // Open file for writing
     if (!fout) {  // Check if file opened successfully
         cerr << "Unable to write balance to data.txt" << endl;
         return;
     }
-
+    fout << fixed << setprecision(2); // Set precision to 2 decimal places
     fout << balance; // Write the balance to the file
     cout << "Balance successfully written to data.txt" << endl;
 }
@@ -70,7 +76,8 @@ void writeBalance(double balance) {
  * MAIN
  * Runs the functions to read/write from a file
  **********************************************/
-int main() {
+int main() 
+{
    double balance = readBalance(); // Read the initial balance from file
    displayBalance(balance); // Display the balance
 
