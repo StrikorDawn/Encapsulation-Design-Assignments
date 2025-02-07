@@ -53,7 +53,7 @@ Acceleration Lander::input(const Thrust &thrust, double gravity)
    Acceleration acceleration;
    
    // Calculate thrust acceleration
-   double thrustAccel = thrust.mainEngineThrust() ? 2.9795404 : 0.0;
+   double thrustAccel = (fuel > 0) ? thrust.mainEngineThrust() : 0.0;
    
    // Calculate the horizontal and vertical components of the thrust acceleration
    double thrustX = thrustAccel * cos(angle.getRadians());
