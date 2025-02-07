@@ -56,8 +56,8 @@ Acceleration Lander::input(const Thrust &thrust, double gravity)
    double thrustAccel = (fuel > 0) ? thrust.mainEngineThrust() : 0.0;
    
    // Calculate the horizontal and vertical components of the thrust acceleration
-   double thrustX = thrustAccel * cos(angle.getRadians());
-   double thrustY = thrustAccel * sin(angle.getRadians());
+   double thrustX = thrustAccel * -sin(angle.getRadians());
+   double thrustY = thrustAccel * cos(angle.getRadians());
    
    // Calculate the total acceleration considering thrust and gravity
    acceleration.setDDX(thrustX);
