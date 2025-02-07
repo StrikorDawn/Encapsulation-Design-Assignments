@@ -45,30 +45,30 @@ public:
       getSpeed_diagonal();
 
       // setters
-      land_flying();
-      land_crashed();
-      land_landed();
-      crash_flying();
-      crash_crashed();
-      crash_landed();
-      reset_empty();
-      reset_full();
+      //land_flying();
+      //land_crashed();
+      //land_landed();
+      //crash_flying();
+      //crash_crashed();
+      //crash_landed();
+      //reset_empty();
+      //reset_full();
       
       // move it
-      coast_zero();
+     /* coast_zero();
       coast_noTime();
       coast_noAcceleration();
       coast_noVelocity();
-      coast_all();
+      coast_all();*/
 
       // input
-      input_none();
+  /*    input_none();
       input_mainDown();
       input_mainLeft();
       input_mainDiagonal();
       input_coastClockwise();
       input_coastCounterClockwise();
-      input_noFuel();
+      input_noFuel();*/
       
       report("Lander");
    }
