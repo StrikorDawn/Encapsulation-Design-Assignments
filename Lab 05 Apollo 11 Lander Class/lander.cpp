@@ -47,24 +47,40 @@ void Lander :: draw(const Thrust & thrust, ogstream & gout) const
  * INPUT
  * Accept input from the Neil Armstrong
  ***************************************************************/
-Acceleration Lander :: input(const Thrust& thrust, double gravity)
+Acceleration Lander::input(const Thrust &thrust, double gravity)
 {
-   // Get the thrust acceleration
-   double thrustAccel = thrust.mainEngineThrust();
-
+   // Initialize acceleration
+   Acceleration acceleration;
+   
+   // Calculate thrust acceleration
+   double thrustAccel = thrust.mainEngineThrust() ? 2.9795404 : 0.0;
+   
    // Calculate the horizontal and vertical components of the thrust acceleration
    double thrustX = thrustAccel * cos(angle.getRadians());
    double thrustY = thrustAccel * sin(angle.getRadians());
-
+   
    // Calculate the total acceleration considering thrust and gravity
-   double accelX = thrustX;
-   double accelY = thrustY - gravity;
-
-   // Set the acceleration
-   Acceleration acceleration;
-   acceleration.setDDX(accelX);
-   acceleration.setDDY(accelY);
-
+   acceleration.setDDX(thrustX);
+   acceleration.setDDY(thrustY + gravity);
+   
+   // Adjust fuel based on thrust usage
+   if (thrust.mainEngineThrust() && fuel > 0)
+      {
+      fuel -= 10;
+      }
+   
+   // Handle rotation
+   if (thrust.isClock() && fuel > 0)
+      {
+      angle.add(0.1);
+      fuel -= 1;
+      }
+   else if (thrust.isCounter() && fuel > 0)
+      {
+      angle.add(-0.1);
+      fuel -= 1;
+      }
+   
    return acceleration;
 }
 
