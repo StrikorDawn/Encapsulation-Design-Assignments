@@ -33,8 +33,23 @@ void Lander :: draw(const Thrust & thrust, ogstream & gout) const
  ***************************************************************/
 Acceleration Lander :: input(const Thrust& thrust, double gravity)
 {
-   pos.setX(-99.9);
-   return Acceleration();
+   // Get the thrust acceleration
+   double thrustAccel = thrust.mainEngineThrust();
+   
+   // Calculate the horizontal and vertical components of the thrust acceleration
+   double thrustX = thrustAccel * cos(angle.getRadians());
+   double thrustY = thrustAccel * sin(angle.getRadians());
+   
+   // Calculate the total acceleration considering thrust and gravity
+   double accelX = thrustX;
+   double accelY = thrustY - gravity;
+   
+   // Set the acceleration
+   Acceleration acceleration;
+   acceleration.setDDX(accelX);
+   acceleration.setDDY(accelY);
+   
+   return acceleration;
 }
 
 /******************************************************************
@@ -43,5 +58,11 @@ Acceleration Lander :: input(const Thrust& thrust, double gravity)
  *******************************************************************/
 void Lander :: coast(Acceleration & acceleration, double time)
 {
-   pos.setX(-99.9);
+   // Update the velocity based on acceleration and time
+   velocity.setDX(velocity.getDX() + acceleration.getDDX() * time);
+   velocity.setDY(velocity.getDY() + acceleration.getDDY() * time);
+   
+   // Update the position based on velocity and time
+   pos.setX(pos.getX() + velocity.getDX() * time);
+   pos.setY(pos.getY() + velocity.getDY() * time);
 }
