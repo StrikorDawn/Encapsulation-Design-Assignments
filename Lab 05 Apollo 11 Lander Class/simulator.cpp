@@ -26,7 +26,8 @@ class Simulator
 public:
    Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
    Ground ground;
-   vector<Star> stars;
+   //Lander lander;
+   vector<Star> stars; 
 };
 
 
@@ -37,33 +38,36 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   // the first step is to cast the void pointer into a game object. This
-   // is the first step of every single callback function in OpenGL.
-   Simulator * pSimulator = (Simulator *)p;
-   
+   Simulator* pSimulator = (Simulator*)p;
+
    ogstream gout;
-   
-   // If stars have not been initialized, initialize them
+
    if (pSimulator->stars.empty())
-      {
+   {
       const int STAR_COUNT = 50;
       for (int i = 0; i < STAR_COUNT; i++)
-         {
-            Star star;
-            star.reset(random(0, 400), random(0, 400));
-            pSimulator->stars.push_back(star);
-         }
-      }
-   
-   // Draw all stars
-   for (Star& star : pSimulator->stars)
       {
-         star.draw(gout);
+         Star star;
+         star.reset(random(0, 400), random(0, 400));
+         pSimulator->stars.push_back(star);
       }
-   
-   // draw the ground
+   }
+
+   for (Star& star : pSimulator->stars)
+   {
+      star.draw(gout);
+   }
+
    pSimulator->ground.draw(gout);
+
+   //// Draw the lander
+   //pSimulator->lander.draw(pSimulator->lander.thrust, gout);
+
+   //// Update the lander's position
+   //Acceleration accel = pSimulator->lander.input(pSimulator->lander.thrust, 1.625); // Assuming moon gravity of 1.625 m/s^2
+   //pSimulator->lander.coast(accel, 0.1); // Assuming time step of 0.1 seconds
 }
+
 
 /*********************************
  * Main is pretty sparse.  Just initialize

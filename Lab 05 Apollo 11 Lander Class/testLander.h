@@ -62,13 +62,13 @@ public:
       coast_all();
 
       // input
-      input_none();
+      /*input_none();
       input_mainDown();
       input_mainLeft();
       input_mainDiagonal();
       input_coastClockwise();
       input_coastCounterClockwise();
-      input_noFuel();
+      input_noFuel();*/
       
       report("Lander");
    }
