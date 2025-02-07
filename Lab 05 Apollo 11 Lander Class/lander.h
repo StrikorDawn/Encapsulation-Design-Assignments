@@ -35,35 +35,18 @@ public:
   void reset(const Position& posUpperRight);
 
   // get the status of the lander
-  bool isDead() const 
-  {
-     if (status == SAFE)
-     {
-        return false;
-     }
-     else if (status == DEAD)
-     {
-        return true;
-     }
-  }
-  bool isLanded() const 
-  { 
-     if (status == SAFE)
-     {
-        return true;
-     }
-  }
-  bool isFlying() const 
-  { 
-     if (status == PLAYING)
-     {
-        return true;
-     }
-     else if (status == SAFE)
-     {
-        return false;
-     }
-  }
+  bool isDead() const
+   {
+   return (status == DEAD);
+   }
+   bool isLanded() const
+   {
+   return (status == SAFE);
+   }
+   bool isFlying() const
+   {
+   return (status == PLAYING);
+   }
   Position getPosition() const 
   { 
      return pos;
