@@ -24,7 +24,11 @@ using namespace std;
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) : ground(posUpperRight), lander(posUpperRight) {
+   Simulator(const Position & posUpperRight) :
+   ground(posUpperRight),
+   lander(posUpperRight)
+   {
+   lander.reset(posUpperRight);
    }
    Ground ground;
    Lander lander;
@@ -52,16 +56,16 @@ void callBack(const Interface* pUI, void* p)
       const int STAR_COUNT = 50;
       for (int i = 0; i < STAR_COUNT; i++)
          {
-            Star star;
-            star.reset(random(0, 400), random(0, 400));
-            pSimulator->stars.push_back(star);
+         Star star;
+         star.reset(random(0, 400), random(0, 400));
+         pSimulator->stars.push_back(star);
          }
       }
    
    // Draw all stars
    for (Star& star : pSimulator->stars)
       {
-         star.draw(gout);
+      star.draw(gout);
       }
    
    // draw the ground
@@ -71,6 +75,7 @@ void callBack(const Interface* pUI, void* p)
    pSimulator->lander.draw(pSimulator->thrust, gout);
    
    // Update the lander's position
+   pSimulator->thrust.set(pUI);
    Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
    pSimulator->lander.coast(accel, 0.1);
 }
