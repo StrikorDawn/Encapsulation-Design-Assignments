@@ -35,7 +35,7 @@ public:
   void reset(const Position& posUpperRight);
 
   // get the status of the lander
-  bool     isDead()         const { return true; }
+  bool     isDead()         const { return status; }
   bool     isLanded()       const { return true; }
   bool     isFlying()       const { return true; }
   Position getPosition()    const { return pos;  }

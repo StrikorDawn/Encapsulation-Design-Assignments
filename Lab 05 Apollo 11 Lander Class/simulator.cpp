@@ -23,42 +23,10 @@ using namespace std;
 class Simulator
 {
 public:
-   // set up the simulator
-   Simulator(const Position& posUpperRight)
-      : ground(posUpperRight), posLander(200, 200), posStar(250, 300), phase(0) {}
-   
-       
-   // display stuff on the screen
-   void display();
-  
-//   unsigned char phase;
-   Angle a;
+   Simulator(const Position & posUpperRight) : ground(posUpperRight) {}
    Ground ground;
-   Position posLander;
-   Position posStar;
-   unsigned char phase;
-   
-
 };
 
-/**********************************************************
- * DISPLAY
- * Draw on the screen
- **********************************************************/
-void Simulator::display()
-{
-   ogstream gout;
-
-   // draw the ground
-   ground.draw(gout);
-
-   // draw the lander
-   gout.drawLander(posLander, a.getRadians());
-
-   // draw a star
-   gout.drawStar(posStar, phase);
-   phase++;
-}
 
 
 /*************************************
@@ -71,18 +39,10 @@ void callBack(const Interface* pUI, void* p)
    // is the first step of every single callback function in OpenGL. 
    Simulator * pSimulator = (Simulator *)p;
 
-   // draw the game
-   pSimulator->display();
+   ogstream gout;
 
-
-
-   // handle input
-   if (pUI->isRight())
-      pSimulator->a.add(-.15);   // rotate right here
-   if (pUI->isLeft())
-      pSimulator->a.add(.15);   // rotate left here
-
-
+   // draw the ground
+   pSimulator->ground.draw(gout);
 }
 
 /*********************************
