@@ -11,24 +11,24 @@
 #include "position.h"   // for POSITION
 #include "uiDraw.h"     // for RANDOM and DRAWSTAR
 
-/*****************************************************
- * STAR
- * A star that twinkles
- *****************************************************/
+ /*****************************************************
+  * STAR
+  * A star that twinkles
+  *****************************************************/
 class Star
 {
-   private:
-   Position pos;
-   unsigned char phase = random(0, 255); // For out of phase stars
-   public:
-   void reset(double width, double height)
-   {
-      pos.setX(width);
-      pos.setY(height);
-   }
-   void draw(ogstream& gout)
-   {
-      gout.drawStar(pos, phase);
-      phase++;
-   }
+private:
+	Position pos;
+	unsigned char phase = random(0, 255); // For out of phase stars
+public:
+	void reset(double width, double height)
+	{
+		pos.setX(width);
+		pos.setY(height);
+	}
+	void draw(ogstream& gout)
+	{
+		gout.drawStar(pos, phase);
+		phase++;
+	}
 };

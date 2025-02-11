@@ -32,68 +32,68 @@ class TestThrust;
  ********************************************/
 class Interface
 {
-   // for unit test
-   friend TestThrust;
+	// for unit test
+	friend TestThrust;
 
 public:
-   // Default constructor useful for setting up the random variables
-   // or for opening the file for output
-   Interface() {  }
+	// Default constructor useful for setting up the random variables
+	// or for opening the file for output
+	Interface() {}
 
-   // Constructor if you want to set up the window with anything but
-   // the default parameters
-   Interface(const char * title, const Position & ptUpperRight)
-   {
-      initialize(title, ptUpperRight);
-   }
+	// Constructor if you want to set up the window with anything but
+	// the default parameters
+	Interface(const char* title, const Position& ptUpperRight)
+	{
+		initialize(title, ptUpperRight);
+	}
 
-   // This will set the game in motion
-   void run(void (*callBack)(const Interface *, void *), void *p);
+	// This will set the game in motion
+	void run(void (*callBack)(const Interface*, void*), void* p);
 
-   // Is it time to redraw the screen
-   bool isTimeToDraw();
+	// Is it time to redraw the screen
+	bool isTimeToDraw();
 
-   // Set the next draw time based on current time and time period
-   void setNextDrawTime();
+	// Set the next draw time based on current time and time period
+	void setNextDrawTime();
 
-   // Retrieve the next tick time... the time of the next draw.
-   unsigned long getNextTick() { return nextTick; }
+	// Retrieve the next tick time... the time of the next draw.
+	unsigned long getNextTick() { return nextTick; }
 
-   // How many frames per second are we configured for?
-   void setFramesPerSecond(double value);
-   
-   // Key event indicating a key has been pressed or not.  The callbacks
-   // should be the only onces to call this
-   void keyEvent(int key, bool fDown);
-   void keyEvent();
+	// How many frames per second are we configured for?
+	void setFramesPerSecond(double value);
 
-   // Current frame rate
-   double frameRate() const { return timePeriod;   }
-   
-   // Get various key events
-   int  isDown()      const { return isDownPress;  }
-   int  isUp()        const { return isUpPress;    }
-   int  isLeft()      const { return isLeftPress;  }
-   int  isRight()     const { return isRightPress; }
-   bool isSpace()     const { return isSpacePress; }
-   bool isQ()         const { return isQPress;     }
-   
-   static void *p;                   // for client
-   static void (*callBack)(const Interface *, void *);
+	// Key event indicating a key has been pressed or not.  The callbacks
+	// should be the only onces to call this
+	void keyEvent(int key, bool fDown);
+	void keyEvent();
+
+	// Current frame rate
+	double frameRate() const { return timePeriod; }
+
+	// Get various key events
+	int  isDown()      const { return isDownPress; }
+	int  isUp()        const { return isUpPress; }
+	int  isLeft()      const { return isLeftPress; }
+	int  isRight()     const { return isRightPress; }
+	bool isSpace()     const { return isSpacePress; }
+	bool isQ()         const { return isQPress; }
+
+	static void* p;                   // for client
+	static void (*callBack)(const Interface*, void*);
 
 private:
-   void initialize(const char * title, const Position & ptUpperRight);
+	void initialize(const char* title, const Position& ptUpperRight);
 
-   static bool          initialized;  // only run the constructor once!
-   static double        timePeriod;   // interval between frame draws
-   static unsigned long nextTick;     // time (from clock()) of our next draw
+	static bool          initialized;  // only run the constructor once!
+	static double        timePeriod;   // interval between frame draws
+	static unsigned long nextTick;     // time (from clock()) of our next draw
 
-   static int  isDownPress;          // is the down arrow currently pressed?
-   static int  isUpPress;            //    "   up         "
-   static int  isLeftPress;          //    "   left       "
-   static int  isRightPress;         //    "   right      "
-   static bool isSpacePress;         //    "   space      "
-   static bool isQPress;             //     "  q          "
+	static int  isDownPress;          // is the down arrow currently pressed?
+	static int  isUpPress;            //    "   up         "
+	static int  isLeftPress;          //    "   left       "
+	static int  isRightPress;         //    "   right      "
+	static bool isSpacePress;         //    "   space      "
+	static bool isQPress;             //     "  q          "
 };
 
 

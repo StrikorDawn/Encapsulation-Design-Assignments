@@ -33,17 +33,17 @@ using namespace std;
 void testRunner()
 {
 #ifdef _WIN32
-   AllocConsole();
-   FILE* stream;
-   errno_t err;
-   err = freopen_s(&stream, "CONOUT$", "a", stdout);
+	AllocConsole();
+	FILE* stream;
+	errno_t err;
+	err = freopen_s(&stream, "CONOUT$", "a", stdout);
 #endif // _WIN32
 
-   // Unit tests
-   TestAngle().run();
-   TestAcceleration().run();
-   TestVelocity().run();
-   TestPosition().run();
-   TestThrust().run();
-   TestLander().run();
+	// Unit tests
+	TestAngle().run();
+	TestAcceleration().run();
+	TestVelocity().run();
+	TestPosition().run();
+	TestThrust().run();
+	TestLander().run();
 }

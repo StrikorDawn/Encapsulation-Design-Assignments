@@ -14,13 +14,14 @@
 #pragma once
 
 #include <iostream>
+template <class T>
 
  /***************************************
   * FIND BIGGEST
   **************************************/
-double findBiggest(double array[], int numElements)
+T findBiggest(T array[], int numElements)
 {
-   double biggest = array[0];
+   T biggest = array[0];
    for (int i = 1; i < numElements; i++)
       if (array[i] > biggest)
          biggest = array[i];
@@ -33,6 +34,7 @@ class TestStack;
 /***************************************
  * STACK
  **************************************/
+template <class T>
 class Stack
 {
    friend TestStack;
@@ -40,7 +42,7 @@ public:
    Stack() : numElements(0) {}
 
    // Add an element to the stack
-   void push(const double & value)
+   void push(const T & value)
    {
       if (numElements < 10)
          data[numElements++] = value;
@@ -54,14 +56,14 @@ public:
    }
 
    // Retrieve the top-most element
-   double top()
+   T top()
    {
       if (numElements)
          return data[numElements - 1];
-      return 0.0;
+      return T();
    }
 
 private:
-   double data[10];
+   T data[10];
    int numElements;
 };
