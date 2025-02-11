@@ -1,30 +1,32 @@
 /*************************************************************
  * 1. Name:
- *      -your name-
+ *      Mark Van Horn
  * 2. Assignment Name:
  *      Practice 06: Templates
  * 3. Assignment Description:
  *      Find the biggest element in an array, and a stack data structure.
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      The hardest part was understanding how and where to implement the
+ *      template modifier.
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, etc.
+ *      20 minutes
  **************************************************************/
 
 #pragma once
 
 #include <iostream>
 
- /***************************************
-  * FIND BIGGEST
-  **************************************/
-double findBiggest(double array[], int numElements)
+/***************************************
+ * FIND BIGGEST
+ **************************************/
+template <class T>
+T findBiggest(T array[], int numElements)
 {
-   double biggest = array[0];
+   T biggest = array[0];
    for (int i = 1; i < numElements; i++)
       if (array[i] > biggest)
          biggest = array[i];
-
+   
    return biggest;
 }
 
@@ -33,35 +35,36 @@ class TestStack;
 /***************************************
  * STACK
  **************************************/
+template <class T>
 class Stack
 {
    friend TestStack;
-public:
+   public:
    Stack() : numElements(0) {}
-
+   
    // Add an element to the stack
-   void push(const double & value)
+   void push(const T & value)
    {
-      if (numElements < 10)
-         data[numElements++] = value;
+   if (numElements < 10)
+      data[numElements++] = value;
    }
-
+   
    // Remove an element from the stack
    void pop()
    {
-      if (numElements)
-         numElements--;
+   if (numElements)
+      numElements--;
    }
-
+   
    // Retrieve the top-most element
-   double top()
+   T top()
    {
-      if (numElements)
-         return data[numElements - 1];
-      return 0.0;
+   if (numElements)
+      return data[numElements - 1];
+   return T();
    }
-
-private:
-   double data[10];
+   
+   private:
+   T data[10];
    int numElements;
 };
