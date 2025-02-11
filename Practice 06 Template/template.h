@@ -45,23 +45,23 @@ class Stack
    // Add an element to the stack
    void push(const T & value)
    {
-   if (numElements < 10)
-      data[numElements++] = value;
+      if (numElements < 10)
+         data[numElements++] = value;
    }
    
    // Remove an element from the stack
    void pop()
    {
-   if (numElements)
-      numElements--;
+      if (numElements)
+         numElements--;
    }
    
    // Retrieve the top-most element
    T top()
    {
-   if (numElements)
-      return data[numElements - 1];
-   return T();
+      if (numElements)
+         return data[numElements - 1];
+      return T();
    }
    
    private:
