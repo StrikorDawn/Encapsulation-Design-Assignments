@@ -15,7 +15,6 @@
 #include <cassert>       // for ASSERT
 #include <vector>        // for VECTOR
 #include <iomanip>       // for SETW and SETPRECISION
-#include <iostream>
 using namespace std;
 
 
@@ -26,16 +25,17 @@ using namespace std;
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) :
-   ground(posUpperRight),
-   lander(posUpperRight)
+   Simulator(const Position& posUpperRight) :
+      ground(posUpperRight),
+      lander(posUpperRight)
    {
-   lander.reset(posUpperRight);
+      lander.reset(posUpperRight);
    }
    Ground ground;
    Lander lander;
    Thrust thrust;
    vector<Star> stars;
+   bool isRunning;  // Flag to indicate if the simulation is running
 };
 
 
@@ -48,43 +48,69 @@ void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a game object. This
    // is the first step of every single callback function in OpenGL.
-   Simulator * pSimulator = (Simulator *)p;
+   Simulator* pSimulator = (Simulator*)p;
+
    
+
    ogstream gout;
-   
+
    // If stars have not been initialized, initialize them
    if (pSimulator->stars.empty())
-      {
+   {
       const int STAR_COUNT = 50;
       for (int i = 0; i < STAR_COUNT; i++)
-         {
+      {
          Star star;
          star.reset(random(0, 400), random(0, 400));
          pSimulator->stars.push_back(star);
-         }
       }
-   
+   }
+
    // Draw all stars
    for (Star& star : pSimulator->stars)
-      {
+   {
       star.draw(gout);
-      }
-   
+
+   }
+
    // draw the ground
    pSimulator->ground.draw(gout);
-   
+
    // draw the lander
    pSimulator->lander.draw(pSimulator->thrust, gout);
-   
-   // Update the lander's position
-   pSimulator->thrust.set(pUI);
-   Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
-   pSimulator->lander.coast(accel, 0.1);
-   
+
+   if (pSimulator->isRunning)
+   {
+
+      // Update the lander's position
+      pSimulator->thrust.set(pUI);
+      Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
+      pSimulator->lander.coast(accel, 0.1);
+
+      // Check for ground collision and handle landing or crashing
+      if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
+         pSimulator->lander.getWidth()))
+      {
+         if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
+            pSimulator->lander.getWidth()))
+         {
+            pSimulator->lander.land();
+            pSimulator->isRunning = false;  // Stop the simulation
+            return;
+         }
+         else
+         {
+            pSimulator->lander.crash();
+            pSimulator->isRunning = false;  // Stop the simulation
+            return;
+         }
+
+      }
+   }
+
    // Calculate the altitude
-   double altitude = (pSimulator->lander.getPosition().getY()) - (pSimulator->ground.getElevation(pSimulator->lander.getPosition()));
-   
-   
+   double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
+
    // Construct the text to be displayed
    stringstream ss;
    ss << left << setw(15) << "Fuel: " << setw(1) << left
@@ -93,10 +119,10 @@ void callBack(const Interface* pUI, void* p)
       << static_cast<int>(altitude) << " meters\n";
    ss << left << setw(14) << "Velocity: " << setw(1) << left
       << fixed << setprecision(2) << pSimulator->lander.getSpeed() << " m/s";
-   
+
    // Move the position to the top left corner
    gout.setPosition(Position(10, 370));
-   
+
    // Use the stream to draw the text
    gout << ss.str();
 }
@@ -109,27 +135,27 @@ void callBack(const Interface* pUI, void* p)
 #ifdef _WIN32
 #include <windows.h>
 int WINAPI WinMain(
-                   _In_ HINSTANCE hInstance,
-                   _In_opt_ HINSTANCE hPrevInstance,
-                   _In_ LPSTR pCmdLine,
-                   _In_ int nCmdShow)
+   _In_ HINSTANCE hInstance,
+   _In_opt_ HINSTANCE hPrevInstance,
+   _In_ LPSTR pCmdLine,
+   _In_ int nCmdShow)
 #else // !_WIN32
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
    // Run the unit tests
    testRunner();
-   
-   
+
+
    // Initialize OpenGL
    Position posUpperRight(400, 400);
    Interface ui("Lunar Lander", posUpperRight);
-   
+
    // Initialize the game class
    Simulator simulator(posUpperRight);
-   
-   // set everything into action
-   ui.run(callBack, (void *)&simulator);
-   
+
+   // set everything into action   
+   ui.run(callBack, (void*)&simulator);
+
    return 0;
 }
