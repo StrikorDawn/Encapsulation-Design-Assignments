@@ -11,6 +11,7 @@
 
 #include "position.h"   // for Point
 #include "uiDraw.h"  // for ogstream
+#include <iostream>
 
 
  /***********************************************************
@@ -33,7 +34,7 @@ public:
    double getElevation(const Position & pos) const
    {
       if (pos.getX() >= 0.0 && pos.getX() < posUpperRight.getX())
-         return pos.getY() - ground[(int)pos.getX()];
+         return ground[(int)pos.getY()];
       else
          return 0.0;
    }

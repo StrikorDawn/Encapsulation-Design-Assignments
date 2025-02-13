@@ -15,6 +15,7 @@
 #include <cassert>       // for ASSERT
 #include <vector>        // for VECTOR
 #include <iomanip>       // for SETW and SETPRECISION
+#include <iostream>
 using namespace std;
 
 
@@ -81,7 +82,8 @@ void callBack(const Interface* pUI, void* p)
    pSimulator->lander.coast(accel, 0.1);
    
    // Calculate the altitude
-   double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
+   double altitude = (pSimulator->lander.getPosition().getY()) - (pSimulator->ground.getElevation(pSimulator->lander.getPosition()));
+   
    
    // Construct the text to be displayed
    stringstream ss;
