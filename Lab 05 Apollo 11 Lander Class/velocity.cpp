@@ -13,14 +13,14 @@
 
 #include <math.h>  // for sqrt()
 
- /*********************************************
-  * VELOCITY : ADD
-  *  v = v_0 + a t
-  *********************************************/
+/*********************************************
+ * VELOCITY : ADD
+ *  v = v_0 + a t
+ *********************************************/
 void Velocity::add(const Acceleration& acceleration, double time)
 {
-	dx = dx + acceleration.getDDX() * time;
-	dy = dy + acceleration.getDDY() * time;
+   dx = dx + acceleration.getDDX() * time;
+   dy = dy + acceleration.getDDY() * time;
 }
 
 /*********************************************
@@ -29,15 +29,15 @@ void Velocity::add(const Acceleration& acceleration, double time)
  *********************************************/
 double Velocity::getSpeed() const
 {
-	return sqrt((dx * dx) + (dy * dy));
+   return sqrt((dx * dx) + (dy * dy));
 }
 
 /*********************************************
  * VELOCITY : SET
  *  set from angle and direction
  *********************************************/
-void Velocity::set(const Angle& angle, double magnitude)
+void Velocity::set(const Angle & angle, double magnitude)
 {
-	dx = magnitude * sin(angle.getRadians());
-	dy = magnitude * cos(angle.getRadians());
+   dx = magnitude * sin(angle.getRadians());
+   dy = magnitude * cos(angle.getRadians());
 }

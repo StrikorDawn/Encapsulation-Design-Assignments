@@ -12,22 +12,22 @@
 
 #include <cmath>
 
- /*********************************************
-  * ACCELERATION : ADD
-  *  a += a
-  *********************************************/
+/*********************************************
+ * ACCELERATION : ADD
+ *  a += a
+ *********************************************/
 void Acceleration::add(const Acceleration& acceleration)
 {
-	ddx += acceleration.getDDX();
-	ddy += acceleration.getDDY();
+   ddx += acceleration.getDDX();
+   ddy += acceleration.getDDY();
 }
 
 /*********************************************
  * ACCELERATION : SET
  *  set from angle and direction
  *********************************************/
-void Acceleration::set(const Angle& angle, double magnitude)
+void Acceleration::set(const Angle & angle, double magnitude)
 {
-	ddx = magnitude * sin(angle.getRadians());
-	ddy = magnitude * cos(angle.getRadians());
+   ddx = magnitude * sin(angle.getRadians());
+   ddy = magnitude * cos(angle.getRadians());
 }
