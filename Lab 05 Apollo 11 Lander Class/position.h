@@ -8,8 +8,6 @@
  ************************************************************************/
 
 
- // ticket 3: 27 minutes
- // ticket 4: 26 minutes
 #pragma once
 
 
@@ -24,42 +22,41 @@ class TestLander;      // for the unit tests
  *********************************************/
 class Position
 {
-	friend TestPosition;    // for the unit tests
-	friend TestLander;      // for the unit tests
-
+   friend TestPosition;    // for the unit tests
+   friend TestLander;      // for the unit tests
+   
 public:
-	// constructors
-	Position() : x(0.0), y(0.0) {}
-	Position(double x, double y);
-	Position(const Position& pos) : x(pos.x), y(pos.y) {}
-
-	// getters
-	double getX() const { return x; }
-	double getY() const { return y; }
-	bool operator == (const Position& rhs) const
-	{
-		return this->x == rhs.x && this->y == rhs.y;
-	}
-	bool operator != (const Position& rhs) const
-	{
-		return this->x != rhs.x || this->y != rhs.y;
-	}
-
-	// setters
-	void setX(double x) { this->x = x; }
-	void setY(double y) { this->y = y; }
-	void addX(double x) { this->x += x; }
-	void addY(double y) { this->y += y; }
-	void add(const Acceleration& a, const Velocity& v, double t);
-	Position& operator = (const Position& rhs)
-	{
-		x = rhs.x;
-		y = rhs.y;
-		return *this;
-	}
-
+   // constructors
+   Position()                     : x(0.0), y(0.0) { }
+   Position(double x, double y);
+   Position(const Position & pos) : x(pos.x), y(pos.y) { }
+   
+   // getters
+   double getX() const { return x; }
+   double getY() const { return y; }
+   bool operator == (const Position & rhs) const
+   {
+   return this->x == rhs.x && this->y == rhs.y;
+   }
+   bool operator != (const Position & rhs) const
+   {
+   return this->x != rhs.x || this->y != rhs.y;
+   }
+   
+   // setters
+   void setX(double x) { this->x = x; }
+   void setY(double y) { this->y = y; }
+   void addX(double x) { this->x += x; }
+   void addY(double y) { this->y += y; }
+   void add (const Acceleration & a, const Velocity & v, double t);
+   Position & operator = (const Position & rhs)
+   {
+   x = rhs.x;
+   y = rhs.y;
+   return *this;
+   }
+   
 private:
-	double x;           // horizontal position
-	double y;           // vertical position
+   double x;           // horizontal position
+   double y;           // vertical position
 };
-

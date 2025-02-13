@@ -1,9 +1,0 @@
-# Ignore all files
-*
-
-# Except directories
-!*/
-
-# Except C++ files
-!*.cpp
-!*.h

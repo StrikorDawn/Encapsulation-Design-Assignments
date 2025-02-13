@@ -12,16 +12,13 @@
 #include <cassert>
 using namespace std;
 
-/************************************
- * ANGLE : NORMALIZE
- ************************************/
+ /************************************
+  * ANGLE : NORMALIZE
+  ************************************/
 double Angle::normalize(double radians) const
 {
-	radians = fmod(radians, 2.0 * M_PI);
-	if (radians < 0.0)
-		radians += 2.0 * M_PI;
-	return radians;
+   radians = fmod(radians, 2.0 * M_PI);
+   if (radians < 0.0)
+      radians += 2.0 * M_PI;
+   return radians;
 }
-
-
-
