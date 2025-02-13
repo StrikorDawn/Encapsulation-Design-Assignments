@@ -33,7 +33,7 @@ public:
    double getElevation(const Position & pos) const
    {
       if (pos.getX() >= 0.0 && pos.getX() < posUpperRight.getX())
-         return pos.getY() - ground[(int)pos.getX()];
+         return ground[(int)pos.getX()];
       else
          return 0.0;
    }

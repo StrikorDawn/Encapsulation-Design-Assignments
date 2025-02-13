@@ -80,6 +80,23 @@ void callBack(const Interface* pUI, void* p)
    Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
    pSimulator->lander.coast(accel, 0.1);
    
+   // Check for ground collision and handle landing or crashing
+   if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
+                                    pSimulator->lander.getWidth()))
+   {
+      if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
+                                        pSimulator->lander.getWidth()))
+      {
+         pSimulator->lander.land();
+      }
+      else
+      {
+         pSimulator->lander.crash();
+      }
+      // Stop the lander upon collision
+      pSimulator->lander.setVelocity(0, 0);
+   }
+   
    // Calculate the altitude
    double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
    
