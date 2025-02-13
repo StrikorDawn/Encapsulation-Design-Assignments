@@ -78,6 +78,21 @@ void callBack(const Interface* pUI, void* p)
    pSimulator->thrust.set(pUI);
    Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
    pSimulator->lander.coast(accel, 0.1);
+   
+   // Calculate the altitude
+   double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
+   
+   // Construct the text to be displayed
+   stringstream ss;
+   ss << "\nFuel: " << pSimulator->lander.getFuel() << " lbs\n";
+   ss << "Altitude: " << altitude << " m\n";
+   ss << "Speed: " << pSimulator->lander.getSpeed() << " m/s";
+   
+   // Move the position to the top left corner
+   gout.setPosition(Position(10, 390));
+   
+   // Use the stream to draw the text
+   gout << ss.str();
 }
 
 /*********************************
