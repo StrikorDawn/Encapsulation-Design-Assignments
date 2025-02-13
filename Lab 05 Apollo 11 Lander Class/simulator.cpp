@@ -14,6 +14,7 @@
 #include <cmath>         // for SQRT
 #include <cassert>       // for ASSERT
 #include <vector>        // for VECTOR
+#include <iomanip>       // for SETW and SETPRECISION
 using namespace std;
 
 
@@ -78,6 +79,24 @@ void callBack(const Interface* pUI, void* p)
    pSimulator->thrust.set(pUI);
    Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
    pSimulator->lander.coast(accel, 0.1);
+   
+   // Calculate the altitude
+   double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
+   
+   // Construct the text to be displayed
+   stringstream ss;
+   ss << left << setw(15) << "Fuel: " << setw(1) << left
+      << pSimulator->lander.getFuel() << " lbs\n";
+   ss << left << setw(15) << "Altitude: " << setw(1) << left
+      << static_cast<int>(altitude) << " meters\n";
+   ss << left << setw(14) << "Velocity: " << setw(1) << left
+      << fixed << setprecision(2) << pSimulator->lander.getSpeed() << " m/s";
+   
+   // Move the position to the top left corner
+   gout.setPosition(Position(10, 370));
+   
+   // Use the stream to draw the text
+   gout << ss.str();
 }
 
 /*********************************
