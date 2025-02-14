@@ -25,21 +25,32 @@ using namespace std;
 class Simulator
 {
 public:
-	Simulator(const Position& posUpperRight) :
-		ground(posUpperRight),
-		lander(posUpperRight)
-	{
-		lander.reset(posUpperRight);
-	}
-	Ground ground;
-	Lander lander;
-	Thrust thrust;
-	vector<Star> stars;
-	bool isRunning = true;  // Flag to indicate if the simulation is running
-	bool landed;
+   Simulator(const Position& posUpperRight) :
+      posUpperRight(posUpperRight),
+      ground(posUpperRight),
+      lander(posUpperRight)
+   {
+      lander.reset(posUpperRight);
+   }
+   Position posUpperRight;
+   Ground ground;
+   Lander lander;
+   Thrust thrust;
+   vector<Star> stars;
+   bool isRunning = true;  // Flag to indicate if the simulation is running
+   bool landed;
 };
 
-
+/****************************
+ * Function to center text
+ ****************************/
+void drawCenteredText(ogstream& gout, const std::string& text, const Position& screenSize, double yPos)
+{
+   double textWidth = text.length() * 6; // Approximate width of each character
+   double xPos = (screenSize.getX() - textWidth) / 2;
+   gout.setPosition(Position(xPos, yPos));
+   gout << text;
+}
 
 /*************************************
  * CALLBACK
@@ -47,108 +58,92 @@ public:
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-	// the first step is to cast the void pointer into a game object. This
-	// is the first step of every single callback function in OpenGL.
-	Simulator* pSimulator = (Simulator*)p;
+   Simulator* pSimulator = (Simulator*)p;
 
+   ogstream gout;
 
+   // If stars have not been initialized, initialize them
+   if (pSimulator->stars.empty())
+   {
+      const int STAR_COUNT = pSimulator->posUpperRight.getX() / 8;
+      for (int i = 0; i < STAR_COUNT; i++)
+      {
+         Star star;
+         star.reset(pSimulator->posUpperRight.getX(), pSimulator->posUpperRight.getY());
+         pSimulator->stars.push_back(star);
+      }
+   }
 
-	ogstream gout;
+   // Draw all stars
+   for (Star& star : pSimulator->stars)
+   {
+      star.draw(gout);
+   }
 
-	// If stars have not been initialized, initialize them
-	if (pSimulator->stars.empty())
-	{
-		const int STAR_COUNT = 50;
-		for (int i = 0; i < STAR_COUNT; i++)
-		{
-			Star star;
-			star.reset(random(0, 400), random(0, 400));
-			pSimulator->stars.push_back(star);
-		}
-	}
+   // Draw the ground
+   pSimulator->ground.draw(gout);
 
-	// Draw all stars
-	for (Star& star : pSimulator->stars)
-	{
-		star.draw(gout);
+   // Draw the lander
+   pSimulator->lander.draw(pSimulator->thrust, gout);
 
-	}
+   if (pSimulator->isRunning)
+   {
+      // Update the lander's position
+      pSimulator->thrust.set(pUI);
+      Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
+      pSimulator->lander.coast(accel, 0.1);
 
-	// draw the ground
-	pSimulator->ground.draw(gout);
+      if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
+         pSimulator->lander.getWidth()))
+      {
+         if (pSimulator->lander.getSpeed() < 3)
+         {
+            pSimulator->lander.land();
+            pSimulator->landed = true;
+            pSimulator->isRunning = false;  // Stop the simulation
+            return;
+         }
+      }
+      // Check for ground collision and handle landing or crashing
+      else if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
+         pSimulator->lander.getWidth()))
+      {
+         pSimulator->lander.crash();
+         pSimulator->landed = false;
+         pSimulator->isRunning = false;  // Stop the simulation
+         return;
+      }
+   }
 
-	// draw the lander
-	pSimulator->lander.draw(pSimulator->thrust, gout);
+   // Calculate the altitude
+   double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
 
-	if (pSimulator->isRunning)
-	{
+   // Construct the text to be displayed
+   stringstream ss;
+   ss << left << setw(15) << "Fuel: " << setw(1) << left
+      << pSimulator->lander.getFuel() << " lbs\n";
+   ss << left << setw(15) << "Altitude: " << setw(1) << left
+      << static_cast<int>(altitude) << " meters\n";
+   ss << left << setw(14) << "Velocity: " << setw(1) << left
+      << fixed << setprecision(2) << pSimulator->lander.getSpeed() << " m/s";
 
-		// Update the lander's position
-		pSimulator->thrust.set(pUI);
-		Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
-		pSimulator->lander.coast(accel, 0.1);
+   // Move the position to the top left corner
+   gout.setPosition(Position(pSimulator->posUpperRight.getX() * 0.02, pSimulator->posUpperRight.getY() * 0.95));
 
-		if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
-			pSimulator->lander.getWidth()))
-		{
-			if (pSimulator->lander.getSpeed() < 3)
-			{
-				pSimulator->lander.land();
-				pSimulator->landed = true;
-				pSimulator->isRunning = false;  // Stop the simulation
-				return;
-			}
-		}
-		// Check for ground collision and handle landing or crashing
-		else if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
-			pSimulator->lander.getWidth()))
-		{
-			pSimulator->lander.crash();
-			pSimulator->landed = false;
-			pSimulator->isRunning = false;  // Stop the simulation
-			return;
+   // Use the stream to draw the text
+   gout << ss.str();
 
-		}
-	}
-
-	// Calculate the altitude
-	double altitude = pSimulator->lander.getPosition().getY() - pSimulator->ground.getElevation(pSimulator->lander.getPosition());
-
-	// Construct the text to be displayed
-	stringstream ss;
-	ss << left << setw(15) << "Fuel: " << setw(1) << left
-		<< pSimulator->lander.getFuel() << " lbs\n";
-	ss << left << setw(15) << "Altitude: " << setw(1) << left
-		<< static_cast<int>(altitude) << " meters\n";
-	ss << left << setw(14) << "Velocity: " << setw(1) << left
-		<< fixed << setprecision(2) << pSimulator->lander.getSpeed() << " m/s";
-
-	// Move the position to the top left corner
-	gout.setPosition(Position(10, 370));
-
-	// Use the stream to draw the text
-	gout << ss.str();
-
-	if (!pSimulator->isRunning)
-	{
-		stringstream message;
-		if (pSimulator->landed)
-		{
-			message << "The Eagle has landed!";
-			// Set the position to the middle of the screen
-			gout.setPosition(Position(145, 285));
-		}
-		else
-		{
-			message << "Houston, we have a problem!";
-			// Set the position to the middle of the screen
-			gout.setPosition(Position(125, 285));
-		}
-
-		// Set the position to the middle of the screen
-		// hard-coded because idk how to center-align text.
-		gout << message.str();
-	}
+   if (!pSimulator->isRunning)
+   {
+      if (pSimulator->landed)
+      {
+         drawCenteredText(gout, "The Eagle has landed!", pSimulator->posUpperRight, pSimulator->posUpperRight.getY() * 0.7);
+      }
+      else
+      {
+         drawCenteredText(gout, "Houston, we have a problem!", pSimulator->posUpperRight, pSimulator->posUpperRight.getY() * 0.7);
+      }
+   }
 }
 
 /*********************************
@@ -159,27 +154,26 @@ void callBack(const Interface* pUI, void* p)
 #ifdef _WIN32
 #include <windows.h>
 int WINAPI WinMain(
-	_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR pCmdLine,
-	_In_ int nCmdShow)
+   _In_ HINSTANCE hInstance,
+   _In_opt_ HINSTANCE hPrevInstance,
+   _In_ LPSTR pCmdLine,
+   _In_ int nCmdShow)
 #else // !_WIN32
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-	// Run the unit tests
-	testRunner();
+   // Run the unit tests
+   testRunner();
 
+   // Initialize OpenGL
+   Position posUpperRight(1280, 720);
+   Interface ui("Lunar Lander", posUpperRight);
 
-	// Initialize OpenGL
-	Position posUpperRight(400, 400);
-	Interface ui("Lunar Lander", posUpperRight);
+   // Initialize the game class
+   Simulator simulator(posUpperRight);
 
-	// Initialize the game class
-	Simulator simulator(posUpperRight);
+   // set everything into action
+   ui.run(callBack, (void*)&simulator);
 
-	// set everything into action
-	ui.run(callBack, (void*)&simulator);
-
-	return 0;
+   return 0;
 }

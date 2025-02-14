@@ -21,10 +21,10 @@ class Star
    Position pos;
    unsigned char phase = random(0, 255); // For out of phase stars
    public:
-   void reset(double width, double height)
+   void reset(int xMax, int yMax)
    {
-      pos.setX(width);
-      pos.setY(height);
+      pos.setX(random(0, xMax));
+      pos.setY(random(0, yMax));
    }
    void draw(ogstream& gout)
    {

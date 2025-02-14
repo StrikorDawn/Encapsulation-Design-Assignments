@@ -40,10 +40,13 @@ void Lander :: draw(const Thrust & thrust, ogstream & gout) const
    bool rightThrust = thrust.isClock();
    
    // Draw the flames under the lander
-   gout.drawLanderFlames(pos, angle.getRadians(),
-                         mainEngine,
-                         leftThrust,
-                         rightThrust);
+   if (isFlying())
+   {
+      gout.drawLanderFlames(pos, angle.getRadians(),
+         mainEngine,
+         leftThrust,
+         rightThrust);
+   }
 }
 
 /***************************************************************
