@@ -35,7 +35,7 @@ public:
    Lander lander;
    Thrust thrust;
    vector<Star> stars;
-   bool isRunning;  // Flag to indicate if the simulation is running
+   bool isRunning = true;  // Flag to indicate if the simulation is running
 };
 
 
@@ -87,23 +87,20 @@ void callBack(const Interface* pUI, void* p)
       Acceleration accel = pSimulator->lander.input(pSimulator->thrust, -1.625);
       pSimulator->lander.coast(accel, 0.1);
 
-      // Check for ground collision and handle landing or crashing
-      if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
+      if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
          pSimulator->lander.getWidth()))
       {
-         if (pSimulator->ground.onPlatform(pSimulator->lander.getPosition(),
-            pSimulator->lander.getWidth()))
-         {
-            pSimulator->lander.land();
-            pSimulator->isRunning = false;  // Stop the simulation
-            return;
-         }
-         else
-         {
+         pSimulator->lander.land();
+         pSimulator->isRunning = false;  // Stop the simulation
+         return;
+      }
+      // Check for ground collision and handle landing or crashing
+      else if (pSimulator->ground.hitGround(pSimulator->lander.getPosition(),
+         pSimulator->lander.getWidth()))
+      {
             pSimulator->lander.crash();
             pSimulator->isRunning = false;  // Stop the simulation
             return;
-         }
 
       }
    }
