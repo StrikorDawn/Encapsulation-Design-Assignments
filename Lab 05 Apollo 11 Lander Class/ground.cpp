@@ -36,12 +36,11 @@ Ground::Ground(const Position & posUpperRight) : posUpperRight(posUpperRight)
  * RESET
  * Create a new ground
  ************************************************************************/
- void Ground :: reset()
- {
+void Ground::reset()
+{
    // determine the landing location
-   iLZ = (int)random(posUpperRight.getX() * 0.1, 
-                     posUpperRight.getX() * 0.9 - (double)LZ_SIZE);
-
+   iLZ = (int)random(posUpperRight.getX() * 0.1,
+      posUpperRight.getX() * 0.9 - (double)LZ_SIZE);
    // give each location on the ground an elevation
    ground[0] = posUpperRight.getY() / 4.0; // the initial elevation is in the middle.
    double dy = 0.0;         // the initial slope is heavily biased to up
@@ -59,17 +58,14 @@ Ground::Ground(const Position & posUpperRight) : posUpperRight(posUpperRight)
          // 0% is the bottom - favor sloping up to avoid the bottom
          // 100% is the top - favor sloping down to avoid the top
          double percent = ground[i - 1] / (posUpperRight.getY() / 2.0) * 0.5;
-
          // dy is the slope. positive is up, negative is down
          dy += random(LUMPINESS * (0.25 - percent),
-                      LUMPINESS * (0.75 - percent));
-
+            LUMPINESS * (0.75 - percent));
          // make sure the slop is not too steep
          if (dy > MAX_SLOPE)
             dy = MAX_SLOPE;
          if (dy < -MAX_SLOPE)
             dy = -MAX_SLOPE;
-
          // determine the elevation according to the slope
          ground[i] = ground[i - 1] + dy + random(-TEXTURE, TEXTURE);
       }
