@@ -21,7 +21,7 @@ const double GRAVITY = -9.8;
 
 int main() {
    // Convert angle to radians
-   double angle_radians = ANGLE_DEGREES * PI / 180.0;
+   double angle_radians = ANGLE_DEGREES * (PI / 180.0);
    
    // Compute initial velocity components
    double dx = INITIAL_SPEED * sin(angle_radians);
@@ -33,8 +33,11 @@ int main() {
    
    // Loop through 20 time units
    for (int t = 1; t <= TIME_UNITS; ++t) {
-      x += dx; // No horizontal acceleration
-      y += dy; // No vertical acceleration
+      x += dx * t + (0.5 * 0) * (t * t); // No horizontal acceleration
+      y += dy * t + (0.5 * GRAVITY) * (t * t); // No vertical acceleration
+      
+      dx += 0 * t;
+      dy += GRAVITY * t;
       
       // Output current position
       cout << "Distance: " << x << "m, Altitude: " << y << "m\n";
