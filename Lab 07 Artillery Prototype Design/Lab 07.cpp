@@ -5,12 +5,11 @@ double acceleration;
 double drag;
 
 double angle;
-double dx;
-double dy;
-double position;
-double altitude;
-double velocity;
-double gravity;
+double dx;  // horizontal velocity
+double dy;  // vertical velocity
+double x;   // latitude
+double y;   // altitude
+const double GRAVITY = -9.8;
 
 
 
