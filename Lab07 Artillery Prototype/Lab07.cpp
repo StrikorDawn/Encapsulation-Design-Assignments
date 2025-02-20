@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      The Key
+ *      Mark Van Horn & Taden Marston
  * 2. Assignment Name:
  *      Lab 08: M777 Howitzer
  * 3. Assignment Description:
