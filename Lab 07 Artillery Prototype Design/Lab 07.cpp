@@ -28,7 +28,7 @@ double g;   // gravity
 double interpolate(double d0, double d1, double r0, double r1, double d)
 {
    double r;
-   r = (r1 * d1 - r1 * d0 - r0 * d1 + r0 * d0 + r0 * d0) / (d - d0);
+   r = (r1 * (d - d0) + r0 * (d1 - d)) / (d1 - d0);
    return r;
 }
 
