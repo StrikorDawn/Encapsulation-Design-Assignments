@@ -1,25 +1,27 @@
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 using namespace std;
 
 const double PI = 3.141592653589793;
 const double INITIAL_SPEED = 827.0; // m/s
 const double ANGLE_DEGREES = 75.0;
-const int TIME_UNITS = 20;
+const double T = 0.01;
+const double G = -9.8;
 
 double acceleration;
 double drag;
-
-double angle;
 double dx;  // horizontal velocity
 double dy;  // vertical velocity
 double x;   // latitude
 double y;   // altitude
-const double GRAVITY = -9.8;
+double ht;  // Hang time
 
 
 
-int main() {
+
+int main()
+{
    // Convert angle to radians
    double angle_radians = ANGLE_DEGREES * (PI / 180.0);
    
@@ -32,16 +34,25 @@ int main() {
    double y = 0.0;
    
    // Loop through 20 time units
-   for (int t = 1; t <= TIME_UNITS; ++t)
+   while (y >= 0)
    {
       // Time is 1 because t changes from 1-20
-      x += dx * 1 + 0.5 * 0 * 1 * 1;
-      y += dy * 1 + 0.5 * GRAVITY * 1 * 1;
+      x += dx * T + 0.5 * 0 * T * T;
+      y += dy * T + 0.5 * G * T * T;
       
+      // Update the velocity
       dx += 0 * 1;
-      dy += GRAVITY * 1;
+      dy += G * 1;
+      
+      // Update the hang time
+      ht += T;
       
       // Output current position
-      cout << "Distance: " << x << "m, Altitude: " << y << "m\n";
+      cout.setf(ios::fixed);
+      cout.setf(ios::showpoint);
+      cout.precision(1);
+      cout << "Distance: " << setw(7) << x << "m   "
+           << "Altitude: " << setw(5) << y << "m   "
+           << "Hang Time: " << setw(4) << ht << "s\n";
    }
 }
