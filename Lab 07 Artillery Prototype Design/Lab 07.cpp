@@ -80,13 +80,19 @@ int main()
    {
       g = findGravity(y);
       
+      // Calculate drag acceleration
+      double v = sqrt(dx * dx + dy * dy);
+      double drag = calculateDrag(C, P, v, A);
+      ddx = -drag * (dx / v);
+      ddy = -drag * (dy / v) + g;
+      
       // Time is 1 because t changes from 1-20
-      x += dx * T + 0.5 * 0 * T * T;
-      y += dy * T + 0.5 * g * T * T;
+      x += dx * T + 0.5 * ddx * T * T;
+      y += dy * T + 0.5 * ddy * T * T;
       
       // Update the velocity
-      dx += 0 * T;
-      dy += g * T;
+      dx += ddx * T;
+      dy += ddy * T;
       
       // Update the hang time
       ht += T;
