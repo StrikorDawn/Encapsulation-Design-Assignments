@@ -34,14 +34,14 @@ int main() {
    // Loop through 20 time units
    for (int t = 1; t <= TIME_UNITS; ++t)
    {
-      x += dx * t + (0.5 * 0) * (t * t);
-      y += dy * t + (0.5 * GRAVITY) * (t * t);
+      // Time is 1 because t changes from 1-20
+      x += dx * 1 + 0.5 * 0 * 1 * 1;
+      y += dy * 1 + 0.5 * GRAVITY * 1 * 1;
       
-      dx += 0 * t;
-      dy += GRAVITY * t;
+      dx += 0 * 1;
+      dy += GRAVITY * 1;
       
       // Output current position
       cout << "Distance: " << x << "m, Altitude: " << y << "m\n";
    }
-
 }
