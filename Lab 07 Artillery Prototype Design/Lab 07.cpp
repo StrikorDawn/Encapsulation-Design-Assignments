@@ -32,9 +32,10 @@ int main() {
    double y = 0.0;
    
    // Loop through 20 time units
-   for (int t = 1; t <= TIME_UNITS; ++t) {
-      x += dx * t + (0.5 * 0) * (t * t); // No horizontal acceleration
-      y += dy * t + (0.5 * GRAVITY) * (t * t); // No vertical acceleration
+   for (int t = 1; t <= TIME_UNITS; ++t)
+   {
+      x += dx * t + (0.5 * 0) * (t * t);
+      y += dy * t + (0.5 * GRAVITY) * (t * t);
       
       dx += 0 * t;
       dy += GRAVITY * t;
