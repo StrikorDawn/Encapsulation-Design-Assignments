@@ -7,7 +7,6 @@ const double PI = 3.141592653589793;
 const double INITIAL_SPEED = 827.0; // m/s
 const double ANGLE_DEGREES = 75.0; // degrees
 const double T = 0.01; // seconds
-const double G = -9.8;
 const int ARR_SIZE = 20;
 // Array of gravity values based on altitude
 const double G_ARRAY[] = {9.807, 9.804, 9.801, 9.797, 9.794, 9.791, 9.788,
