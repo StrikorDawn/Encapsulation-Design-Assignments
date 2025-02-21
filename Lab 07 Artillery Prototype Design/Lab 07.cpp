@@ -8,6 +8,10 @@ const double INITIAL_SPEED = 827.0; // m/s
 const double ANGLE_DEGREES = 75.0; // degrees
 const double T = 0.01; // seconds
 const int ARR_SIZE = 20;
+const double C = 0.3; // drag coefficient
+const double P = 0.6; // air density
+const double A = 0.01884; // meters squared
+const double MASS = 46.7; // Mass of the projectile in kg
 // Array of gravity values based on altitude
 const double G_ARRAY[] = {9.807, 9.804, 9.801, 9.797, 9.794, 9.791, 9.788,
                           9.785, 9.782, 9.779, 9.776, 9.761, 9.745, 9.730,
@@ -17,6 +21,8 @@ const double A_ARRAY[] = {0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000,
                           9000, 10000, 15000, 20000, 25000, 30000, 40000,
                           50000, 60000, 70000, 80000};
 
+double ddx; // horizontal acceleration
+double ddy; // vertical acceleration
 double dx;  // horizontal velocity
 double dy;  // vertical velocity
 double x;   // latitude
@@ -45,6 +51,13 @@ double findGravity(double altitude)
                              altitude);
    }
    return 0.0;
+}
+
+double calculateDrag(double c, double p, double v, double a)
+{
+   double f; // drag force in newtons
+   f = 0.5 * c * p * v * v * a;
+   return f / MASS;
 }
 
 int main()
