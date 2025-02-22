@@ -1,14 +1,30 @@
+/*************************************************************
+ * 1. Name:
+ *      Mark Van Horn & Taden Marston
+ * 2. Assignment Name:
+ *      Lab 07: Artillery Prototype
+ * 3. Assignment Description:
+ *      Simulate firing the M777 howitzer 15mm artillery piece
+ * 4. What was the hardest part? Be as specific as possible.
+ *      Making sure the outputted values were correct, i.e. when
+ *      functionality was added, troubleshooting was always necessary.
+ * 5. How long did it take for you to complete the assignment?
+ *      About 5 hours
+ *****************************************************************/
+
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+
 using namespace std;
 
-const double PI = 3.141592653589793;
-const double INITIAL_SPEED = 827.0; // m/s
-const double T = 0.01; // seconds
-const int ARR_SIZE = 20;
-const double A = 0.01884; // meters squared
-const double MASS = 46.7; // Mass of the projectile in kg
+const double PI = 3.141592653589793;   // Pi
+const double INITIAL_SPEED = 827.0;    // m/s
+const double T = 0.01;                 // seconds
+const int A_ARR_SIZE = 20;             // Size of altitude array
+const int M_ARR_SIZE = 16;             // Size of mach array
+const double A = 0.01884;              // meters squared
+const double MASS = 46.7;              // Mass of the projectile in kg
 // Array of gravity values based on altitude
 const double G_ARRAY[] = {9.807, 9.804, 9.801, 9.797, 9.794, 9.791, 9.788,
                           9.785, 9.782, 9.779, 9.776, 9.761, 9.745, 9.730,
@@ -36,23 +52,27 @@ const double C_ARRAY[] = {0.1629, 0.1659, 0.2031, 0.2597, 0.3010, 0.3287,
                           0.2897, 0.2297, 0.2306, 0.2656};
 
 double angleDegrees; // angle in degrees
-double ddx; // horizontal acceleration
-double ddy; // vertical acceleration
-double dx;  // horizontal velocity
-double dy;  // vertical velocity
-double x;   // latitude
-double y;   // altitude
-double ht;  // Hang time
-double g;   // gravity
-double p;   // air density
-int i;      // index i (altitude)
-int j;      // index j (mach)
-double ss;  // speed of sound
-double m;   // current mach value
-double c;   // drag coefficient
-double px;  // distance from previous iteration
-double py;  // altitude from previous iteration
+double ddx;          // horizontal acceleration
+double ddy;          // vertical acceleration
+double dx;           // horizontal velocity
+double dy;           // vertical velocity
+double x;            // latitude
+double y;            // altitude
+double ht;           // Hang time
+double g;            // gravity
+double p;            // air density
+int i;               // index i (altitude)
+int j;               // index j (mach)
+double ss;           // speed of sound
+double m;            // current mach value
+double c;            // drag coefficient
+double px;           // distance from previous iteration
+double py;           // altitude from previous iteration
 
+/************************************
+ * INTERPOLATE
+ * calculates the interpolated value
+ ************************************/
 double interpolate(double d0, double d1, double r0, double r1, double d)
 {
    double r;
@@ -60,26 +80,38 @@ double interpolate(double d0, double d1, double r0, double r1, double d)
    return r;
 }
 
-int findIndex(double x)
+/************************************
+ * FIND ALTITUDE INDEX
+ * Finds the altitude array index
+ ************************************/
+int findAltitudeIndex(double altitude)
 {
-   for (int i = 0; i < ARR_SIZE; i++)
+   for (int i = 0; i < A_ARR_SIZE; i++)
    {
-      if (x >= A_ARRAY[i] && x < A_ARRAY[i + 1])
+      if (altitude >= A_ARRAY[i] && altitude < A_ARRAY[i + 1])
          return i;
    }
    return 0.0;
 }
 
-int findIndexJ(double m)
+/************************************
+ * FIND MACH INDEX
+ * Finds the mach array index
+ ************************************/
+int findMachIndex(double mach)
 {
-   for (int i = 0; i < 16; i++)
+   for (int i = 0; i < M_ARR_SIZE; i++)
    {
-      if (m >= M_ARRAY[i] && m < M_ARRAY[i + 1])
+      if (mach >= M_ARRAY[i] && mach < M_ARRAY[i + 1])
          return i;
    }
    return 0.0;
 }
 
+/************************************
+ * CALCULATE DRAG
+ * Calculates the drag force
+ ************************************/
 double calculateDrag(double c, double p, double v, double a)
 {
    double f; // drag force in newtons
@@ -87,6 +119,10 @@ double calculateDrag(double c, double p, double v, double a)
    return f / MASS;
 }
 
+/************************************
+ * MAIN
+ * It runs the program
+ ************************************/
 int main()
 {
    cout << "What is the angle of the howitzer where 0 is up? ";
@@ -99,42 +135,29 @@ int main()
    double dx = INITIAL_SPEED * sin(angle_radians);
    double dy = INITIAL_SPEED * cos(angle_radians);
    
-   // Initialize position
+   // Initialize variables
    x = 0.0;
    y = 0.0;
    ht = 0.0;
-   px = 0.0;
-   py = 0.0;
-   g = 0.0;
-   i = 0;
    
    // Loop through 20 time units
    while (y >= 0)
    {
       
       
-      i = findIndex(y);
+      i = findAltitudeIndex(y);
       
       // gravity calculation
-      g = -interpolate(A_ARRAY[i],
-                       A_ARRAY[i + 1],
-                       G_ARRAY[i],
-                       G_ARRAY[i + 1],
-                       y);
+      g = -interpolate(A_ARRAY[i], A_ARRAY[i + 1],
+                       G_ARRAY[i], G_ARRAY[i + 1], y);
       
       // air density calculation
-      p = interpolate(A_ARRAY[i],
-                       A_ARRAY[i + 1],
-                       D_ARRAY[i],
-                       D_ARRAY[i + 1],
-                       y);
+      p = interpolate(A_ARRAY[i], A_ARRAY[i + 1],
+                      D_ARRAY[i], D_ARRAY[i + 1], y);
       
       // speed of sound calculation
-      ss = interpolate(A_ARRAY[i],
-                       A_ARRAY[i + 1],
-                       S_ARRAY[i],
-                       S_ARRAY[i + 1],
-                       y);
+      ss = interpolate(A_ARRAY[i], A_ARRAY[i + 1],
+                       S_ARRAY[i], S_ARRAY[i + 1], y);
       
       // calculate velocity
       double v = sqrt(dx * dx + dy * dy);
@@ -142,21 +165,18 @@ int main()
       // calculate mach
       m = v / ss;
       
-      j = findIndexJ(m);
+      j = findMachIndex(m);
       
       // calculate drag coefficient
-      c = interpolate(M_ARRAY[j],
-                      M_ARRAY[j + 1],
-                      C_ARRAY[j],
-                      C_ARRAY[j + 1],
-                      m);
+      c = interpolate(M_ARRAY[j], M_ARRAY[j + 1],
+                      C_ARRAY[j], C_ARRAY[j + 1], m);
       
       // calculate drag acceleration
       double drag = calculateDrag(c, p, v, A);
       ddx = -drag * (dx / v);
       ddy = -drag * (dy / v) + g;
       
-      // Time is 1 because t changes from 1-20
+      // Update the position
       x += dx * T + 0.5 * ddx * T * T;
       y += dy * T + 0.5 * ddy * T * T;
       
@@ -166,6 +186,8 @@ int main()
       
       // Update the hang time
       ht += T;
+      
+      // End cases for interpolation
       if (y >= 0)
       {
          px = x;
@@ -173,13 +195,14 @@ int main()
       }
    }
    
+   // interpolates values for altitude 0
    x = interpolate(y, py, x, px, 0);
    
-   // Output current position
+   // Output the final position
    cout.setf(ios::fixed);
    cout.setf(ios::showpoint);
    cout.precision(1);
-   cout << "Distance: " << setw(12) << abs(x) << "m   "
+   cout << "Distance: " << setw(12) << abs(x) << "m      "
    << "Hang Time: " << setw(10) << ht - T << "s\n";
    
 }
