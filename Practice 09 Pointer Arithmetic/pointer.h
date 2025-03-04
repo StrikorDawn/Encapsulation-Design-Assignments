@@ -1,6 +1,6 @@
 /*************************************************************
  * 1. Name:
- *      -your name-
+ *      Mark Van Horn & Taden Marston
  * 2. Assignment Name:
  *      Practice 09: Pointer Arithmetic
  * 3. Assignment Description:
@@ -20,3 +20,7 @@
 /**************************************
  * COUNT - POINTER
  **************************************/
+int countPointer(char text[], char letter)
+{
+   return 0;
+}
