@@ -18,8 +18,9 @@
 int countArray(char text[], char letter)
 {
 	int letterCount = 0;
+	int length = strlen(text);
 
-	for (int i = 0; i < strlen(text); i++)
+	for (int i = 0; i < length; i++)
 	{
 		if (text[i] == letter)
 		{
