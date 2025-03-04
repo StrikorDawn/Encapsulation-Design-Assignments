@@ -1,10 +1,6 @@
 /*************************************************************
  * 1. Name:
-<<<<<<< HEAD
- *      Taden Marston & Mark Van Horn
-=======
  *      Mark Van Horn & Taden Marston
->>>>>>> 6540bca72f0b2aa86e891f690b737151608200fa
  * 2. Assignment Name:
  *      Practice 09: Pointer Arithmetic
  * 3. Assignment Description:
@@ -21,13 +17,13 @@
  **************************************/
 int countArray(char text[], char letter)
 {
-	int letterCount;
+	int letterCount = 0;
 
 	for (int i = 0; i < strlen(text); i++)
 	{
 		if (text[i] == letter)
 		{
-			letterCount += 1;
+			letterCount++;
 		}
 	}
 	return letterCount;
