@@ -12,9 +12,9 @@
  **************************************************************/
 
 
-/**************************************
- * COUNT - ARRAY
- **************************************/
+ /**************************************
+  * COUNT - ARRAY
+  **************************************/
 int countArray(char text[], char letter)
 {
 	int letterCount = 0;
@@ -35,11 +35,11 @@ int countArray(char text[], char letter)
  **************************************/
 int countPointer(char text[], char letter)
 {
-   int count = 0;
-   for (char * p = text; *p; p++)
-   {
-      if (*p == letter)
-         count++;
-   }
-   return count;
+	int count = 0;
+	for (char* p = text; *p; p++)
+	{
+		if (*p == letter)
+			count++;
+	}
+	return count;
 }
