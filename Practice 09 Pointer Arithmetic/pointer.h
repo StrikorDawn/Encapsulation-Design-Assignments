@@ -22,5 +22,11 @@
  **************************************/
 int countPointer(char text[], char letter)
 {
-   return 0;
+   int count = 0;
+   for (char * p = text; *p; p++)
+   {
+      if (*p == letter)
+         count++;
+   }
+   return count;
 }
