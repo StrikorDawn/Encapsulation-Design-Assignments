@@ -63,7 +63,11 @@ public:
    double addPixelsX(double x) { return this->x += x * metersFromPixels; }
    double addPixelsY(double y) { return this->y += y * metersFromPixels; }
    void add(const Acceleration& a, const Velocity& v, double t);
-   void reverse() { }
+   void reverse()
+   {
+      x = -x;
+      y = -y;
+   }
 
 
 private:
