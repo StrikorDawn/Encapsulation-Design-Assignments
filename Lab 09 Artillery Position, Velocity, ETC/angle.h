@@ -2,7 +2,7 @@
  * Header File:
  *    ANGLE
  * Author:
- *    <your name here>
+ *    Taden Marston & Mark Van Horn
  * Summary:
  *    Everything we need to know about a direction
  ************************************************************************/

@@ -36,8 +36,8 @@ public:
    }
 
    // getters
-   double getDDX()   const           { return ddx;             }
-   double getDDY()   const           { return ddy;             }
+   double getDDX()   const           { return ddx; }
+   double getDDY()   const           { return ddy; }
 
    // setters
    void setDDX(double ddx)           { this->ddx = ddx; }
