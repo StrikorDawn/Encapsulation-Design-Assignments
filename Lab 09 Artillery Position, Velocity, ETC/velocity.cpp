@@ -2,7 +2,7 @@
  * Source File:
  *    VELOCITY
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Everything we need to know about speed
  ************************************************************************/ 

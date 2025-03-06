@@ -2,7 +2,7 @@
  * Source File:
  *    ACCELERATION 
  * Author:
- *    Mark Van Horn and Taden Marston
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Everything we need to know about changing speed
  ************************************************************************/
