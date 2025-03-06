@@ -2,7 +2,7 @@
  * Header File:
  *    TEST ACCELERATION
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Unit tests for the Acceleration class.
  ************************************************************************/
@@ -336,8 +336,7 @@ private:
       assertEquals(a.ddx, 2.3);
       assertEquals(a.ddy, 4.5);
       assertEquals(ddx, 0.0);
-      // teardown
-   }
+   }  // teardown
    
    /*********************************************
     * name:    ADD DDX 4.1
@@ -359,8 +358,7 @@ private:
       assertEquals(a.ddx, 6.4);
       assertEquals(a.ddy, 4.5);
       assertEquals(ddx, 4.1);
-      // teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD DDY ZERO
@@ -382,8 +380,7 @@ private:
       assertEquals(a.ddx, 2.3);
       assertEquals(a.ddy, 4.5);
       assertEquals(ddy, 0.0);
-      //teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD DDY 4.1
@@ -405,8 +402,7 @@ private:
       assertEquals(a.ddx, 2.3);
       assertEquals(a.ddy, 8.6);
       assertEquals(ddy, 4.1);
-      // teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD NOTHING TO NOTHING
@@ -431,8 +427,7 @@ private:
       assertEquals(a.ddy, 0.0);
       assertEquals(aRHS.ddx, 0.0);
       assertEquals(aRHS.ddy, 0.0);
-      // teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD NOTHING TO A VALUE
@@ -457,8 +452,7 @@ private:
       assertEquals(a.ddy, 2.2);
       assertEquals(aRHS.ddx, 0.0);
       assertEquals(aRHS.ddy, 0.0);
-      // teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD A VALUE TO NOTHING
@@ -483,8 +477,7 @@ private:
       assertEquals(a.ddy, 7.7);
       assertEquals(aRHS.ddx, 4.4);
       assertEquals(aRHS.ddy, 7.7);
-      // teardown
-   }
+   }  // teardown
 
    /*********************************************
     * name:    ADD A VALUE TO ANOTHER VALUE
@@ -509,7 +502,6 @@ private:
       assertEquals(a.ddy, 9.9);
       assertEquals(aRHS.ddx, 4.4);
       assertEquals(aRHS.ddy, 7.7);
-      // teardown
-   }
+   }  // teardown
 
 };
