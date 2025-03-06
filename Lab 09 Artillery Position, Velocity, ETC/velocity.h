@@ -2,7 +2,7 @@
  * Header File:
  *    VELOCITY
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Everything we need to know about speed
  ************************************************************************/
@@ -52,8 +52,8 @@ public:
    void addDX(double dx) { this->dx += dx; }
    void addDY(double dy) { this->dy += dy; }
    void add(const Acceleration & acceleration, double time);
-   void add(const Velocity & rhs) { }
-   void reverse() { }
+   void add(const Velocity & rhs);
+   void reverse();
 
 private:
    double dx;           // horizontal velocity

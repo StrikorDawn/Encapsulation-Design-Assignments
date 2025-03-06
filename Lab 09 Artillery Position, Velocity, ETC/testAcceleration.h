@@ -323,7 +323,20 @@ private:
     *********************************************/
    void addDDX_zero()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 2.3;
+      a.ddy = 4.5;
+      double ddx = 0.0;
+      
+      // exercise
+      a.addDDX(ddx);
+      
+      // verify
+      assertEquals(a.ddx, 2.3);
+      assertEquals(a.ddy, 4.5);
+      assertEquals(ddx, 0.0);
+      // teardown
    }
    
    /*********************************************
@@ -333,7 +346,20 @@ private:
     *********************************************/
    void addDDX_value()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 2.3;
+      a.ddy = 4.5;
+      double ddx = 4.1;
+      
+      // exercise
+      a.addDDX(ddx);
+      
+      // verify
+      assertEquals(a.ddx, 6.4);
+      assertEquals(a.ddy, 4.5);
+      assertEquals(ddx, 4.1);
+      // teardown
    }
 
    /*********************************************
@@ -343,7 +369,20 @@ private:
     *********************************************/
    void addDDY_zero()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 2.3;
+      a.ddy = 4.5;
+      double ddy = 0.0;
+      
+      // exercise
+      a.addDDY(ddy);
+      
+      // verify
+      assertEquals(a.ddx, 2.3);
+      assertEquals(a.ddy, 4.5);
+      assertEquals(ddy, 0.0);
+      //teardown
    }
 
    /*********************************************
@@ -353,7 +392,20 @@ private:
     *********************************************/
    void addDDY_value()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 2.3;
+      a.ddy = 4.5;
+      double ddy = 4.1;
+      
+      // exercise
+      a.addDDY(ddy);
+      
+      // verify
+      assertEquals(a.ddx, 2.3);
+      assertEquals(a.ddy, 8.6);
+      assertEquals(ddy, 4.1);
+      // teardown
    }
 
    /*********************************************
@@ -363,7 +415,23 @@ private:
     *********************************************/
    void add_zeroZero()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 0.0;
+      a.ddy = 0.0;
+      Acceleration aRHS;
+      aRHS.ddx = 0.0;
+      aRHS.ddy = 0.0;
+      
+      // exercise
+      a.add(aRHS);
+      
+      // verify
+      assertEquals(a.ddx, 0.0);
+      assertEquals(a.ddy, 0.0);
+      assertEquals(aRHS.ddx, 0.0);
+      assertEquals(aRHS.ddy, 0.0);
+      // teardown
    }
 
    /*********************************************
@@ -373,7 +441,23 @@ private:
     *********************************************/
    void add_valueZero()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 1.1;
+      a.ddy = 2.2;
+      Acceleration aRHS;
+      aRHS.ddx = 0.0;
+      aRHS.ddy = 0.0;
+      
+      // exercise
+      a.add(aRHS);
+      
+      // verify
+      assertEquals(a.ddx, 1.1);
+      assertEquals(a.ddy, 2.2);
+      assertEquals(aRHS.ddx, 0.0);
+      assertEquals(aRHS.ddy, 0.0);
+      // teardown
    }
 
    /*********************************************
@@ -383,7 +467,23 @@ private:
     *********************************************/
    void add_zeroValue()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 0.0;
+      a.ddy = 0.0;
+      Acceleration aRHS;
+      aRHS.ddx = 4.4;
+      aRHS.ddy = 7.7;
+      
+      // exercise
+      a.add(aRHS);
+      
+      // verify
+      assertEquals(a.ddx, 4.4);
+      assertEquals(a.ddy, 7.7);
+      assertEquals(aRHS.ddx, 4.4);
+      assertEquals(aRHS.ddy, 7.7);
+      // teardown
    }
 
    /*********************************************
@@ -393,7 +493,23 @@ private:
     *********************************************/
    void add_valueValue()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Acceleration a;
+      a.ddx = 1.1;
+      a.ddy = 2.2;
+      Acceleration aRHS;
+      aRHS.ddx = 4.4;
+      aRHS.ddy = 7.7;
+      
+      // exercise
+      a.add(aRHS);
+      
+      // verify
+      assertEquals(a.ddx, 5.5);
+      assertEquals(a.ddy, 9.9);
+      assertEquals(aRHS.ddx, 4.4);
+      assertEquals(aRHS.ddy, 7.7);
+      // teardown
    }
 
 };
