@@ -77,7 +77,7 @@ public:
    //     | a /
    //     |  /
    //     | /
-   void setDxDy(double dx, double dy)  { }
+   void setDxDy(double dx, double dy) { radians = normalize(atan2(dx, dy)); }
    Angle operator+(double degrees) const { return Angle(); }
 
 private:

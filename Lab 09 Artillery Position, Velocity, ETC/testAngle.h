@@ -478,7 +478,7 @@ private:
    void setDxDy_up()
    {  // setup
       Angle a;
-      a.radians = 1.234567;
+      a.radians = -99.9;
       double dx = 0;
       double dy = 1;
 
@@ -486,7 +486,7 @@ private:
       a.setDxDy(dx, dy);
 
       // verify
-      assertEquals(a.radians, M_PI / 6.0);
+      assertEquals(a.radians, 0);
    }  // teardown
 
 
@@ -498,15 +498,15 @@ private:
    void setDxDy_right()
    {  // setup
       Angle a;
-      a.radians = 1.234567;
-      double dx = 5.0;
-      double dy = 8.6602;
+      a.radians = -99.9;
+      double dx = 4;
+      double dy = 0;
 
       // exercise
       a.setDxDy(dx, dy);
 
       // verify
-      assertEquals(a.radians, M_PI / 6.0);
+      assertEquals(a.radians, M_PI_2);
    }  // teardown
 
    /*********************************************
@@ -517,15 +517,15 @@ private:
    void setDxDy_left()
    {  // setup
       Angle a;
-      a.radians = 1.234567;
-      double dx = 5.0;
-      double dy = 8.6602;
+      a.radians = -99.9;
+      double dx = -0.01;
+      double dy = 0;
 
       // exercise
       a.setDxDy(dx, dy);
 
       // verify
-      assertEquals(a.radians, M_PI / 6.0);
+      assertEquals(a.radians, M_PI + M_PI_2);
    }  // teardown
 
    /*********************************************
