@@ -86,3 +86,22 @@ Angle Velocity::getAngle() const
    return Angle();
 }
 
+/*********************************************
+ * VELOCITY : ADD
+ * Add the velocity components of rhs to the current velocity
+ *********************************************/
+void Velocity::add(const Velocity & rhs)
+{
+   this->dx += rhs.dx;
+   this->dy += rhs.dy;
+}
+
+/*********************************************
+ * VELOCITY : REVERSE
+ * Reverse the direction of the velocity
+ *********************************************/
+void Velocity::reverse()
+{
+   this->dx = -this->dx;
+   this->dy = -this->dy;
+}
