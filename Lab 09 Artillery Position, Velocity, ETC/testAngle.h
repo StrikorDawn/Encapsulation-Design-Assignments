@@ -476,9 +476,18 @@ private:
     * output:  0 degrees
     *********************************************/
    void setDxDy_up()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      Angle a;
+      a.radians = 1.234567;
+      double dx = 0;
+      double dy = 1;
+
+      // exercise
+      a.setDxDy(dx, dy);
+
+      // verify
+      assertEquals(a.radians, M_PI / 6.0);
+   }  // teardown
 
 
    /*********************************************
@@ -487,9 +496,18 @@ private:
     * output:  90 degrees
     *********************************************/
    void setDxDy_right()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      Angle a;
+      a.radians = 1.234567;
+      double dx = 5.0;
+      double dy = 8.6602;
+
+      // exercise
+      a.setDxDy(dx, dy);
+
+      // verify
+      assertEquals(a.radians, M_PI / 6.0);
+   }  // teardown
 
    /*********************************************
     * name:    SET DX DY  LEFT
@@ -497,9 +515,18 @@ private:
     * output:  270 degrees
     *********************************************/
    void setDxDy_left()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      Angle a;
+      a.radians = 1.234567;
+      double dx = 5.0;
+      double dy = 8.6602;
+
+      // exercise
+      a.setDxDy(dx, dy);
+
+      // verify
+      assertEquals(a.radians, M_PI / 6.0);
+   }  // teardown
 
    /*********************************************
     * name:    SET DX DY  DIAGONAL
