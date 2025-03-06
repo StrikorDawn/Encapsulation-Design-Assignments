@@ -56,12 +56,12 @@ public:
    }
    void setMetersX(double xMeters)       { x = xMeters; }
    void setMetersY(double yMeters)       { y = yMeters; }
-   void setPixelsX(double xPixels)       { x = xPixels / metersFromPixels; }
-   void setPixelsY(double yPixels)       { y = yPixels / metersFromPixels; }
+   void setPixelsX(double xPixels)       { x = xPixels * metersFromPixels; }
+   void setPixelsY(double yPixels)       { y = yPixels * metersFromPixels; }
    double addMetersX(double x) { return this->x += x; }
    double addMetersY(double y) { return this->y += y; }
-   double addPixelsX(double x) { return this->x += x / metersFromPixels; }
-   double addPixelsY(double y) { return this->y += y / metersFromPixels; }
+   double addPixelsX(double x) { return this->x += x * metersFromPixels; }
+   double addPixelsY(double y) { return this->y += y * metersFromPixels; }
    void add(const Acceleration& a, const Velocity& v, double t);
    void reverse() { }
 

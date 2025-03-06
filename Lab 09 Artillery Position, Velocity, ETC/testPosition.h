@@ -188,7 +188,17 @@ private:
     *********************************************/
    void getZoom_member()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 123.4;
+      Position pos;
+      // exercise
+      double zoom = pos.getZoom();
+      // verify
+      assertEquals(zoom, 123.4);
+      assertEquals(Position::metersFromPixels, 123.4);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
    
    /*********************************************
@@ -201,7 +211,21 @@ private:
     *********************************************/
    void getZoom_anotherVariable()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 99.9;
+      Position pos1;
+      pos1.setZoom(99.9);
+      Position pos2;
+      pos2.setZoom(123.4);
+      // exercise
+      double zoom = pos2.getZoom();
+      // verify
+      assertEquals(zoom, 123.4);
+      assertEquals(pos1.getZoom(), 123.4);
+      assertEquals(pos2.getZoom(), 123.4);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
 
@@ -260,7 +284,20 @@ private:
     *********************************************/
    void getPixelsX_noZoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 1;
+      Position pos;
+      pos.setMeters(123.4, 567.8);
+      // exercise
+      double x = pos.getPixelsX();
+      // verify
+      assertEquals(x, 123.4);
+      assertEquals(pos.getMetersX(), 123.4);
+      assertEquals(pos.getMetersY(), 567.8);
+      assertEquals(Position::metersFromPixels, 1.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
    
    /*********************************************
@@ -271,7 +308,20 @@ private:
     *********************************************/
    void getPixelsX_zoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 100;
+      Position pos;
+      pos.setMeters(123.4, 567.8);
+      // exercise
+      double x = pos.getPixelsX();
+      // verify
+      assertEquals(x, 1.234);
+      assertEquals(pos.getMetersX(), 123.4);
+      assertEquals(pos.getMetersY(), 567.8);
+      assertEquals(Position::metersFromPixels, 100.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -281,7 +331,20 @@ private:
     *********************************************/
    void getPixelsY_noZoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 1;
+      Position pos;
+      pos.setMeters(123.4, 567.8);
+      // exercise
+      double y = pos.getPixelsY();
+      // verify
+      assertEquals(y, 567.8);
+      assertEquals(pos.getMetersX(), 123.4);
+      assertEquals(pos.getMetersY(), 567.8);
+      assertEquals(Position::metersFromPixels, 1.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -291,7 +354,20 @@ private:
     *********************************************/
    void getPixelsY_zoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 100;
+      Position pos;
+      pos.setMeters(123.4, 567.8);
+      // exercise
+      double y = pos.getPixelsY();
+      // verify
+      assertEquals(y, 5.678);
+      assertEquals(pos.getMetersX(), 123.4);
+      assertEquals(pos.getMetersY(), 567.8);
+      assertEquals(Position::metersFromPixels, 100.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*****************************************************************
@@ -353,7 +429,19 @@ private:
     *********************************************/
    void setPixelsX_noZoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 1;
+      Position pos;
+      pos.setMeters(999.9, 888.8);
+      // exercise
+      pos.setPixelsX(123.4);
+      // verify
+      assertEquals(pos.getMetersX(), 123.4);
+      assertEquals(pos.getMetersY(), 888.8);
+      assertEquals(Position::metersFromPixels, 1.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -364,7 +452,19 @@ private:
     *********************************************/
    void setPixelsX_zoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 100;
+      Position pos;
+      pos.setMeters(999.9, 888.8);
+      // exercise
+      pos.setPixelsX(123.4);
+      // verify
+      assertEquals(pos.getMetersX(), 12340.0);
+      assertEquals(pos.getMetersY(), 888.8);
+      assertEquals(Position::metersFromPixels, 100.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
    
    /*********************************************
@@ -374,7 +474,19 @@ private:
     *********************************************/
    void setPixelsY_noZoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 1;
+      Position pos;
+      pos.setMeters(999.9, 888.8);
+      // exercise
+      pos.setPixelsY(123.4);
+      // verify
+      assertEquals(pos.getMetersX(), 999.9);
+      assertEquals(pos.getMetersY(), 123.4);
+      assertEquals(Position::metersFromPixels, 1.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -384,7 +496,19 @@ private:
     *********************************************/
    void setPixelsY_zoom()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 100;
+      Position pos;
+      pos.setMeters(999.9, 888.8);
+      // exercise
+      pos.setPixelsY(123.4);
+      // verify
+      assertEquals(pos.getMetersX(), 999.9);
+      assertEquals(pos.getMetersY(), 12340.0);
+      assertEquals(Position::metersFromPixels, 100.0);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -455,7 +579,17 @@ private:
     *********************************************/
    void setZoom_member()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 99.9;
+      Position pos;
+      // exercise
+      pos.setZoom(123.4);
+      // verify
+      assertEquals(pos.getZoom(), 123.4);
+      assertEquals(Position::metersFromPixels, 123.4);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
@@ -469,7 +603,21 @@ private:
     *********************************************/
    void setZoom_anotherVariable()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      double metersFromPixels = Position::metersFromPixels;
+      Position::metersFromPixels = 99.9;
+      Position pos1;
+      pos1.setZoom(99.9);
+      Position pos2;
+      pos2.setZoom(88.9);
+      // exercise
+      pos2.setZoom(123.4);
+      // verify
+      assertEquals(pos1.getZoom(), 123.4);
+      assertEquals(pos2.getZoom(), 123.4);
+      assertEquals(Position::metersFromPixels, 123.4);
+      // teardown
+      Position::metersFromPixels = metersFromPixels;
    }
 
    /*********************************************
