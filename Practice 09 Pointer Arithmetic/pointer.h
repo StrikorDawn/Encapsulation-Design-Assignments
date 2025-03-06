@@ -19,13 +19,13 @@
  **************************************/
 int countArray(char text[], char letter)
 {
-   int count = 0;
-   for (int i = 0; i < strlen(text); i++)
-   {
-      if (text[i] == letter)
-         count++;
-   }
-   return count;
+	int count = 0;
+	for (int i = 0; i < strlen(text); i++)
+	{
+		if (text[i] == letter)
+			count++;
+	}
+	return count;
 }
 
 /**************************************
@@ -33,11 +33,11 @@ int countArray(char text[], char letter)
  **************************************/
 int countPointer(char text[], char letter)
 {
-   int count = 0;
-   for (char* p = text; *p; p++)
-   {
-      if (*p == letter)
-         count++;
-   }
-   return count;
+	int count = 0;
+	for (char* p = text; *p; p++)
+	{
+		if (*p == letter)
+			count++;
+	}
+	return count;
 }

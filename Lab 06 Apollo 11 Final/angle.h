@@ -56,10 +56,12 @@ public:
 
 private:
    double normalize(double radians) const;
+
    double convertToDegrees(double radian) const
    {
       return normalize(radian) * (180 / M_PI);
    }
+
    double convertToRadians(double degrees) const
    {
       return normalize(degrees * (M_PI / 180));
