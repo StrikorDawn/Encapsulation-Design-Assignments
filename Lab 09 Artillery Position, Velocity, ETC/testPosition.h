@@ -2,7 +2,7 @@
  * Header File:
  *    TEST POSITION
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Unit tests for the Position class.
  ************************************************************************/

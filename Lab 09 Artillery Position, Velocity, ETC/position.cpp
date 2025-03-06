@@ -2,7 +2,7 @@
  * Source File:
  *    POSITION
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Everything we need to know about a location on the screen.
  ************************************************************************/
