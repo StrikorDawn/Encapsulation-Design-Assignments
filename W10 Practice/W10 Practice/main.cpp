@@ -6,12 +6,14 @@
  * 3. Assignment Description:
  *      Throwing and catching exceptions
  * 4. What was the hardest part? Be as specific as possible.
- *      -a paragraph or two about how the assignment went for you-
+ *      Figuring out whether to wrap each exception in a try/catch
+ *      block or to wrap the whole function in a try/catch block.
  * 5. How long did it take for you to complete the assignment?
- *      -total time in hours: reading the assignment, submitting, etc.
+ *      About 30 minutes.
  **************************************************************/
 
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 /**************************************
@@ -20,71 +22,54 @@ using namespace std;
  **************************************/
 int getPosition(const char* position)
 {
-   int row = -1;
-   int col = -1;
-   
-   if (nullptr == position)
+   try
    {
-      cout << "\tERROR: Please provide a valid string\n";
-      return -1;
-   }
-   
-   for (const char * p = position; *p; p++)
-   {
-      if (isalpha(*p))
+      if (nullptr == position)
+         throw invalid_argument("ERROR: Please provide a valid string");
+      
+      int row = -1;
+      int col = -1;
+      
+      for (const char* p = position; *p; p++)
       {
-         if (col != -1)
+         if (isalpha(*p))
          {
-            cout << "\tERROR: More than one column specifier\n";
-            return -1;
+            if (col != -1)
+               throw invalid_argument("ERROR: More than one column specifier");
+            else if (isupper(*p))
+               throw invalid_argument("ERROR: Columns must be lowercase");
+            else if ('a' <= *p && *p <= 'h')
+               col = *p - 'a';
+            else
+               throw invalid_argument("ERROR: Columns must be between a and h");
          }
-         else if (isupper(*p))
+         else if (isdigit(*p))
          {
-            cout << "\tERROR: Columns must be lowercase\n";
-            return -1;
+            if (row != -1)
+               throw invalid_argument("ERROR: More than one row specifier");
+            else if ('1' <= *p && *p <= '8')
+               row = *p - '1';
+            else
+               throw invalid_argument("ERROR: Rows must be between 1 and 8");
          }
-         else if ('a' <= *p && *p <= 'h')
-            col = *p - 'a';
          else
          {
-            cout << "\tERROR: Columns must be between a and h\n";
-            return -1;
+            throw invalid_argument("ERROR: Unknown character in position");
          }
       }
-      else if (isdigit(*p))
-      {
-         if (row != -1)
-         {
-            cout << "\tERROR: More than one row specifier\n";
-            return -1;
-         }
-         else if ('1' <= *p && *p <= '8')
-            row = *p - '1';
-         else
-         {
-            cout << "\tERROR: Rows must be between 1 and 8\n";
-            return -1;
-         }
-      }
-      else
-      {
-         cout << "\tERROR: Unknown letter\n";
-         return -1;
-      }
+      
+      if (row == -1)
+         throw invalid_argument("ERROR: You must specify a row");
+      else if (col == -1)
+         throw invalid_argument("ERROR: You must specify a column");
+      
+      return row * 8 + col;
    }
-   
-   if (row == -1)
+   catch (const invalid_argument& e)
    {
-      cout << "\tERROR: You must specify a row\n";
+      cout << "\t" << e.what() << endl;
       return -1;
    }
-   else if (col == -1)
-   {
-      cout << "\tERROR: You must specify a column\n";
-      return -1;
-   }
-   
-   return row * 8 + col;
 }
 
 
