@@ -2,7 +2,7 @@
  * Source File:
  *    PHYSICS
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Laws of motion, effects of gravity, wind resistance, etc.
  ************************************************************************/
