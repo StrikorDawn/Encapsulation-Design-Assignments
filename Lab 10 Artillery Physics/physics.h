@@ -9,18 +9,18 @@
 
 #pragma once
 
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 #include <math.h>
-#include <cassert>  // for ASSERT 
+#include <cassert>  // for ASSERT
 
- /*******************************************************
-  * AREA FROM RADIUS
-  * Compute the area of a circle from the radius
-  *    area = pi * radius ^ 2
-  ********************************************************/
+/*******************************************************
+ * AREA FROM RADIUS
+ * Compute the area of a circle from the radius
+ *    area = pi * radius ^ 2
+ ********************************************************/
 inline double areaFromRadius(double radius)
 {
-	return M_PI * (radius * radius);
+   return M_PI * (radius * radius);
 }
 
 /**********************************************************
@@ -51,7 +51,7 @@ inline double forceFromDrag(double density, double drag, double radius,
  ************************************************************/
 inline double accelerationFromForce(double force, double mass)
 {
-	return force / mass;
+   return force / mass;
 }
 
 /***********************************************************
@@ -65,7 +65,7 @@ inline double accelerationFromForce(double force, double mass)
  ************************************************************/
 inline double velocityFromAcceleration(double acceleration, double time)
 {
-	return acceleration * time;
+   return acceleration * time;
 }
 
 /*********************************************************
@@ -98,15 +98,17 @@ inline double linearInterpolation(double d0, double r0,
  *********************************************************/
 struct Mapping
 {
-	double domain;
-	double range;
+   double domain;
+   double range;
 };
 
 /*********************************************************
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain);
+double linearInterpolation(const Mapping mapping[],
+                           int numMapping,
+                           double domain);
 
 /*********************************************************
  * GRAVITY FROM ALTITUDE
