@@ -15,7 +15,27 @@
  *********************************************************/
 double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
 {
-   return -99.9;
+   // Ensure there are at least two mappings
+   assert(numMapping >= 2);
+
+   // Find the appropriate pair of mappings
+   for (int i = 0; i < numMapping - 1; ++i)
+   {
+      if (domain >= mapping[i].domain && domain <= mapping[i + 1].domain)
+      {
+         double d0 = mapping[i].domain;
+         double r0 = mapping[i].range;
+         double d1 = mapping[i + 1].domain;
+         double r1 = mapping[i + 1].range;
+
+         // Perform linear interpolation
+         return r0 + ((r1 - r0) * (domain - d0)) / (d1 - d0);
+      }
+   }
+
+   // If the domain is out of the range of the mappings, return an error value or handle appropriately
+   assert(false); // Domain value is out of the range of the provided mappings
+	return -99.9;
 }
 
 /*********************************************************
