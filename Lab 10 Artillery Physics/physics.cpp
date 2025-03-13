@@ -43,10 +43,33 @@ double linearInterpolation(const Mapping mapping[], int numMapping, double domai
  *********************************************************/
 double gravityFromAltitude(double altitude)
 {
-   const double g0 = 9.80665; // Standard gravity at sea level in m/s^2
-   const double R = 6371000.0;  // Radius of the Earth in meters
+   // Define the mapping of altitudes to gravity values
+   const Mapping gravityMapping[] = {
+      {0.0, 9.807},          // Sea level
+      {1000.0, 9.804},       // 1,000 meters
+      {2000.0, 9.801},       // 2,000 meters
+      {3000.0, 9.797},       // 3,000 meters
+      {4000.0, 9.794},       // 4,000 meters
+      {5000.0, 9.791},       // 5,000 meters
+      {6000.0, 9.788},       // 6,000 meters
+      {7000.0, 9.785},       // 7,000 meters
+      {8000.0, 9.782},       // 8,000 meters
+      {9000.0, 9.779},       // 9,000 meters
+      {10000.0, 9.776},      // 10,000 meters
+      {15000.0, 9.761},      // 15,000 meters
+      {20000.0, 9.745},      // 20,000 meters
+      {25000.0, 9.730},      // 25,000 meters
+      {30000.0, 9.715},      // 30,000 meters
+      {40000.0, 9.684},      // 40,000 meters
+      {50000.0, 9.654},      // 50,000 meters
+      {60000.0, 9.624},      // 60,000 meters
+      {70000.0, 9.594},      // 70,000 meters
+      {80000.0, 9.564}       // 80,000 meters
+   };
+   int numMapping = sizeof(gravityMapping) / sizeof(gravityMapping[0]);
 
-   return g0 * pow(R / (R + altitude), 2);
+   // Use linear interpolation to find the gravity for the given altitude
+   return linearInterpolation(gravityMapping, numMapping, altitude);
 }
 
 /*********************************************************
