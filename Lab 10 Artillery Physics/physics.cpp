@@ -13,29 +13,28 @@
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
-{
-   // Ensure there are at least two mappings
-   assert(numMapping >= 2);
-
-   // Find the appropriate pair of mappings
-   for (int i = 0; i < numMapping - 1; ++i)
-   {
-      if (domain >= mapping[i].domain && domain <= mapping[i + 1].domain)
-      {
-         double d0 = mapping[i].domain;
-         double r0 = mapping[i].range;
-         double d1 = mapping[i + 1].domain;
-         double r1 = mapping[i + 1].range;
-
-         // Perform linear interpolation
-         return r0 + ((r1 - r0) * (domain - d0)) / (d1 - d0);
+double linearInterpolation(const Mapping mapping[], int numMapping, double domain) {
+   // Edge cases: If domain is outside the given mapping range
+   if (domain <= mapping[0].domain) {
+      return mapping[0].range;
+   }
+   if (domain >= mapping[numMapping - 1].domain) {
+      return mapping[numMapping - 1].range;
+   }
+   
+   // Find the interval containing 'domain'
+   for (int i = 0; i < numMapping - 1; ++i) {
+      double x0 = mapping[i].domain, y0 = mapping[i].range;
+      double x1 = mapping[i + 1].domain, y1 = mapping[i + 1].range;
+      
+      if (domain >= x0 && domain <= x1) {
+         // Apply the linear interpolation formula
+         return y0 + (domain - x0) * (y1 - y0) / (x1 - x0);
       }
    }
-
-   // If the domain is out of the range of the mappings, return an error value or handle appropriately
-   assert(false); // Domain value is out of the range of the provided mappings
-	return -99.9;
+   
+   // Default return (should never reach here)
+   return 0.0;
 }
 
 /*********************************************************
