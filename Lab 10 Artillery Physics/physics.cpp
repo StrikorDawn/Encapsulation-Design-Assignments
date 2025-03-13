@@ -8,33 +8,37 @@
  ************************************************************************/
   
  #include "physics.h"  // for the prototypes
- 
+#include <algorithm> // For std::lower_bound
+
  /*********************************************************
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain) {
+double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
+{
    // Edge cases: If domain is outside the given mapping range
-   if (domain <= mapping[0].domain) {
+   if (domain <= mapping[0].domain)
       return mapping[0].range;
-   }
-   if (domain >= mapping[numMapping - 1].domain) {
+   if (domain >= mapping[numMapping - 1].domain)
       return mapping[numMapping - 1].range;
+   
+   // Binary search for the interval containing 'domain'
+   int left = 0, right = numMapping - 1;
+   while (left < right - 1)
+   {
+      int mid = left + (right - left) / 2;
+      if (mapping[mid].domain <= domain)
+         left = mid;
+      else
+         right = mid;
    }
    
-   // Find the interval containing 'domain'
-   for (int i = 0; i < numMapping - 1; ++i) {
-      double x0 = mapping[i].domain, y0 = mapping[i].range;
-      double x1 = mapping[i + 1].domain, y1 = mapping[i + 1].range;
-      
-      if (domain >= x0 && domain <= x1) {
-         // Apply the linear interpolation formula
-         return y0 + (domain - x0) * (y1 - y0) / (x1 - x0);
-      }
-   }
-   
-   // Default return (should never reach here)
-   return 0.0;
+   // Interpolation
+   return linearInterpolation(mapping[left].domain,
+                              mapping[left].range,
+                              mapping[right].domain,
+                              mapping[right].range,
+                              domain);
 }
 
 /*********************************************************
@@ -44,7 +48,8 @@ double linearInterpolation(const Mapping mapping[], int numMapping, double domai
 double gravityFromAltitude(double altitude)
 {
    // Define the mapping of altitudes to gravity values
-   const Mapping gravityMapping[] = {
+   const Mapping gravityMapping[] =
+   {
       {0.0, 9.807},          // Sea level
       {1000.0, 9.804},       // 1,000 meters
       {2000.0, 9.801},       // 2,000 meters
@@ -79,7 +84,8 @@ double gravityFromAltitude(double altitude)
 double densityFromAltitude(double altitude)
 {
    // Define the mapping of altitudes to air densities
-   const Mapping densityMapping[] = {
+   const Mapping densityMapping[] =
+   {
       {0.0, 1.225},          // Sea level
       {1000.0, 1.112},       // 1,000 meters
       {2000.0, 1.007},       // 2,000 meters
@@ -114,7 +120,8 @@ double densityFromAltitude(double altitude)
 double speedSoundFromAltitude(double altitude)
 {
    // Define the mapping of altitudes to speeds of sound
-   const Mapping speedSoundMapping[] = {
+   const Mapping speedSoundMapping[] =
+   {
       {0.0, 340.0},         // Sea level
       {1000.0, 336.0},      // 1,000 meters
       {2000.0, 332.0},      // 2,000 meters
@@ -150,7 +157,8 @@ double speedSoundFromAltitude(double altitude)
 double dragFromMach(double speedMach)
 {
    // Define the mapping of Mach numbers to drag coefficients
-   const Mapping dragMapping[] = {
+   const Mapping dragMapping[] =
+   {
       {0.0, 0.0},            // Mach 0.0
       {0.1, 0.0543},         // Mach 0.1
       {0.3, 0.1629},         // Mach 0.3
