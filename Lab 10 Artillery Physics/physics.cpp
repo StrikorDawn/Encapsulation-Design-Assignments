@@ -4,7 +4,7 @@
  * Author:
  *    <your name here>
  * Summary:
- *    Laws of motion, effects of gravity, wind resistence, etc.
+ *    Laws of motion, effects of gravity, wind resistance, etc.
  ************************************************************************/
   
  #include "physics.h"  // for the prototypes
@@ -14,7 +14,8 @@
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain)
+double linearInterpolation(const Mapping mapping[], int numMapping, 
+   double domain)
 {
    // Edge cases: If domain is outside the given mapping range
    if (domain <= mapping[0].domain)
@@ -180,7 +181,8 @@ double dragFromMach(double speedMach)
    };
    int numMapping = sizeof(dragMapping) / sizeof(dragMapping[0]);
 
-   // Use linear interpolation to find the drag coefficient for the given Mach number
+   // Use linear interpolation to find the drag coefficient for the given 
+   // Mach number
    return linearInterpolation(dragMapping, numMapping, speedMach);
 }
 
