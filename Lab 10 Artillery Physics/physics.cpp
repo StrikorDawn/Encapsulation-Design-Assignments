@@ -2,7 +2,7 @@
  * Source File:
  *    PHYSICS
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    Laws of motion, effects of gravity, wind resistence, etc.
  ************************************************************************/
@@ -180,7 +180,8 @@ double dragFromMach(double speedMach)
    };
    int numMapping = sizeof(dragMapping) / sizeof(dragMapping[0]);
 
-   // Use linear interpolation to find the drag coefficient for the given Mach number
+   // Use linear interpolation to find the drag coefficient for the given
+   // Mach number
    return linearInterpolation(dragMapping, numMapping, speedMach);
 }
 
