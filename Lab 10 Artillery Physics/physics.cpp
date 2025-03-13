@@ -44,10 +44,9 @@ double linearInterpolation(const Mapping mapping[], int numMapping, double domai
 double gravityFromAltitude(double altitude)
 {
    const double g0 = 9.80665; // Standard gravity at sea level in m/s^2
-   const double R = 6371000;  // Radius of the Earth in meters
+   const double R = 6371000.0;  // Radius of the Earth in meters
 
    return g0 * pow(R / (R + altitude), 2);
-
 }
 
 /*********************************************************
