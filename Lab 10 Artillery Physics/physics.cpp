@@ -172,5 +172,5 @@ double dragFromMach(double speedMach)
 
    // Use linear interpolation to find the drag coefficient for the given Mach number
    return linearInterpolation(dragMapping, numMapping, speedMach);
-
+}
 
