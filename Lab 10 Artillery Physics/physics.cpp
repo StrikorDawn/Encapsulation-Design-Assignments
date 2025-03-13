@@ -55,7 +55,33 @@ double gravityFromAltitude(double altitude)
  *********************************************************/
 double densityFromAltitude(double altitude)
 {
-   return -99.9;
+   // Define the mapping of altitudes to air densities
+   const Mapping densityMapping[] = {
+      {0.0, 1.225},          // Sea level
+      {1000.0, 1.112},       // 1,000 meters
+      {2000.0, 1.007},       // 2,000 meters
+      {3000.0, 0.9093},      // 3,000 meters
+      {4000.0, 0.8194},      // 4,000 meters
+      {5000.0, 0.7364},      // 5,000 meters
+      {6000.0, 0.6601},      // 6,000 meters
+      {7000.0, 0.5900},      // 7,000 meters
+      {8000.0, 0.5258},      // 8,000 meters
+      {9000.0, 0.4671},      // 9,000 meters
+      {10000.0, 0.4135},     // 10,000 meters
+      {15000.0, 0.1948},     // 15,000 meters
+      {20000.0, 0.08891},    // 20,000 meters
+      {25000.0, 0.04008},    // 25,000 meters
+      {30000.0, 0.01841},    // 30,000 meters
+      {40000.0, 0.003996},   // 40,000 meters
+      {50000.0, 0.001027},   // 50,000 meters
+      {60000.0, 0.0003097},  // 60,000 meters
+      {70000.0, 0.0000828},  // 70,000 meters
+      {80000.0, 0.0000185}   // 80,000 meters
+   };
+   int numMapping = sizeof(densityMapping) / sizeof(densityMapping[0]);
+   
+   // Use linear interpolation to find the density for the given altitude
+   return linearInterpolation(densityMapping, numMapping, altitude);
 }
 
 /*********************************************************
