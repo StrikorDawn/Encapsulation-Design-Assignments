@@ -123,6 +123,28 @@ double speedSoundFromAltitude(double altitude)
  *********************************************************/
 double dragFromMach(double speedMach)
 {
-   return -99.9;
-}
+   // Define the mapping of Mach numbers to drag coefficients
+   const Mapping dragMapping[] = {
+      {0.0, 0.0},          // Mach 0
+      {0.1, 0.0543},       // Mach 0.1
+      {0.3, 0.1036},       // Mach 0.3
+      {0.5, 0.1659},       // Mach 0.5
+      {0.7, 0.2031},       // Mach 0.7
+      {0.9, 0.2500},       // Mach 0.9
+      {1.0, 0.4258},       // Mach 1.0
+      {1.2, 0.4500},       // Mach 1.2
+      {1.5, 0.4000},       // Mach 1.5
+      {2.0, 0.3000},       // Mach 2.0
+      {2.5, 0.2500},       // Mach 2.5
+      {3.0, 0.2000},       // Mach 3.0
+      {3.5, 0.1800},       // Mach 3.5
+      {4.0, 0.1700},       // Mach 4.0
+      {4.5, 0.1600},       // Mach 4.5
+      {5.0, 0.1500}        // Mach 5.0
+   };
+   int numMapping = sizeof(dragMapping) / sizeof(dragMapping[0]);
+
+   // Use linear interpolation to find the drag coefficient for the given Mach number
+   return linearInterpolation(dragMapping, numMapping, speedMach);
+
 
