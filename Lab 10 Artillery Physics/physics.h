@@ -33,7 +33,10 @@ inline double areaFromRadius(double radius)
  * This force is determined by
  *    force = 1/2 density drag area velocity ^ 2
  ************************************************************/
-inline double forceFromDrag(double density, double drag, double radius, double velocity)
+inline double forceFromDrag(double density,
+                            double drag,
+                            double radius,
+                            double velocity)
 {
 	return 0.5 * density * drag * areaFromRadius(radius) * (velocity * velocity);
 }
@@ -83,9 +86,11 @@ inline double velocityFromAcceleration(double acceleration, double time)
  * Thus:
  *   r  = r0 + (r1 - r0) (d - d0) / (d1 - d0)
  *********************************************************/
-inline double linearInterpolation(double d0, double r0,
-	double d1, double r1,
-	double d)
+inline double linearInterpolation(double d0,
+                                  double r0,
+                                  double d1,
+                                  double r1,
+                                  double d)
 {
 	return r0 + (r1 -r0) * (d - d0) / (d1 -d0);
 }
