@@ -2,7 +2,7 @@
  * Header File:
  *    TEST PHYSICS
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
  *    All the automation for the physics functions
  ************************************************************************/
