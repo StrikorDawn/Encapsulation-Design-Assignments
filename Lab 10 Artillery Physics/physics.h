@@ -9,18 +9,18 @@
 
 #pragma once
 
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 #include <math.h>
-#include <cassert>  // for ASSERT 
+#include <cassert>  // for ASSERT
 
- /*******************************************************
-  * AREA FROM RADIUS
-  * Compute the area of a circle from the radius
-  *    area = pi * radius ^ 2
-  ********************************************************/
+/*******************************************************
+ * AREA FROM RADIUS
+ * Compute the area of a circle from the radius
+ *    area = pi * radius ^ 2
+ ********************************************************/
 inline double areaFromRadius(double radius)
 {
-	return M_PI * (radius * radius);
+   return M_PI * (radius * radius);
 }
 
 /**********************************************************
@@ -38,7 +38,7 @@ inline double forceFromDrag(double density,
                             double radius,
                             double velocity)
 {
-	return 0.5 * density * drag * areaFromRadius(radius) * (velocity * velocity);
+   return 0.5 * density * drag * areaFromRadius(radius) * (velocity * velocity);
 }
 
 /**********************************************************
@@ -52,7 +52,7 @@ inline double forceFromDrag(double density,
  ************************************************************/
 inline double accelerationFromForce(double force, double mass)
 {
-	return force / mass;
+   return force / mass;
 }
 
 /***********************************************************
@@ -66,7 +66,7 @@ inline double accelerationFromForce(double force, double mass)
  ************************************************************/
 inline double velocityFromAcceleration(double acceleration, double time)
 {
-	return acceleration * time;
+   return acceleration * time;
 }
 
 /*********************************************************
@@ -92,7 +92,7 @@ inline double linearInterpolation(double d0,
                                   double r1,
                                   double d)
 {
-	return r0 + (r1 -r0) * (d - d0) / (d1 -d0);
+   return r0 + (r1 -r0) * (d - d0) / (d1 -d0);
 }
 
 /*********************************************************
@@ -102,8 +102,8 @@ inline double linearInterpolation(double d0,
  *********************************************************/
 struct Mapping
 {
-	double domain;
-	double range;
+   double domain;
+   double range;
 };
 
 /*********************************************************
