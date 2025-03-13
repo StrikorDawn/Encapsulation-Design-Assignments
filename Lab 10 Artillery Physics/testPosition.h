@@ -34,7 +34,7 @@ public:
       setMetersY();
       getMetersX();
       getMetersY();
-
+      
       // Ticket 8: Pixels and Zoom
       setZoom_member();
       setZoom_anotherVariable();
@@ -48,7 +48,7 @@ public:
       getPixelsX_zoom();
       getPixelsY_noZoom();
       getPixelsY_zoom();
-
+      
       // Ticket 9: Add
       addMetersX();
       addMetersY();
@@ -67,14 +67,14 @@ public:
    }
    
 private:
-
-
+   
+   
    /*****************************************************************
     *****************************************************************
     * CONSTRUCTOR
     *****************************************************************
     *****************************************************************/
-
+   
    /*********************************************
     * name:    DEFAULT CONSTRUCTOR
     * input:   nothing
@@ -94,7 +94,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    NON-DEFAULT CONSTRUCTOR
     * input:   x=120.0, y=360.0
@@ -118,7 +118,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    COPY CONSTRUCTOR
     * input:   posRHS = (1234.5, 6789.0)
@@ -144,7 +144,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ASSIGNMENT OPERATOR
     * input:   posLHS=(-99.9, -88.8)  posRHS=(24.68, -13,57)
@@ -173,7 +173,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*****************************************************************
     *****************************************************************
     * GETTERS
@@ -227,8 +227,8 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
-
+   
+   
    /*********************************************
     * name:    GET METERS X
     * input:   pos=(4500.0, 2500.0)   Store meters internally
@@ -252,7 +252,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    GET METERS Y
     * input:   pos=(4500.0, 2500.0)
@@ -276,7 +276,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    GET METERS X NO ZOOM
     * input:   pos=(123.4, 567.8) metersFromPixels=1
@@ -323,7 +323,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    GET PIXELS Y NO ZOOM
     * input:   pos=(123.4, 567.8) metersFromPixels=1
@@ -346,7 +346,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    GET PIXELS Y ZOOM
     * input:   pos=(123.4, 567.8) metersFromPixels=100
@@ -369,7 +369,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*****************************************************************
     *****************************************************************
     * SETTERS
@@ -398,9 +398,9 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
-    * name:    GET METERS Y 
+    * name:    GET METERS Y
     * input:   pos=(999.9, 888.8) y = 123.4
     * output:  pos=(999.9, 123.4)
     *********************************************/
@@ -420,7 +420,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    SET PIXELS X NO ZOOM
     *          When meterFromPixels == 1, pixels and meters are the same
@@ -443,7 +443,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    SET PIXELS X ZOOM
     *          meters = pixels * metersFromPixels
@@ -488,7 +488,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    SET PIXELS Y ZOOM
     * input:   pos=(999.9, 888.8) y=123.4 meterFromPixels=100
@@ -510,10 +510,10 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD METERS X
-    * input:   pos=(4500,2500) x=123.4 
+    * input:   pos=(4500,2500) x=123.4
     * output:  pos=(4623.4,2500)
     *********************************************/
    void addMetersX() {
@@ -536,7 +536,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD METERS Y
     * input:   pos=(4500,2500) y=123.4
@@ -562,7 +562,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD PIXELS X ZERO ZOOM
     * input:   pos=(4500,2500) x=3pixels meterFromPixels=1.0
@@ -588,7 +588,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD PIXELS X ZOOM
     * input:   pos=(4500,2500) x=3pixels meterFromPixels=50.0
@@ -614,7 +614,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD PIXELS Y ZERO ZOOM
     * input:   pos=(4500,2500) y=3pixels meterFromPixels=1.0
@@ -640,7 +640,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD PIXELS Y ZOOM
     * input:   pos=(4500,2500) y=3pixels meterFromPixels=50.0
@@ -666,7 +666,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    SET ZOOM : member variable
     * input:   pos.metersFromPixels = 99.9, setZoom(123.4)
@@ -687,7 +687,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    SET ZOOM : another variable
     * input:   pos1.metersFromPixels=99.9
@@ -715,7 +715,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD update position when not moving and not accelerating
     * input:   pos=(11.1,22.2) acc=(0,0), vel=(0,0) t=1
@@ -747,7 +747,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD update position when moving but not accelerating
     * input:   pos=(11.1,22.2) acc=(0,0), vel=(0.5,0.4) t=1
@@ -780,7 +780,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD update position when moving longer (2 seconds) but not accelerating
     * input:   pos=(11.1,22.2) acc=(0,0), vel=(0.5,0.4) t=2
@@ -813,7 +813,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD update position when accelerating but not moving
     * input:   pos=(11.1,22.2) acc=(0.2,0.3), vel=(0,0) t=1
@@ -846,7 +846,7 @@ private:
       // teardown
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
    /*********************************************
     * name:    ADD update position when accelerating longer (2 seconds)
     * input:   pos=(11.1,22.2) acc=(0.2,0.3), vel=(0,0) t=2
@@ -901,10 +901,10 @@ private:
       acc.ddx = 0.2;
       acc.ddy = 0.3;
       double time(2.0);
-
+      
       // EXERCISE
       pos.add(acc, vel, time);
-
+      
       // VERIFY
       assertEquals(pos.x,  12.5); // 12.5 = 11.1 + 0.5*2 + 1/2 .2 2^2
       assertEquals(pos.y,  23.6); // 23.6 = 22.2 + 0.4*2 + 1/2 .3 2^2
@@ -913,9 +913,9 @@ private:
       assertEquals(acc.ddx, 0.2);
       assertEquals(acc.ddy, 0.3);
       assertEquals(time,    2.0);
-
+      
       // TEARDOWN
       Position::metersFromPixels = metersFromPixels;
    }
-
+   
 };
