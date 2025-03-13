@@ -113,7 +113,33 @@ double densityFromAltitude(double altitude)
  ********************************************************/
 double speedSoundFromAltitude(double altitude)
 {
-   return -99.9;
+   // Define the mapping of altitudes to speeds of sound
+   const Mapping speedSoundMapping[] = {
+      {0.0, 340.0},         // Sea level
+      {1000.0, 336.0},      // 1,000 meters
+      {2000.0, 332.0},      // 2,000 meters
+      {3000.0, 328.0},      // 3,000 meters
+      {4000.0, 324.0},      // 4,000 meters
+      {5000.0, 320.0},      // 5,000 meters
+      {6000.0, 316.0},      // 6,000 meters
+      {7000.0, 312.0},      // 7,000 meters
+      {8000.0, 308.0},      // 8,000 meters
+      {9000.0, 304.0},      // 9,000 meters
+      {10000.0, 299.0},     // 10,000 meters
+      {15000.0, 295.0},     // 15,000 meters
+      {20000.0, 291.0},     // 20,000 meters
+      {25000.0, 287.0},     // 25,000 meters
+      {30000.0, 283.0},     // 30,000 meters
+      {40000.0, 279.0},     // 40,000 meters
+      {50000.0, 275.0},     // 50,000 meters
+      {60000.0, 271.0},     // 60,000 meters
+      {70000.0, 269.0},     // 70,000 meters
+      {80000.0, 269.0}      // 80,000 meters
+   };
+   int numMapping = sizeof(speedSoundMapping) / sizeof(speedSoundMapping[0]);
+   
+   // Use linear interpolation to find the speed of sound for the given altitude
+   return linearInterpolation(speedSoundMapping, numMapping, altitude);
 }
 
 
