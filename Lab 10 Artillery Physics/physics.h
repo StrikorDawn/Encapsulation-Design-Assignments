@@ -110,7 +110,9 @@ struct Mapping
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain);
+double linearInterpolation(const Mapping mapping[],
+                           int numMapping,
+                           double domain);
 
 /*********************************************************
  * GRAVITY FROM ALTITUDE
