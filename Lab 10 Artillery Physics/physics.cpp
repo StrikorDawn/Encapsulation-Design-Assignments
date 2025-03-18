@@ -14,8 +14,9 @@
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, 
-   double domain)
+double linearInterpolation(const Mapping mapping[],
+                           int numMapping,
+                           double domain)
 {
    // Edge cases: If domain is outside the given mapping range
    if (domain <= mapping[0].domain)
