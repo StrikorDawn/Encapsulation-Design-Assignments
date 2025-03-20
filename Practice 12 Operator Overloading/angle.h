@@ -136,7 +136,7 @@ public:
    }
    
    // extension for the '-' operator
-   Angle operator-() const
+   inline Angle operator-() const
    {
       return Angle(convertToDegrees(normalize(radians + PI)));
    }
@@ -169,27 +169,29 @@ public:
    }
    
    // Prefix increment for the '++' operator
-   Angle& operator++()
+   inline Angle& operator++()
    {
+      radians = normalize(radians + (TWO_PI / 360)); // Increment by one degree in radians
       return *this;
    }
    
    // Postfix increment for the '++' operator
-   Angle operator++(int)
+   inline Angle operator++(int)
    {
       Angle temp(*this);
       ++(*this);
       return temp;
    }
    
-   // Prefix increment for the '--' operator
-   Angle& operator--()
+   // Prefix decrement for the '--' operator
+   inline Angle& operator--()
    {
+      radians = normalize(radians - (TWO_PI / 360)); // Decrement by one degree in radians
       return *this;
    }
    
-   // Postfix increment for the '--' operator
-   Angle operator--(int)
+   // Postfix decrement for the '--' operator
+   inline Angle operator--(int)
    {
       Angle temp(*this);
       --(*this);
