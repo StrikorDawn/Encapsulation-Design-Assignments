@@ -127,7 +127,7 @@ public:
    /***************************************
     * Operator Overloads
     ***************************************/
-   Angle& operator=(const Angle& rhs) {
+   inline Angle& operator=(const Angle& rhs) {
       if (this != &rhs) { // Avoid self-assignment
          radians = rhs.radians;
       }
@@ -135,9 +135,9 @@ public:
    }
    
    // extension for the '-' operator
-   inline Angle operator-(const Angle& rhs) const
+   Angle operator-() const
    {
-      return Angle(convertToDegrees(radians - rhs.radians));
+      return Angle(convertToDegrees(normalize(radians + M_PI)));
    }
    
    // extension for the '==' operator
