@@ -135,33 +135,36 @@ public:
    }
    
    // extension for the '-' operator
-   inline Angle operator-(const Angle& rhs)
+   inline Angle operator-(const Angle& rhs) const
    {
-      return rhs;
+      return Angle(convertToDegrees(radians - rhs.radians));
    }
    
    // extension for the '==' operator
-   inline bool operator==(const Angle& rhs)
+   inline bool operator==(const Angle& rhs) const
    {
-      return false;
+      return radians == rhs.radians;
    }
    
    // extension for the '!=' operator
-   inline bool operator!=(const Angle& rhs)
+   inline bool operator!=(const Angle& rhs) const
    {
-      return false;
+      return !(*this == rhs);
    }
    
    // extension for the '<<' operator
-   inline ostream& operator<<(const Angle& rhs)
+   friend ostream& operator<<(ostream& out, const Angle& rhs)
    {
-		return ostream;
+      return rhs.display(out);
    }
    
    // extension for the '>>' operator
-   inline ostream& operator>>(const Angle& rhs)
+   friend istream& operator>>(istream& in, Angle& rhs)
    {
-      return ostream;
+      double degrees;
+      in >> degrees;
+      rhs.setDegrees(degrees);
+      return in;
    }
    
    // Prefix increment for the '++' operator
