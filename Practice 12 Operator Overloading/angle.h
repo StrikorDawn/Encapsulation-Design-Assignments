@@ -121,7 +121,7 @@ public:
       out.setf(ios::fixed);     // "fixed" means don't use scientific notation
       out.setf(ios::showpoint); // "showpoint" means always show the decimal point
       out.precision(1);         // Set the precision to 1 decimal place of accuracy.
-      out << convertToDegrees(radians) << "degrees";
+      out << convertToDegrees(radians);
       return out;
    }
    
@@ -164,7 +164,12 @@ public:
    {
       double degrees;
       in >> degrees;
-      rhs.setDegrees(degrees);
+      
+      if (in.fail()) {
+         return in; // Do NOT modify rhs
+      }
+      
+      rhs.setDegrees(degrees); // Only modify rhs if input was valid
       return in;
    }
    
