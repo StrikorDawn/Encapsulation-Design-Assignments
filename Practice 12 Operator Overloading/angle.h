@@ -13,6 +13,7 @@
 
 #pragma once
 
+#define PI     3.141592653589793238462643383279502
 #define TWO_PI 6.28318530718
 
 #include <math.h>    // for floor()
@@ -137,7 +138,7 @@ public:
    // extension for the '-' operator
    Angle operator-() const
    {
-      return Angle(convertToDegrees(normalize(radians + M_PI)));
+      return Angle(convertToDegrees(normalize(radians + PI)));
    }
    
    // extension for the '==' operator
