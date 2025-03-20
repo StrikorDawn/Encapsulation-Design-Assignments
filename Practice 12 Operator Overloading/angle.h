@@ -137,7 +137,7 @@ public:
    // extension for the '-' operator
    inline Angle operator-(const Angle& rhs)
    {
-      return rhs;
+      return Angle(fmod(rhs.getDegrees() + 180.0, 360.0));
    }
    
    // extension for the '==' operator
