@@ -6,9 +6,9 @@
  * 3. Assignment Description:
  *      Practice Overloading Operators
  * 4. What was the hardest part? Be as specific as possible.
- *      
+ *
  * 5. How long did it take for you to complete the assignment?
- *      
+ *
  **************************************************************/
 
 #pragma once
@@ -23,106 +23,158 @@ using namespace std;
 
 class TestAngle;
 
- /************************************
-  * ANGLE
-  ************************************/
+/************************************
+ * ANGLE
+ ************************************/
 class Angle
 {
    friend TestAngle;
-   private:
-
+private:
    /***************************************
     * CONVERT
     ***************************************/
    
-      // normalizes radians to 0 < radian < TWO_PI
-      double normalize(double radian) const
-      {
-         radian = fmod(radian, TWO_PI);
-         if (radian < 0)
-            radian += TWO_PI;
-         return radian;
-      }
+   // normalizes radians to 0 < radian < TWO_PI
+   double normalize(double radian) const
+   {
+      radian = fmod(radian, TWO_PI);
+      if (radian < 0)
+         radian += TWO_PI;
+      return radian;
+   }
    
-      // normalizes radians and then converts to degrees
-      double convertToDegrees(double radian) const
-      {
-         return normalize(radian) * (360 / TWO_PI);
-      }
+   // normalizes radians and then converts to degrees
+   double convertToDegrees(double radian) const
+   {
+      return normalize(radian) * (360 / TWO_PI);
+   }
    
-      // converts to radians and then normalizes
-      double convertToRadians(double degrees) const
-      {
-         return normalize(degrees * (TWO_PI / 360));
-      }
-   public:
-   /***************************************
-   * CONTSTRUCTORS
-   ***************************************/
-      // Default Constructor
-      Angle()
-      {
-         radians = 0.0;
-      };
-
-      // copy constructor
-      Angle(const Angle & rhs)
-      {
-         radians = rhs.radians;
-      };
-
-      // non-default constructor
-      Angle(double degrees)
-      {
-         this->radians = convertToRadians(degrees);
-      };
-      
-      double radians;
-
-   /***************************************
-   * GET
-   ***************************************/
-   
-      // converts radians to degrees and returns the value
-      double getDegrees() const
-      {
-         return convertToDegrees(radians);
-      };
-   
-      // returns radians
-      double getRadians() const
-      {
-         return radians;
-      };
+   // converts to radians and then normalizes
+   double convertToRadians(double degrees) const
+   {
+      return normalize(degrees * (TWO_PI / 360));
+   }
+public:
    
    /***************************************
-   * SET
-   ***************************************/
+    * ASSIGNMENT OPERATORS
+    ***************************************/
    
-      // converts degrees param to radians and sets value
-      void setDegrees(double degrees)
-      {
-         radians = convertToRadians(degrees);
-      };
+   // extension for the '=' operator
+   inline Angle assignmentOperator(Angle angle)
+   {
+      return angle;
+   }
    
-      // sets radians to param value
-      void setRadians(double radian)
-      {
-         radians = normalize(radian);
-      };
+   // extension for the '-' operator
+   inline Angle negativeOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '==' operator
+   inline Angle equalsOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '!=' operator
+   inline Angle notEqualsOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '<<' operator
+   inline Angle insertionOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '>>' operator
+   inline Angle extractionOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '++' operator
+   inline Angle incrementOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   // extension for the '--' operator
+   inline Angle decrementOperator(Angle angle)
+   {
+      return angle;
+   }
+   
+   /***************************************
+    * CONTSTRUCTORS
+    ***************************************/
+   // Default Constructor
+   Angle()
+   {
+      radians = 0.0;
+   };
+   
+   // copy constructor
+   Angle(const Angle & rhs)
+   {
+      radians = rhs.radians;
+   };
+   
+   // non-default constructor
+   Angle(double degrees)
+   {
+      this->radians = convertToRadians(degrees);
+   };
+   
+   double radians;
+   
+   /***************************************
+    * GET
+    ***************************************/
+   
+   // converts radians to degrees and returns the value
+   double getDegrees() const
+   {
+      return convertToDegrees(radians);
+   };
+   
+   // returns radians
+   double getRadians() const
+   {
+      return radians;
+   };
+   
+   /***************************************
+    * SET
+    ***************************************/
+   
+   // converts degrees param to radians and sets value
+   void setDegrees(double degrees)
+   {
+      radians = convertToRadians(degrees);
+   };
+   
+   // sets radians to param value
+   void setRadians(double radian)
+   {
+      radians = normalize(radian);
+   };
    
    /***************************************
     * DISPLAY
     ***************************************/
    
-      //Displays radians variable in degrees format
-      ostream& display(ostream& out) const
-      {
-         out.setf(ios::fixed);     // "fixed" means don't use scientific notation
-         out.setf(ios::showpoint); // "showpoint" means always show the decimal point
-         out.precision(1);         // Set the precision to 1 decimal place of accuracy.
-         out << convertToDegrees(radians) << "degrees";
-         return out;
-      }
+   //Displays radians variable in degrees format
+   ostream& display(ostream& out) const
+   {
+      out.setf(ios::fixed);     // "fixed" means don't use scientific notation
+      out.setf(ios::showpoint); // "showpoint" means always show the decimal point
+      out.precision(1);         // Set the precision to 1 decimal place of accuracy.
+      out << convertToDegrees(radians) << "degrees";
+      return out;
+   }
 };
 
