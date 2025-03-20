@@ -2,13 +2,17 @@
  * 1. Name:
  *      Mark Van Horn & Taden Marston
  * 2. Assignment Name:
- *      Practice 04: C++ Method
+ *      Practice 12: C++ Operator Overloading
  * 3. Assignment Description:
  *      Practice Overloading Operators
  * 4. What was the hardest part? Be as specific as possible.
- *
+ *      The hardest part was figuring out how to make the increment
+ *      and decrement operators work, we figured out that it was
+ *      incrementing and decrementing radians, not degrees, so we
+ *      made the adjustment. Also, the ostream and istream operators
+ *      were a bit tricky, but we got them working.
  * 5. How long did it take for you to complete the assignment?
- *
+ *      About an hour.
  **************************************************************/
 
 #pragma once
