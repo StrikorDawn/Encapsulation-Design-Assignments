@@ -164,17 +164,32 @@ public:
       return rhs;
    }
    
-   // extension for the '++' operator
-   inline void operator++(const int inc)
+   // Prefix increment for the '++' operator
+   Angle& operator++()
    {
-      
+      return *this;
    }
    
-   // extension for the '--' operator
-   inline void operator--(const int dec)
+	// Postfix increment for the '++' operator
+   Angle operator++(int)
    {
-      
+		Angle temp(*this);
+		++(*this);
+		return temp;
    }
    
+   // Prefix increment for the '--' operator
+   Angle& operator--()
+   {
+      return *this;
+   }
+
+   // Postfix increment for the '--' operator
+   Angle operator--(int)
+   {
+      Angle temp(*this);
+      --(*this);
+      return temp;
+   }
 };
 
