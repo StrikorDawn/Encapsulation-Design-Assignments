@@ -4,13 +4,11 @@
  * 2. Assignment Name:
  *      Practice 04: C++ Method
  * 3. Assignment Description:
- *      Extend this class appropriate use of the const modifier
- *      and add three constructors.
+ *      Practice Overloading Operators
  * 4. What was the hardest part? Be as specific as possible.
- *      Figuring out where to place the constant Modifiers,
- *      and which functions needed to be made constant.
+ *      
  * 5. How long did it take for you to complete the assignment?
- *      20 Minuets
+ *      
  **************************************************************/
 
 #pragma once
