@@ -141,27 +141,27 @@ public:
    }
    
    // extension for the '==' operator
-   inline Angle operator==(const Angle& rhs)
+   inline bool operator==(const Angle& rhs)
    {
-      return rhs;
+      return false;
    }
    
    // extension for the '!=' operator
-   inline Angle operator!=(const Angle& rhs)
+   inline bool operator!=(const Angle& rhs)
    {
-      return rhs;
+      return false;
    }
    
    // extension for the '<<' operator
-   inline Angle operator<<(const Angle& rhs)
+   inline ostream& operator<<(const Angle& rhs)
    {
-      return rhs;
+		return ostream;
    }
    
    // extension for the '>>' operator
-   inline Angle operator>>(const Angle& rhs)
+   inline ostream& operator>>(const Angle& rhs)
    {
-      return rhs;
+      return ostream;
    }
    
    // Prefix increment for the '++' operator
