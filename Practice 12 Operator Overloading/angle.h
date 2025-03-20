@@ -173,12 +173,12 @@ public:
       return *this;
    }
    
-	// Postfix increment for the '++' operator
+   // Postfix increment for the '++' operator
    Angle operator++(int)
    {
-		Angle temp(*this);
-		++(*this);
-		return temp;
+      Angle temp(*this);
+      ++(*this);
+      return temp;
    }
    
    // Prefix increment for the '--' operator
@@ -186,7 +186,7 @@ public:
    {
       return *this;
    }
-
+   
    // Postfix increment for the '--' operator
    Angle operator--(int)
    {
