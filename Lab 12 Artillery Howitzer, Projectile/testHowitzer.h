@@ -31,9 +31,9 @@ public:
       getElevation_up();
       getElevation_right();
       getElevation_left();
-
+      
       // Ticket 2: Setters
-      /*generatePosition_small();
+      generatePosition_small();
       generatePosition_large();
       raise_rightDown();
       raise_rightUp();
@@ -42,21 +42,20 @@ public:
       rotate_clock();
       rotate_counterClock();
       rotate_wrapClock();
-      rotate_wrapCounterClock();*/
-
+      rotate_wrapCounterClock();
+      
       report("Howitzer");
    }
-
+   
 private:
    double metersFromPixels = -1.0;
-
+   
    /*****************************************************************
     *****************************************************************
     * CONSTRUCTOR
     *****************************************************************
     *****************************************************************/
 
-    /*********************************************
      /*********************************************
       * name:    DEFAULT CONSTRUCTOR
       * input:   nothing
@@ -81,7 +80,7 @@ private:
         // teardown
         // (nothing to teardown)
      }
-
+   
    /*****************************************************************
     *****************************************************************
     * GETTERS
@@ -238,33 +237,51 @@ private:
        // teardown
        // (nothing to teardown)
     }
-
+   
    /*****************************************************************
     *****************************************************************
     * SETTERS
     *****************************************************************
     *****************************************************************/
-
-    /*********************************************
-     * name:    GENERATE POSITION small board
-     * input:   (10px, 10px)
-     * output:  1px <= x <= 9px
-     *********************************************/
+   
+   /*********************************************
+    * name:    GENERATE POSITION small board
+    * input:   (10px, 10px)
+    * output:  1px <= x <= 9px
+    *********************************************/
    void generatePosition_small()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      Position position(10, 10);
+      int minX = 1, maxX = 9;
+      // exercise
+      h.generatePosition(position);
+      Position resultPosition = h.getPosition();
+      // verify
+      assert(resultPosition.getMetersX() >= minX && resultPosition.getMetersX() <= maxX);
+      assert(resultPosition.getMetersY() == 0);
    }
-
-    /*********************************************
+   
+   /*********************************************
     * name:    GENERATE POSITION large board
     * input:   (1000px, 1000px)
     * output:  100px <= x <= 900px
     *********************************************/
    void generatePosition_large()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      Position position(1000, 1000);
+      int minX = 100, maxX = 900;
+      // exercise
+      h.generatePosition(position);
+      Position resultPosition = h.getPosition();
+      // verify
+      assert(resultPosition.getMetersX() >= minX && resultPosition.getMetersX() <= maxX);
+      assert(resultPosition.getMetersY() == 0);
    }
-
+   
    /*********************************************
     * name:    RAISE to the right/down
     * input:   h.elevation=0.5radians  raise(-0.1)
@@ -272,9 +289,17 @@ private:
     *********************************************/
    void raise_rightDown()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(0.5);
+      double expectedElevation = 0.6;
+      // exercise
+      h.raise(-0.1);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    RAISE to the right/up
     * input:   h.elevation=0.5radians  raise(0.1)
@@ -282,9 +307,17 @@ private:
     *********************************************/
    void raise_rightUp()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(0.5);
+      double expectedElevation = 0.4;
+      // exercise
+      h.raise(0.1);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    RAISE to the left down
     * input:   h.elevation=-0.5radians  raise(-0.1)
@@ -292,19 +325,35 @@ private:
     *********************************************/
    void raise_leftDown()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(-0.5);
+      double expectedElevation = -0.6;
+      // exercise
+      h.raise(-0.1);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    RAISE to the left up
     * input:   h.elevation=-0.5radians  raise(0.1)
-    * output:  h.elevation=0.4radians
+    * output:  h.elevation=-0.4radians
     *********************************************/
    void raise_leftUp()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(-0.5);
+      double expectedElevation = -0.4;
+      // exercise
+      h.raise(0.1);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    ROTATE CLOCKWISE no wrapping
     * input:   h.elevation=1.23 rotate=.3
@@ -312,9 +361,17 @@ private:
     *********************************************/
    void rotate_clock()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(1.23);
+      double expectedElevation = 1.53;
+      // exercise
+      h.rotate(0.3);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    ROTATE COUNTER CLOCKWISE no wrapping
     * input:   h.elevation=1.23 rotate=-.3
@@ -322,9 +379,17 @@ private:
     *********************************************/
    void rotate_counterClock()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(1.23);
+      double expectedElevation = 0.93;
+      // exercise
+      h.rotate(-0.3);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    ROTATE CLOCKWISE CLOCKWISE WRAP BY 2PI
     * input:   h.elevation=6.1 (2pi + -0.1) rotate=.2
@@ -332,25 +397,41 @@ private:
     *********************************************/
    void rotate_wrapClock()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(6.1); // 2π - 0.1
+      double expectedElevation = 0.1;
+      // exercise
+      h.rotate(0.2);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*********************************************
     * name:    ROTATE COUNTER CLOCKWISE WRAP BY 4PI
     * input:   h.elevation=0.1 rotate=-.2 - 4PI
-    * output:  h.elevation=6.1 (2pi + -0.1)
+    * output:  h.elevation=-0.1 + 2π
     *********************************************/
    void rotate_wrapCounterClock()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+      // setup
+      Howitzer h;
+      h.elevation.setRadians(0.1);
+      double expectedElevation = 6.1; // 2π - 0.1
+                                      // exercise
+      h.rotate(-0.2 - 4 * M_PI);
+      double resultElevation = h.getElevation().getRadians();
+      // verify
+      assertEquals(resultElevation, expectedElevation);
    }
-
+   
    /*****************************************************************
     *****************************************************************
     * STANDARD FIXTURE
     *****************************************************************
     *****************************************************************/
-
+   
    // setup standard fixture - set the zoom to 1100m per pixel
    void setupStandardFixture()
    {
@@ -358,7 +439,7 @@ private:
       metersFromPixels = p.metersFromPixels;
       p.metersFromPixels = 1100.0;
    }
-
+   
    // teardown the standard fixture - reset the zoom to what it was previously
    void teardownStandardFixture()
    {
