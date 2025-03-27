@@ -33,7 +33,7 @@ public:
       getElevation_left();
       
       // Ticket 2: Setters
-      generatePosition_small();
+      /*generatePosition_small();
       generatePosition_large();
       raise_rightDown();
       raise_rightUp();
@@ -42,7 +42,7 @@ public:
       rotate_clock();
       rotate_counterClock();
       rotate_wrapClock();
-      rotate_wrapCounterClock();
+      rotate_wrapCounterClock();*/
       
       report("Howitzer");
    }

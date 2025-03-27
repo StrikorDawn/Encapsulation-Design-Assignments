@@ -41,7 +41,7 @@ public:
    void reset();
 
    // fire the projectile with the given parameters
-   void fire(const Position& pos, double angle, double muzzleVelocity, double time);
+   void fire(const Position& pos, Angle a, double muzzleVelocity, double time);
 
 private:
 

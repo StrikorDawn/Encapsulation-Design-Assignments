@@ -111,7 +111,7 @@ private:
 
 		//verify
       assertUnit(p.mass == 46.7);
-      assertUnit(p.radius = 0.077545);
+      assertUnit(p.radius == 0.077545);
       assertUnit(p.flightPath.empty());
 	}  // teardown
 
@@ -135,11 +135,11 @@ private:
        //if (!p.flightPath.empty())
        //{
        Projectile::PositionVelocityTime pvt = p.flightPath.front();
-       assertUnit(pvt.pos.x, 111.0);
-       assertUnit(pvt.pos.y, 222.0);
-       assertUnit(pvt.v.dx, 100.0);
-       assertUnit(pvt.v.dy, 0.0);
-       assertUnit(pvt.t, 1.0);
+       assertUnit(pvt.pos.x == 111.0);
+       assertUnit(pvt.pos.y == 222.0);
+       assertUnit(pvt.v.dx == 100.0);
+       assertUnit(pvt.v.dy == 0.0);
+       assertUnit(pvt.t == 1.0);
        //}
    }  // teardown
 

@@ -19,12 +19,12 @@
     flightPath.clear();
  }
 
- void Projectile::fire(const Position& pos, double angle, double muzzleVelocity, double time)
+ void Projectile::fire(const Position& pos, Angle a, double muzzleVelocity, double time)
  {
     PositionVelocityTime pvt;
     pvt.pos = pos;
-    pvt.v.setDX(muzzleVelocity * cos(angle));
-    pvt.v.setDY(muzzleVelocity * sin(angle));
+    pvt.v.setDX(muzzleVelocity * a.getDx());
+    pvt.v.setDY(muzzleVelocity * a.getDy());
     pvt.t = time;
     flightPath.push_back(pvt);
  }
