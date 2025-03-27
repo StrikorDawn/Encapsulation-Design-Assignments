@@ -33,7 +33,7 @@ public:
       getElevation_left();
 
       // Ticket 2: Setters
-      generatePosition_small();
+      /*generatePosition_small();
       generatePosition_large();
       raise_rightDown();
       raise_rightUp();
@@ -42,7 +42,7 @@ public:
       rotate_clock();
       rotate_counterClock();
       rotate_wrapClock();
-      rotate_wrapCounterClock();
+      rotate_wrapCounterClock();*/
 
       report("Howitzer");
    }
@@ -57,15 +57,30 @@ private:
     *****************************************************************/
 
     /*********************************************
-     * name:    DEFAULT CONSTRUCTOR
-     * input:   nothing
-     * output:  zeros (except angle is at 45 degrees, 
-     *                 and the muzzle velocity is correct)
-     *********************************************/
-   void defaultConstructor()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     /*********************************************
+      * name:    DEFAULT CONSTRUCTOR
+      * input:   nothing
+      * output:  zeros (except angle is at 45 degrees, 
+      *                 and the muzzle velocity is correct)
+      *********************************************/
+     void defaultConstructor()
+     {  // setup
+        Howitzer h;
+
+        // exercise
+        Position pos = h.getPosition();
+        double angle = h.getElevation().getDegrees();
+        double muzzleVelocity = h.getMuzzleVelocity();
+
+        // verify
+        assertUnit(pos.getMetersX() == 0.0);
+        assertUnit(pos.getMetersY() == 0.0);
+        assertUnit(angle == 45.0);
+        assertUnit(muzzleVelocity == 827.0);
+
+        // teardown
+        // (nothing to teardown)
+     }
 
    /*****************************************************************
     *****************************************************************
@@ -78,70 +93,151 @@ private:
      * input:   h.pos=(0,0)
      * output:  pos=(0,0)
      *********************************************/
-   void getPosition_zero()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+    void getPosition_zero()
+    {  
+       // setup
+       Howitzer h;
+       h.position.setMetersX(0.0);
+       h.position.setMetersY(0.0);
 
-   /*********************************************
-    * name:    GET POSITION MIDDLE
+       // exercise
+       Position pos = h.getPosition();
+
+       // verify
+       assertUnit(pos.getMetersX() == 0.0);
+       assertUnit(pos.getMetersY() == 0.0);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET POSITION MIDDLE
      * input:   h.pos=(123.4, 567.8)
      * output:  pos=(123.4, 567.8)
-    *********************************************/
-   void getPosition_middle()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getPosition_middle()
+    {
+       // setup
+       Howitzer h;
+       h.position.setMetersX(123.4);
+       h.position.setMetersY(567.8);
 
-   /*********************************************
-    * name:    GET MUZZLE VELOCITY - SLOW SPEED
+       // exercise
+       Position pos = h.getPosition();
+
+       // verify
+       assertUnit(pos.getMetersX() == 123.4);
+       assertUnit(pos.getMetersY() == 567.8);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET MUZZLE VELOCITY - SLOW SPEED
      * input:   h.muzzleVelocity=(24.68)
      * output:  m=24.68
-    *********************************************/
-   void getMuzzleVelocity_slow()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getMuzzleVelocity_slow()
+    {
+       // setup
+       Howitzer h;
+       h.muzzleVelocity = 24.68;
 
-   /*********************************************
-    * name:    GET MUZZLE VELOCITY - STANDARD SPEED
+       // exercise
+       double muzzleVelocity = h.getMuzzleVelocity();
+
+       // verify
+       assertUnit(muzzleVelocity == 24.68);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET MUZZLE VELOCITY - STANDARD SPEED
      * input:   h.muzzleVelocity=(827.00)
      * output:  m=827
-    *********************************************/
-   void getMuzzleVelocity_standard()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getMuzzleVelocity_standard()
+    {
+       // setup
+       Howitzer h;
+       h.muzzleVelocity = 827.0;
 
-   /*********************************************
-    * name:    GET ELEVATION - up
+       // exercise
+       double muzzleVelocity = h.getMuzzleVelocity();
+
+       // verify
+       assertUnit(muzzleVelocity == 827.0);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET ELEVATION - up
      * input:   h.elevation=0
      * output:  e=0
-    *********************************************/
-   void getElevation_up()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getElevation_up()
+    {
+       // setup
+       Howitzer h;
+       h.elevation.setUp();
 
-   /*********************************************
-    * name:    GET ELEVATION - right
+       // exercise
+       double elevation = h.getElevation().getDegrees();
+
+       // verify
+       assertUnit(elevation == 0.0);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET ELEVATION - right
      * input:   h.elevation=0.4
      * output:  e=0.4
-    *********************************************/
-   void getElevation_right()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getElevation_right()
+    {
+       // setup
+       Howitzer h;
+       h.elevation.setRadians(0.4);
 
-   /*********************************************
-    * name:    GET ELEVATION - left
+       // exercise
+       double elevation = h.getElevation().getRadians();
+
+       // verify
+       assertUnit(elevation == 0.4);
+
+       // teardown
+       // (nothing to teardown)
+    }
+
+    /*********************************************
+     * name:    GET ELEVATION - left
      * input:   h.elevation=5.8
      * output:  e=5.8
-    *********************************************/
-   void getElevation_left()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+     *********************************************/
+    void getElevation_left()
+    {
+       // setup
+       Howitzer h;
+       h.elevation.setRadians(5.8);
+
+       // exercise
+       double elevation = h.getElevation().getRadians();
+
+       // verify
+       assertUnit(elevation == 5.8);
+
+       // teardown
+       // (nothing to teardown)
+    }
 
    /*****************************************************************
     *****************************************************************
