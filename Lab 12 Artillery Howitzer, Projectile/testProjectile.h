@@ -131,16 +131,16 @@ private:
        p.fire(pos, a, muzzleVelocity, 1);
 
        // verify
-       //assertUnit(p.flightPath.size() == 1);
-       //if (!p.flightPath.empty())
-       //{
-       Projectile::PositionVelocityTime pvt = p.flightPath.front();
-       assertUnit(pvt.pos.x, 111.0);
-       assertUnit(pvt.pos.y, 222.0);
-       assertUnit(pvt.v.dx, 100.0);
-       assertUnit(pvt.v.dy, 0.0);
-       assertUnit(pvt.t, 1.0);
-       //}
+       assertUnit(p.flightPath.size() == 1);
+       if (!p.flightPath.empty())
+       {
+          Projectile::PositionVelocityTime pvt = p.flightPath.front();
+          assertUnit(pvt.pos.x == 111.0);
+          assertUnit(pvt.pos.y == 222.0);
+          assertUnit(pvt.v.dx == 100.0);
+          assertUnit(pvt.v.dy == 0.0);
+          assertUnit(pvt.t == 1.0);
+       }
    }  // teardown
 
    /*********************************************
