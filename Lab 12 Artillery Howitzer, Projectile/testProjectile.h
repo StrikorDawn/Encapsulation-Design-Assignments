@@ -25,7 +25,6 @@ class TestProjectile : public UnitTest
 public:
    void run()
    {
-<<<<<<< Updated upstream
       // Ticket 3: Setup
       defaultConstructor();
       reset_empty();
@@ -41,23 +40,6 @@ public:
       advance_up();
       advance_diagonalUp();
       advance_diagonalDown();*/
-=======
-//      // Ticket 3: Setup
-//      defaultConstructor();
-//      reset_empty();
-//      reset_full();
-//      fire_right();
-//      fire_left();
-//      fire_up();
-//
-//      // Ticket 4: Advance
-//      advance_nothing();
-//      advance_fall();
-//      advance_horizontal();
-//      advance_up();
-//      advance_diagonalUp();
-//      advance_diagonalDown();
->>>>>>> Stashed changes
 
       report("Projectile");
    }
@@ -149,16 +131,16 @@ private:
        p.fire(pos, a, muzzleVelocity, 1);
 
        // verify
-       //assertUnit(p.flightPath.size() == 1);
-       //if (!p.flightPath.empty())
-       //{
-       Projectile::PositionVelocityTime pvt = p.flightPath.front();
-       assertUnit(pvt.pos.x, 111.0);
-       assertUnit(pvt.pos.y, 222.0);
-       assertUnit(pvt.v.dx, 100.0);
-       assertUnit(pvt.v.dy, 0.0);
-       assertUnit(pvt.t, 1.0);
-       //}
+       assertUnit(p.flightPath.size() == 1);
+       if (!p.flightPath.empty())
+       {
+          Projectile::PositionVelocityTime pvt = p.flightPath.front();
+          assertUnit(pvt.pos.x == 111.0);
+          assertUnit(pvt.pos.y == 222.0);
+          assertUnit(pvt.v.dx == 100.0);
+          assertUnit(pvt.v.dy == 0.0);
+          assertUnit(pvt.t == 1.0);
+       }
    }  // teardown
 
    /*********************************************
