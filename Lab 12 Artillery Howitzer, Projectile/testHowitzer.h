@@ -253,14 +253,12 @@ private:
    {
       // setup
       Howitzer h;
-      Position position(10, 10);
-      int minX = 1, maxX = 9;
+      Position position(10 * 1100, 10 * 1100);
       // exercise
       h.generatePosition(position);
-      Position resultPosition = h.getPosition();
       // verify
-      assert(resultPosition.getMetersX() >= minX && resultPosition.getMetersX() <= maxX);
-      assert(resultPosition.getMetersY() == 0);
+      assert(h.position.x / 1100 >= 1 && h.position.x / 1100 <= 9);
+      assert(h.position.y == 0);
    }
    
    /*********************************************
@@ -272,14 +270,12 @@ private:
    {
       // setup
       Howitzer h;
-      Position position(1000, 1000);
-      int minX = 100, maxX = 900;
+      Position position(1000 * 1100, 1000 * 1100);
       // exercise
       h.generatePosition(position);
-      Position resultPosition = h.getPosition();
       // verify
-      assert(resultPosition.getMetersX() >= minX && resultPosition.getMetersX() <= maxX);
-      assert(resultPosition.getMetersY() == 0);
+      assert(h.position.x / 1100 >= 100 && h.position.x / 1100 <= 900);
+      assert(h.position.y == 0);
    }
    
    /*********************************************
@@ -291,13 +287,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(0.5);
-      double expectedElevation = 0.6;
+      h.elevation.radians = 0.5;
       // exercise
       h.raise(-0.1);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 0.6);
    }
    
    /*********************************************
@@ -309,13 +303,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(0.5);
-      double expectedElevation = 0.4;
+      h.elevation.radians = 0.5;
       // exercise
       h.raise(0.1);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 0.4);
    }
    
    /*********************************************
@@ -327,13 +319,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(-0.5);
-      double expectedElevation = -0.6;
+      h.elevation.radians = M_PI * 2.0 - 0.5;
       // exercise
       h.raise(-0.1);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians,  M_PI * 2.0 - 0.6);
    }
    
    /*********************************************
@@ -345,13 +335,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(-0.5);
-      double expectedElevation = -0.4;
+      h.elevation.radians = M_PI * 2.0 - 0.5;
       // exercise
       h.raise(0.1);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, M_PI * 2.0 - 0.4);
    }
    
    /*********************************************
@@ -363,13 +351,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(1.23);
-      double expectedElevation = 1.53;
+      h.elevation.radians = 1.23;
       // exercise
       h.rotate(0.3);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 1.53);
    }
    
    /*********************************************
@@ -381,13 +367,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(1.23);
-      double expectedElevation = 0.93;
+      h.elevation.radians = 1.23;
       // exercise
       h.rotate(-0.3);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 0.93);
    }
    
    /*********************************************
@@ -399,13 +383,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(6.1); // 2π - 0.1
-      double expectedElevation = 0.1;
+      h.elevation.radians = 2 * M_PI - 0.1;
       // exercise
       h.rotate(0.2);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 0.1);
    }
    
    /*********************************************
@@ -417,13 +399,11 @@ private:
    {
       // setup
       Howitzer h;
-      h.elevation.setRadians(0.1);
-      double expectedElevation = 6.1; // 2π - 0.1
-                                      // exercise
+      h.elevation.radians = 0.1;
+      // exercise
       h.rotate(-0.2 - 4 * M_PI);
-      double resultElevation = h.getElevation().getRadians();
       // verify
-      assertEquals(resultElevation, expectedElevation);
+      assertEquals(h.elevation.radians, 2 * M_PI - 0.1);
    }
    
    /*****************************************************************
