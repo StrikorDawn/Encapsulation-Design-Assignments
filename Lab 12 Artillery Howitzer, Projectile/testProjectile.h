@@ -25,6 +25,7 @@ class TestProjectile : public UnitTest
 public:
    void run()
    {
+<<<<<<< Updated upstream
       // Ticket 3: Setup
       //defaultConstructor();
       reset_empty();
@@ -40,6 +41,23 @@ public:
       advance_up();
       advance_diagonalUp();
       advance_diagonalDown();*/
+=======
+//      // Ticket 3: Setup
+//      defaultConstructor();
+//      reset_empty();
+//      reset_full();
+//      fire_right();
+//      fire_left();
+//      fire_up();
+//
+//      // Ticket 4: Advance
+//      advance_nothing();
+//      advance_fall();
+//      advance_horizontal();
+//      advance_up();
+//      advance_diagonalUp();
+//      advance_diagonalDown();
+>>>>>>> Stashed changes
 
       report("Projectile");
    }
