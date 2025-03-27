@@ -96,15 +96,15 @@ private:
     {  
        // setup
        Howitzer h;
-       h.position.setMetersX(0.0);
-       h.position.setMetersY(0.0);
+       h.position.x = 0.0;
+       h.position.y = 0.0;
 
        // exercise
        Position pos = h.getPosition();
 
        // verify
-       assertUnit(pos.getMetersX() == 0.0);
-       assertUnit(pos.getMetersY() == 0.0);
+       assertUnit(pos.x == 0.0);
+       assertUnit(pos.y == 0.0);
 
        // teardown
        // (nothing to teardown)
@@ -119,15 +119,15 @@ private:
     {
        // setup
        Howitzer h;
-       h.position.setMetersX(123.4);
-       h.position.setMetersY(567.8);
+       h.position.x = 123.4;
+       h.position.y = 567.8;
 
        // exercise
        Position pos = h.getPosition();
 
        // verify
-       assertUnit(pos.getMetersX() == 123.4);
-       assertUnit(pos.getMetersY() == 567.8);
+       assertUnit(pos.x == 123.4);
+       assertUnit(pos.y == 567.8);
 
        // teardown
        // (nothing to teardown)
@@ -184,7 +184,7 @@ private:
     {
        // setup
        Howitzer h;
-       h.elevation.setUp();
+       h.elevation = 0;
 
        // exercise
        double elevation = h.getElevation().getDegrees();
@@ -205,7 +205,7 @@ private:
     {
        // setup
        Howitzer h;
-       h.elevation.setRadians(0.4);
+       h.elevation.radians = 0.4;
 
        // exercise
        double elevation = h.getElevation().getRadians();
@@ -226,7 +226,7 @@ private:
     {
        // setup
        Howitzer h;
-       h.elevation.setRadians(5.8);
+       h.elevation.radians = 5.8;
 
        // exercise
        double elevation = h.getElevation().getRadians();

@@ -2,7 +2,7 @@
  * Source File:
  *    PROJECTILE
  * Author:
- *    <your name here>
+ *    Taden Marston & Mark Van Horn
  * Summary:
  *    Everything we need to know about a projectile
  ************************************************************************/
@@ -12,4 +12,19 @@
  #include "angle.h"
  using namespace std;
 
+ void Projectile::reset()
+ {
+    mass = DEFAULT_PROJECTILE_WEIGHT;
+    radius = DEFAULT_PROJECTILE_RADIUS;
+    flightPath.clear();
+ }
 
+ void Projectile::fire(const Position& pos, double angle, double muzzleVelocity, double time)
+ {
+    PositionVelocityTime pvt;
+    pvt.pos = pos;
+    pvt.v.setDX(muzzleVelocity * cos(angle));
+    pvt.v.setDY(muzzleVelocity * sin(angle));
+    pvt.t = time;
+    flightPath.push_back(pvt);
+ }

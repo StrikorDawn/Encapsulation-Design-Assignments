@@ -2,7 +2,7 @@
  * Header File:
  *    PROJECTILE
  * Author:
- *    <your name here>
+ *    Taden Marston & Mark Van Horn
  * Summary:
  *    Everything we need to know about a projectile
  ************************************************************************/
@@ -32,15 +32,16 @@ public:
    friend ::TestProjectile;
 
    // create a new projectile with the default settings
-   Projectile() : mass(-99.9), radius(-99.9) {}
-
-
+   Projectile() : mass(DEFAULT_PROJECTILE_WEIGHT), radius(DEFAULT_PROJECTILE_RADIUS) {}
 
    // advance the round forward until the next unit of time
    void advance(double simulationTime) {}
 
+   // reset the projectile to its default state
+   void reset();
 
-
+   // fire the projectile with the given parameters
+   void fire(const Position& pos, double angle, double muzzleVelocity, double time);
 
 private:
 

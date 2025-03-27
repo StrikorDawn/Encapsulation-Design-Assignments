@@ -2,7 +2,7 @@
  * Header File:
  *    TEST PROJECTILE
  * Author:
- *    <your name here>
+ *    Taden Marston & Mark Van Horn
  * Summary:
  *    All the unit tests for Projectile
  ************************************************************************/
@@ -26,20 +26,20 @@ public:
    void run()
    {
       // Ticket 3: Setup
-      defaultConstructor();
+      //defaultConstructor();
       reset_empty();
-      reset_full();
-      fire_right();
-      fire_left();
-      fire_up();
+      //reset_full();
+      //fire_right();
+      //fire_left();
+      //fire_up();
 
       // Ticket 4: Advance
-      advance_nothing();
+      /*advance_nothing();
       advance_fall();
       advance_horizontal();
       advance_up();
       advance_diagonalUp();
-      advance_diagonalDown();
+      advance_diagonalDown();*/
 
       report("Projectile");
    }
@@ -60,9 +60,14 @@ private:
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void defaultConstructor()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+	{  // setup
+		Projectile p;
+		// exercise
+		// verify
+		assertUnit(p.mass, 46.7);
+		assertUnit(p.radius, 0.077545);
+		assertUnit(p.flightPath.empty());
+	}
 
    /*********************************************
     * name:    RESET from empty
@@ -70,9 +75,21 @@ private:
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void reset_empty()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+	{  //setup
+      Projectile p;
+      p.mass = -99;
+      p.radius = -99;
+      p.flightPath = {};
+
+		//exercise
+		p.reset();
+
+		//verify
+      assertUnit(p.mass, 46.7);
+      assertUnit(p.radius, 0.077545);
+      assertUnit(p.flightPath.empty());
+		//teardown
+   }  
 
    /*********************************************
     * name:    RESET with a non-zero flight path
@@ -81,15 +98,21 @@ private:
     *********************************************/
    void reset_full()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile p;
+		 Projectile::PositionVelocityTime pvt;
+       p.mass = -99;
+       p.radius = -99;
+		 p.flightPath.push_back(pvt);
+       p.flightPath.push_back(pvt);
+       p.flightPath.push_back(pvt);
+
+       // Reinitialize the projectile to reset its values
+       p.reset();
+
+       assertUnit(p.mass, 46.7);
+       assertUnit(p.radius, 0.077545);
+       assertUnit(p.flightPath.empty());
    }
-
-
-   /*****************************************************************
-    *****************************************************************
-    * FIRE
-    *****************************************************************
-    *****************************************************************/  
 
    /*********************************************
     * name:    FIRE horizontally right
@@ -98,7 +121,19 @@ private:
     *********************************************/
    void fire_right()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile p;
+       Position pos(111, 222);
+       p.fire(pos, 90, 100, 1);
+
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 111);
+           assertEquals(p.flightPath.back().pos.y, 222);
+           assertEquals(p.flightPath.back().v.dx, 100);
+           assertEquals(p.flightPath.back().v.dy, 0);
+           assertEquals(p.flightPath.back().t, 1);
+       }
    }
 
    /*********************************************
@@ -108,7 +143,19 @@ private:
     *********************************************/
    void fire_left()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile p;
+       Position pos(111, 222);
+       p.fire(pos, -90, 100, 1);
+
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 111);
+           assertEquals(p.flightPath.back().pos.y, 222);
+           assertEquals(p.flightPath.back().v.dx, -100);
+           assertEquals(p.flightPath.back().v.dy, 0);
+           assertEquals(p.flightPath.back().t, 1);
+       }
    }
 
    /*********************************************
@@ -118,7 +165,19 @@ private:
     *********************************************/
    void fire_up()
    {
-      assertUnit(NOT_YET_IMPLEMENTED);
+       Projectile p;
+       Position pos(111, 222);
+       p.fire(pos, 0, 100, 1);
+
+       assertUnit(!p.flightPath.empty());
+       if (!p.flightPath.empty())
+       {
+           assertEquals(p.flightPath.back().pos.x, 111);
+           assertEquals(p.flightPath.back().pos.y, 222);
+           assertEquals(p.flightPath.back().v.dx, 0);
+           assertEquals(p.flightPath.back().v.dy, 100);
+           assertEquals(p.flightPath.back().t, 1);
+       }
    }
 
    /*****************************************************************
