@@ -2,25 +2,25 @@
  * Header File:
  *    PHYSICS
  * Author:
- *    <your name here>
+ *    Mark Van Horn & Taden Marston
  * Summary:
- *    Laws of motion, effects of gravity, wind resistence, etc.
+ *    Laws of motion, effects of gravity, wind resistance, etc.
  ************************************************************************/
 
 #pragma once
 
-#define _USE_MATH_DEFINES 
+#define _USE_MATH_DEFINES
 #include <math.h>
-#include <cassert>  // for ASSERT 
+#include <cassert>  // for ASSERT
 
- /*******************************************************
-  * AREA FROM RADIUS
-  * Compute the area of a circle from the radius
-  *    area = pi * radius ^ 2
-  ********************************************************/
+/*******************************************************
+ * AREA FROM RADIUS
+ * Compute the area of a circle from the radius
+ *    area = pi * radius ^ 2
+ ********************************************************/
 inline double areaFromRadius(double radius)
 {
-   return -99.9;
+   return M_PI * (radius * radius);
 }
 
 /**********************************************************
@@ -33,10 +33,11 @@ inline double areaFromRadius(double radius)
  * This force is determined by
  *    force = 1/2 density drag area velocity ^ 2
  ************************************************************/
-inline double forceFromDrag(double density, double drag, 
-                            double radius, double velocity)
+inline double forceFromDrag(double density, double drag, double radius, 
+	double velocity)
 {
-   return -99.9;
+	return 0.5 * density * drag * areaFromRadius(radius) * 
+		(velocity * velocity);
 }
 
 /**********************************************************
@@ -50,7 +51,7 @@ inline double forceFromDrag(double density, double drag,
  ************************************************************/
 inline double accelerationFromForce(double force, double mass)
 {
-   return -99.9;
+   return force / mass;
 }
 
 /***********************************************************
@@ -64,7 +65,7 @@ inline double accelerationFromForce(double force, double mass)
  ************************************************************/
 inline double velocityFromAcceleration(double acceleration, double time)
 {
-   return -99.9;
+   return acceleration * time;
 }
 
 /*********************************************************
@@ -85,10 +86,9 @@ inline double velocityFromAcceleration(double acceleration, double time)
  *   r  = r0 + (r1 - r0) (d - d0) / (d1 - d0)
  *********************************************************/
 inline double linearInterpolation(double d0, double r0,
-                                  double d1, double r1,
-                                  double d)
+	double d1, double r1, double d)
 {
-   return -99.9;
+	return r0 + (r1 - r0) * (d - d0) / (d1 - d0);
 }
 
 /*********************************************************
@@ -106,7 +106,9 @@ struct Mapping
  * LINEAR INTERPOLATION
  * From a list of domains and ranges, linear interpolate
  *********************************************************/
-double linearInterpolation(const Mapping mapping[], int numMapping, double domain);
+double linearInterpolation(const Mapping mapping[],
+                           int numMapping,
+                           double domain);
 
 /*********************************************************
  * GRAVITY FROM ALTITUDE
