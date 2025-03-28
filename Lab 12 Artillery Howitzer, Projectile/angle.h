@@ -39,8 +39,8 @@ public:
    Angle(double degrees) : radians(convertToRadians(degrees)) {}
 
    // Getters
-   double getDegrees() const { return convertToDegrees(radians); }
    double getRadians() const { return radians; }
+   double getDegrees() const { return convertToDegrees(radians); }
 
    //         dx
    //    +-------/

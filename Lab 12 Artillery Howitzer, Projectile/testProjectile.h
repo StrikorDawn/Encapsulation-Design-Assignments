@@ -30,8 +30,8 @@ public:
       reset_empty();
       reset_full();
       fire_right();
-      //fire_left();
-      //fire_up();
+      fire_left();
+      fire_up();
 
       // Ticket 4: Advance
       /*advance_nothing();
@@ -137,8 +137,8 @@ private:
           Projectile::PositionVelocityTime pvt = p.flightPath.front();
           assertUnit(pvt.pos.x == 111.0);
           assertUnit(pvt.pos.y == 222.0);
-          assertUnit(pvt.v.dx == 100.0);
-          assertUnit(pvt.v.dy == 0.0);
+          assertEquals(pvt.v.dx, 100.0);
+          assertEquals(pvt.v.dy, 0.0);
           assertUnit(pvt.t == 1.0);
        }
    }  // teardown
@@ -149,9 +149,27 @@ private:
     * output:  flightPath={pos=111,222 v=-100,0 t=1}
     *********************************************/
    void fire_left()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      Projectile p;
+      Angle a(-90.0);
+      Position pos(111.0, 222.0);
+      double muzzleVelocity = 100;
+
+      // exercise
+      p.fire(pos, a, muzzleVelocity, 1);
+
+      // verify
+      assertUnit(p.flightPath.size() == 1);
+      if (!p.flightPath.empty())
+      {
+         Projectile::PositionVelocityTime pvt = p.flightPath.front();
+         assertUnit(pvt.pos.x == 111.0);
+         assertUnit(pvt.pos.y == 222.0);
+         assertEquals(pvt.v.dx, -100.0);
+         assertEquals(pvt.v.dy, 0.0);
+         assertUnit(pvt.t == 1.0);
+      }
+   }  // teardown
 
    /*********************************************
     * name:    FIRE straight up
@@ -159,9 +177,27 @@ private:
     * output:  flightPath={pos=111,222 v=0,100 t=1}
     *********************************************/
    void fire_up()
-   {
-      assertUnit(NOT_YET_IMPLEMENTED);
-   }
+   {  // setup
+      Projectile p;
+      Angle a(0.0);
+      Position pos(111.0, 222.0);
+      double muzzleVelocity = 100;
+
+      // exercise
+      p.fire(pos, a, muzzleVelocity, 1);
+
+      // verify
+      assertUnit(p.flightPath.size() == 1);
+      if (!p.flightPath.empty())
+      {
+         Projectile::PositionVelocityTime pvt = p.flightPath.front();
+         assertUnit(pvt.pos.x == 111.0);
+         assertUnit(pvt.pos.y == 222.0);
+         assertUnit(pvt.v.dx == 0.0);
+         assertUnit(pvt.v.dy == 100.0);
+         assertUnit(pvt.t == 1.0);
+      }
+   }  // teardown
 
    /*****************************************************************
     *****************************************************************

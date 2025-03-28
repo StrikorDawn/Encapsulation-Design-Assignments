@@ -23,8 +23,7 @@
  {
     PositionVelocityTime pvt;
     pvt.pos = pos;
-    pvt.v.setDX(muzzleVelocity * a.getDx());
-    pvt.v.setDY(muzzleVelocity * a.getDy());
+	 pvt.v.set(a, muzzleVelocity);
     pvt.t = time;
     flightPath.push_back(pvt);
  }
