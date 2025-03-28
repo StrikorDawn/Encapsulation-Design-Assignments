@@ -32,7 +32,7 @@ public:
       fire_right();
       fire_left();
       fire_up();
-
+      
       // Ticket 4: Advance
       advance_nothing();
       advance_fall();
@@ -40,81 +40,81 @@ public:
       advance_up();
       advance_diagonalUp();
       advance_diagonalDown();
-
+      
       report("Projectile");
    }
-
+   
 private:
    double metersFromPixels = -1.0;
-
-
+   
+   
    /*****************************************************************
     *****************************************************************
     * CONSTRUCTOR
     *****************************************************************
     *****************************************************************/
-
+   
    /*********************************************
     * name:    DEFAULT CONSTRUCTOR
     * input:   nothing
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void defaultConstructor()
-	{  // setup
-		Projectile p;
-		// exercise
-		// verify
-		assertUnit(p.mass == 46.7);
-		assertUnit(p.radius == 0.077545);
-		assertUnit(p.flightPath.empty());
-	}
-
+   {  // setup
+      Projectile p;
+      // exercise
+      // verify
+      assertUnit(p.mass == 46.7);
+      assertUnit(p.radius == 0.077545);
+      assertUnit(p.flightPath.empty());
+   }
+   
    /*********************************************
     * name:    RESET from empty
     * input:   mass=-99, radius=-99, flightPath={}
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void reset_empty()
-	{  //setup
+   {  //setup
       Projectile p;
       p.mass = -99;
       p.radius = -99;
       p.flightPath = {};
-
-		//exercise
-		p.reset();
-
-		//verify
+      
+      //exercise
+      p.reset();
+      
+      //verify
       assertUnit(p.mass == 46.7);
       assertUnit(p.radius == 0.077545);
       assertUnit(p.flightPath.empty());
-		//teardown
-   }  
-
+      //teardown
+   }
+   
    /*********************************************
     * name:    RESET with a non-zero flight path
     * input:   mass=-99, radius=-99, flightPath={0,1,2}
     * output:  mass=46.7, radius=0.077545 flightPath={}
     *********************************************/
    void reset_full()
-	{  // setup
+   {  // setup
       Projectile p;
-		Projectile::PositionVelocityTime pvt;
+      Projectile::PositionVelocityTime pvt;
       p.mass = -99;
       p.radius = -99;
-		p.flightPath.push_back(pvt);
       p.flightPath.push_back(pvt);
       p.flightPath.push_back(pvt);
-
-		//exercise
+      p.flightPath.push_back(pvt);
+      
+      //exercise
       p.reset();
-
-		//verify
+      
+      //verify
       assertUnit(p.mass == 46.7);
       assertUnit(p.radius = 0.077545);
       assertUnit(p.flightPath.empty());
-	}  // teardown
-
+   }  // teardown
+   
    /*********************************************
     * name:    FIRE horizontally right
     * input:   angle=90  pos=(111,222) muzzleVelocity=100
@@ -122,27 +122,27 @@ private:
     *********************************************/
    void fire_right()
    {  // setup
-       Projectile p;
-       Angle a(90.0);
-       Position pos(111.0, 222.0);
-       double muzzleVelocity = 100;
-
-       // exercise
-       p.fire(pos, a, muzzleVelocity, 1);
-
-       // verify
-       assertUnit(p.flightPath.size() == 1);
-       if (!p.flightPath.empty())
-       {
-          Projectile::PositionVelocityTime pvt = p.flightPath.front();
-          assertUnit(pvt.pos.x == 111.0);
-          assertUnit(pvt.pos.y == 222.0);
-          assertEquals(pvt.v.dx, 100.0);
-          assertEquals(pvt.v.dy, 0.0);
-          assertUnit(pvt.t == 1.0);
-       }
+      Projectile p;
+      Angle a(90.0);
+      Position pos(111.0, 222.0);
+      double muzzleVelocity = 100;
+      
+      // exercise
+      p.fire(pos, a, muzzleVelocity, 1);
+      
+      // verify
+      assertUnit(p.flightPath.size() == 1);
+      if (!p.flightPath.empty())
+      {
+         Projectile::PositionVelocityTime pvt = p.flightPath.front();
+         assertUnit(pvt.pos.x == 111.0);
+         assertUnit(pvt.pos.y == 222.0);
+         assertEquals(pvt.v.dx, 100.0);
+         assertEquals(pvt.v.dy, 0.0);
+         assertUnit(pvt.t == 1.0);
+      }
    }  // teardown
-
+   
    /*********************************************
     * name:    FIRE horizontally left
     * input:   angle=-90  pos=(111,222) muzzleVelocity=100
@@ -154,10 +154,10 @@ private:
       Angle a(-90.0);
       Position pos(111.0, 222.0);
       double muzzleVelocity = 100;
-
+      
       // exercise
       p.fire(pos, a, muzzleVelocity, 1);
-
+      
       // verify
       assertUnit(p.flightPath.size() == 1);
       if (!p.flightPath.empty())
@@ -170,7 +170,7 @@ private:
          assertUnit(pvt.t == 1.0);
       }
    }  // teardown
-
+   
    /*********************************************
     * name:    FIRE straight up
     * input:   angle=0  pos=(111,222) muzzleVelocity=100
@@ -182,10 +182,10 @@ private:
       Angle a(0.0);
       Position pos(111.0, 222.0);
       double muzzleVelocity = 100;
-
+      
       // exercise
       p.fire(pos, a, muzzleVelocity, 1);
-
+      
       // verify
       assertUnit(p.flightPath.size() == 1);
       if (!p.flightPath.empty())
@@ -198,13 +198,13 @@ private:
          assertUnit(pvt.t == 1.0);
       }
    }  // teardown
-
+   
    /*****************************************************************
     *****************************************************************
     * ADVANCE
     *****************************************************************
-    *****************************************************************/ 
-
+    *****************************************************************/
+   
    /*********************************************
     * name:    ADVANCE : the projectile is not fired. Nothing will happen
     * input:   flightPath={}
@@ -343,7 +343,7 @@ private:
       assertEquals(p.flightPath.back().v.dy, 30.1297);     // 40 + (-9.8064-0.0638)*1
       assertEquals(p.flightPath.back().t, 101.0);
    }
-
+   
    /*********************************************
     * name:    ADVANCE : the projectile is traveling down and across
     * input:   flightPath={}{}{pos=100,200 v=50,-40 t=100}
@@ -385,13 +385,13 @@ private:
       // teardown
       teardownStandardFixture();
    }
-
+   
    /*****************************************************************
     *****************************************************************
     * STANDARD FIXTURE
     *****************************************************************
     *****************************************************************/
-
+   
    // setup standard fixture - set the zoom to 1100m per pixel
    void setupStandardFixture()
    {
@@ -399,7 +399,7 @@ private:
       metersFromPixels = p.metersFromPixels;
       p.metersFromPixels = 1.0;
    }
-
+   
    // teardown the standard fixture - reset the zoom to what it was previously
    void teardownStandardFixture()
    {
@@ -407,6 +407,6 @@ private:
       Position p;
       p.metersFromPixels = metersFromPixels;
    }
-
+   
 };
 

@@ -1,4 +1,4 @@
- /**********************************************************************
+/**********************************************************************
  * Source File:
  *    Lab 12: M777 Howitzer
  * Author:
@@ -26,13 +26,19 @@ using namespace std;
 void callBack(const Interface* pUI, void* p)
 {
    // the first step is to cast the void pointer into a simulator object. This
-   // is the first step of every single callback function in OpenGL. 
+   // is the first step of every single callback function in OpenGL.
    Simulator* pSim = (Simulator*)p;
-
-   ogstream gout;
-   Position pos(10,10);
-   gout = pos;
-   gout << "Hello world";
+   
+   // Advance game time
+   pSim->time += 0.5;
+   
+   ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
+   
+   // Draw the ground
+   pSim->ground.draw(gout);
+   
+   // Draw the howitzer
+   gout.drawHowitzer(pSim->posHowitzer, pSim->angle, pSim->time);
 }
 
 double Position::metersFromPixels = 40.0;
