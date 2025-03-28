@@ -36,14 +36,11 @@ void Projectile::fire(const Position& pos,
 void Projectile::advance(double simulationTime)
 {
    // Check if flightPath is empty
-   if (flightPath.empty())
-      return;
+   if (flightPath.empty()) return;
    
    // Get time interval
-   PositionVelocityTime pvt = flightPath.back();
+   PositionVelocityTime& pvt = flightPath.back();
    double t = simulationTime - pvt.t;
-   
-   // Get current altitude
    double altitude = pvt.pos.getMetersY();
    
    // Calculate drag
@@ -64,14 +61,12 @@ void Projectile::advance(double simulationTime)
       cY = c * (pvt.v.getDY() / pvt.v.getSpeed());
    }
    
-   // Calculate vertical acceleration
-   double ddy = gravityFromAltitude(altitude) - cY;
-   
-   // Calculate horizontal acceleration
-   double ddx = cX;
+   // Calculate acceleration
+   double ddy = -gravityFromAltitude(altitude) - cY;
+   double ddx = -cX;
    
    // Create acceleration object with these values
-   Acceleration a = Acceleration(-ddx, -ddy);
+   Acceleration a(ddx, ddy);
    
    // Update pvt and push it back to flightPath
    pvt.pos.add(a, pvt.v, t);
