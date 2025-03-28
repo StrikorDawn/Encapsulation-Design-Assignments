@@ -16,9 +16,15 @@
 class Simulator
 {
 public:
-   Simulator(const Position& posUpperRight) {}
+   Simulator(const Position& posUpperRight);
+   void update(const Interface* pUI);
+   void draw(ogstream& gout) const;
 
 private:
    Ground ground;
    Howitzer howitzer;
+   Position projectilePath[20];
+   Position ptUpperRight;
+   double angle;
+   double time;
 };
