@@ -2,22 +2,25 @@
  * Header File:
  *    SIMULATION
  * Author:
- *    <your name here>
+ *    Taden Marston & Mark Van Horn
  * Summary:
  *    Execute one simulation of a projectile being fired.
  ************************************************************************/
 
 #pragma once
 #include "position.h"
+#include "ground.h"
+#include "howitzer.h"
+#include "uiDraw.h"
 
-
- /*********************************************
-  * Simulation
-  * Execute one simulation of a projectile being fired.
-  *********************************************/
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight) {}
+   Simulator(const Position & posUpperRight);
 
+   void draw();
+
+private:
+   Ground ground;
+   Howitzer howitzer;
 };
