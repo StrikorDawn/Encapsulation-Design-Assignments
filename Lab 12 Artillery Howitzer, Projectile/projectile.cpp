@@ -41,7 +41,7 @@ void Projectile::advance(double simulationTime)
    double t = simulationTime - pvt.t;
    
    // Get current altitude
-   double altitude = pvt.pos.getMetersX();
+   double altitude = pvt.pos.getMetersY();
    
    // Calculate drag
    double c = accelerationFromForce(forceFromDrag(densityFromAltitude(altitude),
@@ -50,11 +50,19 @@ void Projectile::advance(double simulationTime)
                                                   pvt.v.getSpeed()),
                                     mass);
    
+   double cX = 0.0;
+   double cY = 0.0;
+   if (pvt.v.getSpeed() != 0.0)
+   {
+      cX = c * (pvt.v.getDX() / pvt.v.getSpeed());
+      cY = c * (pvt.v.getDY() / pvt.v.getSpeed());
+   }
+   
    // Calculate vertical acceleration
-   double ddy = gravityFromAltitude(altitude) + c;
+   double ddy = gravityFromAltitude(altitude) - cY;
    
    // Calculate horizontal acceleration
-   double ddx = c;
+   double ddx = cX;
    
    // Create acceleration object with these values
    Acceleration a = Acceleration(-ddx, -ddy);
