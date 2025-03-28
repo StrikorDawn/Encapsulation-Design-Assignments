@@ -21,7 +21,10 @@ void Projectile::reset()
    flightPath.clear();
 }
 
-void Projectile::fire(const Position& pos, Angle a, double muzzleVelocity, double time)
+void Projectile::fire(const Position& pos,
+                      Angle a,
+                      double muzzleVelocity,
+                      double time)
 {
    PositionVelocityTime pvt;
    pvt.pos = pos;
@@ -44,11 +47,14 @@ void Projectile::advance(double simulationTime)
    double altitude = pvt.pos.getMetersY();
    
    // Calculate drag
-   double c = accelerationFromForce(forceFromDrag(densityFromAltitude(altitude),
-                                                  dragFromMach(speedSoundFromAltitude(altitude)),
-                                                  radius,
-                                                  pvt.v.getSpeed()),
-                                    mass);
+   double c = accelerationFromForce(
+                 forceFromDrag(
+                    densityFromAltitude(altitude),
+                    dragFromMach(
+                       pvt.v.getSpeed() / speedSoundFromAltitude(altitude)),
+                    radius,
+                    pvt.v.getSpeed()),
+                 mass);
    
    double cX = 0.0;
    double cY = 0.0;
