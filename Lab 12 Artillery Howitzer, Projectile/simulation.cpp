@@ -13,11 +13,6 @@
 Simulator::Simulator(const Position & posUpperRight)
    : ground(posUpperRight), howitzer()
 {
-   // Initialize ground and howitzer if needed
-}
-
-void Simulator::draw()
-{
    // Create an ogstream object for drawing
    ogstream gout;
 
@@ -27,3 +22,4 @@ void Simulator::draw()
    // Draw the howitzer
    howitzer.draw(gout, 0.0); // Assuming flightTime is 0.0 for now
 }
+

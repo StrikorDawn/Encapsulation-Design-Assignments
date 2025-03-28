@@ -16,9 +16,7 @@
 class Simulator
 {
 public:
-   Simulator(const Position & posUpperRight);
-
-   void draw();
+   Simulator(const Position& posUpperRight) {}
 
 private:
    Ground ground;
