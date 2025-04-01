@@ -13,6 +13,7 @@
 
 #define PI         3.141592653589793238462643383279502
 #define ONE_DEGREE (PI / 180.0)
+#define PI_EIGHT   (PI / 8)
 
 #ifndef TWO_PI
 #define TWO_PI 6.28318530718

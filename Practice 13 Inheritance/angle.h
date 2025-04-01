@@ -30,7 +30,7 @@ class TestAngle;
 class Angle
 {
    friend TestAngle;
-private:
+protected:
    /***************************************
     * CONVERT
     ***************************************/
@@ -181,7 +181,7 @@ public:
    }
    
    // Postfix increment for the '++' operator
-   virtual inline Angle operator++(int)
+   inline Angle operator++(int)
    {
       Angle temp(*this);
       ++(*this);
@@ -196,7 +196,7 @@ public:
    }
    
    // Postfix decrement for the '--' operator
-   virtual inline Angle operator--(int)
+   inline Angle operator--(int)
    {
       Angle temp(*this);
       --(*this);
@@ -204,3 +204,73 @@ public:
    }
 };
 
+class AngleRadians : public Angle
+{
+   friend Angle;
+public:
+   /***************************************
+    * CONSTRUCTORS
+    ***************************************/
+   // Default Constructor
+   AngleRadians() : Angle()
+   {
+      // Default initialization
+   }
+   
+   // Copy Constructor
+   AngleRadians(const AngleRadians& rhs) : Angle(rhs)
+   {
+      // Copy initialization
+   }
+   
+   // Non-default Constructor
+   AngleRadians(double radians)
+   {
+      this->radians = normalize(radians);
+   }
+   
+   /***************************************
+    * DISPLAY
+    ***************************************/
+   virtual ostream& display(ostream& out) const override
+   {
+      out.setf(ios::fixed);     // "fixed" means don't use scientific notation
+      out.setf(ios::showpoint); // "showpoint" means always show the decimal point
+      out.precision(2);         // Set the precision to 2 decimal places of accuracy.
+      out << radians;
+      return out;
+   }
+   
+   /***************************************
+    * Operator Overloads
+    ***************************************/
+   // Prefix increment for the '++' operator
+   virtual inline AngleRadians& operator++() override
+   {
+      radians = normalize(radians + (PI / 8)); // Increment by 1/8th of π in radians
+      return *this;
+   }
+   
+   // Postfix increment for the '++' operator
+   virtual inline AngleRadians operator++(int)
+   {
+      AngleRadians temp(*this);
+      ++(*this);
+      return temp;
+   }
+   
+   // Prefix decrement for the '--' operator
+   virtual inline AngleRadians& operator--() override
+   {
+      radians = normalize(radians - (PI / 8)); // Decrement by 1/8th of π in radians
+      return *this;
+   }
+   
+   // Postfix decrement for the '--' operator
+   virtual inline AngleRadians operator--(int)
+   {
+      AngleRadians temp(*this);
+      --(*this);
+      return temp;
+   }
+};
