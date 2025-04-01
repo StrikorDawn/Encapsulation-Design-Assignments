@@ -15,6 +15,7 @@
 
 #define PI     3.141592653589793238462643383279502
 #define TWO_PI 6.28318530718
+#define PI_EIGHT PI/ 8
 
 #include <math.h>    // for floor()
 #include <iostream>  // for cout
@@ -247,7 +248,7 @@ public:
    // Prefix increment for the '++' operator
    virtual inline AngleRadians& operator++() override
    {
-      radians = normalize(radians + (PI / 8)); // Increment by 1/8th of π in radians
+      radians = normalize(radians + (PI_EIGHT)); // Increment by 1/8th of π in radians
       return *this;
    }
    
@@ -262,7 +263,7 @@ public:
    // Prefix decrement for the '--' operator
    virtual inline AngleRadians& operator--() override
    {
-      radians = normalize(radians - (PI / 8)); // Decrement by 1/8th of π in radians
+      radians = normalize(radians - (PI_EIGHT)); // Decrement by 1/8th of π in radians
       return *this;
    }
    
