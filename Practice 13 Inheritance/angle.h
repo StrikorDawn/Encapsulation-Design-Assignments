@@ -237,7 +237,7 @@ public:
       out.setf(ios::fixed);     // "fixed" means don't use scientific notation
       out.setf(ios::showpoint); // "showpoint" means always show the decimal point
       out.precision(2);         // Set the precision to 2 decimal places of accuracy.
-      out << radians;
+      out << radians << "radians";
       return out;
    }
    
