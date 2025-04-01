@@ -6,9 +6,10 @@
  * 3. Assignment Description:
  *      Practice Inheritance
  * 4. What was the hardest part? Be as specific as possible.
- *      -
+ *      Figuring out how to get normalize to work in the child class.
+ *      We solved the issue by changing private to protected.
  * 5. How long did it take for you to complete the assignment?
- *      -
+ *      30 minutes
  **************************************************************/
 
 #pragma once
