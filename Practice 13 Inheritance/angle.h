@@ -181,7 +181,7 @@ public:
    }
    
    // Postfix increment for the '++' operator
-   inline Angle operator++(int)
+   virtual inline Angle operator++(int)
    {
       Angle temp(*this);
       ++(*this);
@@ -196,7 +196,7 @@ public:
    }
    
    // Postfix decrement for the '--' operator
-   inline Angle operator--(int)
+   virtual inline Angle operator--(int)
    {
       Angle temp(*this);
       --(*this);
