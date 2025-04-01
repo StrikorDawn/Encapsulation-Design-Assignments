@@ -1,18 +1,14 @@
 /*************************************************************
  * 1. Name:
- *      Mark Van Horn & Taden Marston
+ *      Taden Marston & Mark Van Horn
  * 2. Assignment Name:
- *      Practice 12: C++ Operator Overloading
+ *      Practice 13: C++ Inheritance
  * 3. Assignment Description:
- *      Practice Overloading Operators
+ *      Practice Inheritance
  * 4. What was the hardest part? Be as specific as possible.
- *      The hardest part was figuring out how to make the increment
- *      and decrement operators work, we figured out that it was
- *      incrementing and decrementing radians, not degrees, so we
- *      made the adjustment. Also, the ostream and istream operators
- *      were a bit tricky, but we got them working.
+ *      -
  * 5. How long did it take for you to complete the assignment?
- *      About an hour.
+ *      -
  **************************************************************/
 
 #pragma once
@@ -120,7 +116,7 @@ public:
     ***************************************/
    
    //Displays radians variable in degrees format
-   ostream& display(ostream& out) const
+   virtual ostream& display(ostream& out) const
    {
       out.setf(ios::fixed);     // "fixed" means don't use scientific notation
       out.setf(ios::showpoint); // "showpoint" means always show the decimal point
@@ -178,7 +174,7 @@ public:
    }
    
    // Prefix increment for the '++' operator
-   inline Angle& operator++()
+   virtual inline Angle& operator++()
    {
       radians = normalize(radians + (TWO_PI / 360)); // Increment by one degree in radians
       return *this;
@@ -193,7 +189,7 @@ public:
    }
    
    // Prefix decrement for the '--' operator
-   inline Angle& operator--()
+   virtual inline Angle& operator--()
    {
       radians = normalize(radians - (TWO_PI / 360)); // Decrement by one degree in radians
       return *this;

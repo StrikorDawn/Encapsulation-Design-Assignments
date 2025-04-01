@@ -10,7 +10,7 @@
 #include "simulation.h"  // for SIMULATION
 
 
-Simulator::Simulator(const Position & posUpperRight)
+Simulator::Simulator(const Position& posUpperRight)
 : ground(posUpperRight), howitzer()
 {
    // Set horizontal position of the howitzer
