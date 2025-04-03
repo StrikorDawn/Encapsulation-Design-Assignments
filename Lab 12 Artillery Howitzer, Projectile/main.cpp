@@ -29,8 +29,39 @@ void callBack(const Interface* pUI, void* p)
    // is the first step of every single callback function in OpenGL.
    Simulator* pSim = (Simulator*)p;
    
+   // move a lot
+   if (pUI->isRight())
+      pSim->angle += 0.05;
+   if (pUI->isLeft())
+      pSim->angle -= 0.05;
+   
+   // move a little
+   if (pUI->isUp())
+      pSim->angle += (pSim->angle >= 0 ? -0.003 : 0.003);
+   if (pUI->isDown())
+      pSim->angle += (pSim->angle >= 0 ? 0.003 : -0.003);
+   
+   // fire gun
+   if (pUI->isSpace())
+   {
+      pSim->projectile.fire(pSim->howitzer.getPosition(), pSim->angle,
+                            pSim->howitzer.getMuzzleVelocity(), pSim->time);
+      pSim->time = 0.0;
+   }
+   
    // Advance game time
    pSim->time += 0.5;
+   
+   // move the projectile across the screen
+   for (int i = 0; i < 20; i++)
+   {
+      // this bullet is moving left at 1 pixel per frame
+      double x = pSim->projectilePath[i].getPixelsX();
+      x -= 1.0;
+      if (x < 0)
+         x = pSim->posUpperRight.getPixelsX();
+      pSim->projectilePath[i].setPixelsX(x);
+   }
    
    ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
    
@@ -39,6 +70,16 @@ void callBack(const Interface* pUI, void* p)
    
    // Draw the howitzer
    gout.drawHowitzer(pSim->posHowitzer, pSim->angle, pSim->time);
+   
+   // draw the projectile
+   for (int i = 0; i < 20; i++)
+      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
+   
+   // draw some text on the screen
+   gout.setf(ios::fixed | ios::showpoint);
+   gout.precision(1);
+   gout << "Time since the bullet was fired: "
+   << pSim->time << "s\n";
 }
 
 double Position::metersFromPixels = 40.0;
