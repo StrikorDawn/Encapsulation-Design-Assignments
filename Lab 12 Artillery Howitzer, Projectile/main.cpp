@@ -48,19 +48,19 @@ void callBack(const Interface* pUI, void* p)
       pSim->projectile.reset();
       pSim->projectile.fire(pSim->howitzer.getPosition(), pSim->angle,
                             pSim->howitzer.getMuzzleVelocity(), pSim->time);
-      pSim->projectile.advance(pSim->time);
    }
    
    // Advance game time
    pSim->time += 0.5;
    
+   // advance projectile
+   pSim->projectile.advance(pSim->time);
+   
    // move the projectile across the screen
       for (int i = 0; i < 20; i++)
       {
-         // this bullet is moving left at 1 pixel per frame
-         pSim->projectile.advance(pSim->time);
-         pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
-         pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
+         //pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
+         //pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
       }
    
    ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
@@ -72,8 +72,9 @@ void callBack(const Interface* pUI, void* p)
    gout.drawHowitzer(pSim->posHowitzer, pSim->angle, pSim->time);
    
    // draw the projectile
-   for (int i = 0; i < 20; i++)
-      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
+   pSim->projectile.draw(gout, pSim->time);
+//   for (int i = 0; i < 20; i++)
+//      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
    
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);

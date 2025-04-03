@@ -44,6 +44,8 @@ public:
    // fire the projectile with the given parameters
    void fire(const Position& pos, Angle a, double muzzleVelocity, double time);
    
+   void draw(ogstream& gout, double flightTime) const;
+   
 private:
    
    // keep track of one moment in the path of the projectile
