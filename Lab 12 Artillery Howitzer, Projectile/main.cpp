@@ -44,24 +44,24 @@ void callBack(const Interface* pUI, void* p)
    // fire gun
    if (pUI->isSpace())
    {
+      pSim->time = 0.0;
+      pSim->projectile.reset();
       pSim->projectile.fire(pSim->howitzer.getPosition(), pSim->angle,
                             pSim->howitzer.getMuzzleVelocity(), pSim->time);
-      pSim->time = 0.0;
+      pSim->projectile.advance(pSim->time);
    }
    
    // Advance game time
    pSim->time += 0.5;
    
    // move the projectile across the screen
-   for (int i = 0; i < 20; i++)
-   {
-      // this bullet is moving left at 1 pixel per frame
-      double x = pSim->projectilePath[i].getPixelsX();
-      x -= 1.0;
-      if (x < 0)
-         x = pSim->posUpperRight.getPixelsX();
-      pSim->projectilePath[i].setPixelsX(x);
-   }
+      for (int i = 0; i < 20; i++)
+      {
+         // this bullet is moving left at 1 pixel per frame
+         pSim->projectile.advance(pSim->time);
+         pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
+         pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
+      }
    
    ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
    
