@@ -31,22 +31,23 @@ void callBack(const Interface* pUI, void* p)
    
    // move a lot
    if (pUI->isRight())
-      pSim->angle += 0.05;
+      pSim->howitzer.rotate(0.05);
    if (pUI->isLeft())
-      pSim->angle -= 0.05;
+      pSim->howitzer.rotate(-0.05);
    
    // move a little
    if (pUI->isUp())
-      pSim->angle += (pSim->angle >= 0 ? -0.003 : 0.003);
+      pSim->howitzer.raise(0.003);
    if (pUI->isDown())
-      pSim->angle += (pSim->angle >= 0 ? 0.003 : -0.003);
+      pSim->howitzer.raise(-0.003);
    
    // fire gun
    if (pUI->isSpace())
    {
       pSim->time = 0.0;
       pSim->projectile.reset();
-      pSim->projectile.fire(pSim->howitzer.getPosition(), pSim->angle,
+      pSim->projectile
+         .fire(pSim->howitzer.getPosition(), pSim->howitzer.getElevation(),
                             pSim->howitzer.getMuzzleVelocity(), pSim->time);
    }
    
@@ -56,25 +57,28 @@ void callBack(const Interface* pUI, void* p)
    // advance projectile
    pSim->projectile.advance(pSim->time);
    
-   // move the projectile across the screen
-      for (int i = 0; i < 20; i++)
-      {
-         //pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
-         //pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
-      }
+   // update the projectile trail
+//   for (int i = 0; i < 20; i++)
+//   {
+//      pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
+//      pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
+//   }
    
    ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
    
    // Draw the ground
    pSim->ground.draw(gout);
    
-   // Draw the howitzer
-   gout.drawHowitzer(pSim->posHowitzer, pSim->angle, pSim->time);
+   // draw the howitzer
+   pSim->howitzer.draw(gout, pSim->time);
    
-   // draw the projectile
-   pSim->projectile.draw(gout, pSim->time);
-//   for (int i = 0; i < 20; i++)
-//      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
+   if (pSim->ground.getElevationMeters(pSim->projectile.getPosition()) <= 0.0)
+   {
+      // draw the projectile
+      pSim->projectile.draw(gout, pSim->time);
+      //   for (int i = 0; i < 20; i++)
+      //      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
+   }
    
    // draw some text on the screen
    gout.setf(ios::fixed | ios::showpoint);

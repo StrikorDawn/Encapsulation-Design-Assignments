@@ -44,7 +44,11 @@ public:
    // fire the projectile with the given parameters
    void fire(const Position& pos, Angle a, double muzzleVelocity, double time);
    
+   // draw the projectile
    void draw(ogstream& gout, double flightTime) const;
+   
+   // get position of the projectile
+   Position getPosition() const;
    
 private:
    

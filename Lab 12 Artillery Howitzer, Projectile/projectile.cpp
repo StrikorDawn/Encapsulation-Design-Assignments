@@ -43,6 +43,15 @@ void Projectile::advance(double simulationTime)
    double t = simulationTime - pvt.t;
    double altitude = pvt.pos.getMetersY();
    
+   // Check if the projectile has hit the ground
+//   if (altitude <= 0.0)
+//   {
+//      pvt.pos.setMetersY(0.0);  // Ensure the projectile does not go below the ground
+//      pvt.v.setDX(0.0);
+//      pvt.v.setDY(0.0);
+//      return;  // Stop further processing
+//   }
+   
    // Calculate drag
    double c = accelerationFromForce(
                  forceFromDrag(
@@ -90,4 +99,13 @@ void Projectile::draw(ogstream& gout, double flightTime) const
    if (flightPath.empty())
       return;
    gout.drawProjectile(flightPath.back().pos, flightTime);
+}
+
+Position Projectile::getPosition() const
+{
+   if (!flightPath.empty())
+   {
+      return flightPath.back().pos;
+   }
+   return Position();
 }

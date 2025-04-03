@@ -23,10 +23,14 @@ Simulator::Simulator(const Position& posUpperRight)
    // Draw the ground and set the vertical position of the howitzer
    ground.reset(posHowitzer);
    
+   howitzer.setPosition(posHowitzer);
+   
+   
    // This is the trail of the projectile
-   for (int i = 0; i < 20; i++)
-   {
-      projectilePath[i].setPixelsX(posHowitzer.getPixelsX() + (double)i * 2.0);
-      projectilePath[i].setPixelsY(posHowitzer.getPixelsY() + 20);
-   }
+//   for (int i = 0; i < 20; i++)
+//   {
+//      projectilePath[i]
+//         .setPixelsX(howitzer.getPosition().getPixelsX() + (double)i * 2.0);
+//      projectilePath[i].setPixelsY(howitzer.getPosition().getPixelsY() + 20);
+//   }
 }

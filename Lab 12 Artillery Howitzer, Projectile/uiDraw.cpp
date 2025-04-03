@@ -140,7 +140,7 @@ void ogstream :: drawProjectile(const Position& pos, double age)
 {
    const double tailLength = 5.0;
 
-   GLfloat color = (GLfloat)(age / tailLength);
+   GLfloat color = 0;//(GLfloat)(age / tailLength);
    
    Position posBegin;
    Position posEnd;

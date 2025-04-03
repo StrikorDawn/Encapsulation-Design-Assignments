@@ -48,6 +48,12 @@ public:
    // where is the howitzer at right now?
    Position & getPosition() { return position; }
    
+   // set position
+   void setPosition(Position& pos)
+   {
+      position = pos;
+   }
+   
    // generate a new position for the howitzer
    void generatePosition(const Position& posUpperRight)
    {
