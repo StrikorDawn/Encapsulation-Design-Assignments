@@ -13,6 +13,10 @@
 Simulator::Simulator(const Position& posUpperRight)
 : ground(posUpperRight), howitzer()
 {
+   // initializers
+   time = 0.0;
+   angle = 0.0;
+   
    // Set horizontal position of the howitzer
    posHowitzer.setPixelsX(Position(posUpperRight).getPixelsX() / 2.0);
    
