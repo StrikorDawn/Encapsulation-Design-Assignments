@@ -25,66 +25,118 @@ using namespace std;
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   // the first step is to cast the void pointer into a simulator object. This
-   // is the first step of every single callback function in OpenGL.
+   // Cast the void pointer into our Simulator object.
    Simulator* pSim = (Simulator*)p;
-   
-   // move a lot
+
+   // Process user input for howitzer movement
    if (pUI->isRight())
       pSim->howitzer.rotate(0.05);
    if (pUI->isLeft())
       pSim->howitzer.rotate(-0.05);
-   
-   // move a little
+
    if (pUI->isUp())
       pSim->howitzer.raise(0.003);
    if (pUI->isDown())
       pSim->howitzer.raise(-0.003);
-   
-   // fire gun
-   if (pUI->isSpace())
+
+   // Add a flag to check if the projectile is in flight
+   static bool isFiring = false;
+
+   // Fire the projectile when space is pressed, but only if not already firing
+   if (pUI->isSpace() && !isFiring)
    {
       pSim->time = 0.0;
       pSim->projectile.reset();
-      pSim->projectile
-         .fire(pSim->howitzer.getPosition(), pSim->howitzer.getElevation(),
-                            pSim->howitzer.getMuzzleVelocity(), pSim->time);
+      pSim->projectile.fire(pSim->howitzer.getPosition(),
+         pSim->howitzer.getElevation(),
+         pSim->howitzer.getMuzzleVelocity(),
+         pSim->time);
+
+      // Set the firing flag to true to prevent firing until projectile lands
+      isFiring = true;
    }
-   
+
    // Advance game time
    pSim->time += 0.5;
-   
-   // advance projectile
-   pSim->projectile.advance(pSim->time);
-   
-   // update the projectile trail
-//   for (int i = 0; i < 20; i++)
-//   {
-//      pSim->projectilePath[i].setPixelsX(pSim->projectile.getPosition().getPixelsX());
-//      pSim->projectilePath[i].setPixelsY(pSim->projectile.getPosition().getPixelsY());
-//   }
-   
-   ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
-   
-   // Draw the ground
-   pSim->ground.draw(gout);
-   
-   // draw the howitzer
-   pSim->howitzer.draw(gout, pSim->time);
-   
-   if (pSim->ground.getElevationMeters(pSim->projectile.getPosition()) <= 0.0)
+
+   // Check if the bullet is still in the air (if its Y position is above ground level)
+   bool isFlying = true;
+   if (pSim->projectile.getPosition().getMetersY() >= pSim->ground.getElevationMeters(pSim->projectile.getPosition()))
    {
-      // draw the projectile
-      pSim->projectile.draw(gout, pSim->time);
-      //   for (int i = 0; i < 20; i++)
-      //      gout.drawProjectile(pSim->projectilePath[i], 0.5 * (double)i);
+      pSim->projectile.advance(pSim->time);
    }
-   
-   // draw some text on the screen
+   else
+   {
+      isFlying = false;
+   }
+
+   // Now check if the bullet has hit the ground
+   if (!isFlying)
+   {
+      // Bullet has landed, reset the firing flag to allow another shot
+      isFiring = false;
+
+      // Increase the acceptable distance for the target area (e.g., 10 meters instead of 5 meters)
+      if (pSim->projectile.getPosition().getMetersX() >= (pSim->ground.getTarget().getMetersX() - 150) &&
+         pSim->projectile.getPosition().getMetersX() <= (pSim->ground.getTarget().getMetersX() + 150))
+      {
+         // Bullet is near the target area, reset ground and projectile
+         pSim->ground.reset(pSim->posHowitzer);
+         pSim->projectile.reset();
+
+			pSim->howitzer.setPosition(pSim->posHowitzer);
+      }
+      else
+      {
+         // Bullet hit the ground but not near the target, only reset the projectile
+         pSim->projectile.reset();
+      }
+   }
+
+   // Shift old positions in the projectilePath array so the trail is preserved
+   for (int i = 19; i > 0; i--)
+   {
+      pSim->projectilePath[i] = pSim->projectilePath[i - 1];
+   }
+   // Store the current projectile position at the beginning of the trail
+   pSim->projectilePath[0] = pSim->projectile.getPosition();
+
+   // Prepare for drawing text and graphics
+   ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
+
+   // Draw the ground and the howitzer
+   pSim->ground.draw(gout);
+   pSim->howitzer.draw(gout, pSim->time);
+
+   // Get the bullet position (most recent)
+   Position bulletPos = pSim->projectilePath[0];
+   // Compute the maximum distance in the trail using the oldest trail point (index 19)
+   double dx = pSim->projectilePath[19].getPixelsX() - bulletPos.getPixelsX();
+   double dy = pSim->projectilePath[19].getPixelsY() - bulletPos.getPixelsY();
+   double maxDistance = sqrt(dx * dx + dy * dy);
+
+   // Set a constant maximum age value for scaling (tweak this as needed)
+   double MAX_AGE = 20.0;
+
+   // Draw the trail (indices 1 to 19)
+   for (int i = 1; i < 20; i++)
+   {
+      double diffX = pSim->projectilePath[i].getPixelsX() - bulletPos.getPixelsX();
+      double diffY = pSim->projectilePath[i].getPixelsY() - bulletPos.getPixelsY();
+      double distance = sqrt(diffX * diffX + diffY * diffY);
+      double ageValue = 0.0;
+      if (maxDistance > 0)
+         ageValue = (distance / maxDistance) * MAX_AGE;
+      gout.drawProjectile(pSim->projectilePath[i], ageValue);
+   }
+
+   // Draw the bullet (index 0) on top (always drawn as black since age is 0)
+   gout.drawProjectile(bulletPos, 0.0);
+
+   // Draw some status text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
-   gout << "Time since the bullet was fired: "
-   << pSim->time << "s\n";
+   gout << "Time since the bullet was fired: " << pSim->time << "s\n";
 }
 
 double Position::metersFromPixels = 40.0;
@@ -95,30 +147,30 @@ double Position::metersFromPixels = 40.0;
 #ifdef _WIN32
 #include <windows.h>
 int WINAPI wWinMain(
-   _In_ HINSTANCE hInstance,
-   _In_opt_ HINSTANCE hPrevInstance,
-   _In_ PWSTR pCmdLine,
-   _In_ int nCmdShow)
+	_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ PWSTR pCmdLine,
+	_In_ int nCmdShow)
 #else // !_WIN32
 int main(int argc, char** argv)
 #endif // !_WIN32
 {
-   // unit tests
-   testRunner();
-  
-   // Initialize OpenGL
-   Position posUpperRight;
-   posUpperRight.setZoom(40.0 /* 40 meters equals 1 pixel */);
-   posUpperRight.setPixelsX(700.0);
-   posUpperRight.setPixelsY(500.0);
-   Interface ui("M777 Howitzer Simulation", posUpperRight);
+	// unit tests
+	testRunner();
 
-   // Initialize the simulation.
-   Simulator sim(posUpperRight);
+	// Initialize OpenGL
+	Position posUpperRight;
+	posUpperRight.setZoom(40.0 /* 40 meters equals 1 pixel */);
+	posUpperRight.setPixelsX(700.0);
+	posUpperRight.setPixelsY(500.0);
+	Interface ui("M777 Howitzer Simulation", posUpperRight);
+
+	// Initialize the simulation.
+	Simulator sim(posUpperRight);
 
 
-   // set everything into action
-   ui.run(callBack, (void *)&sim);
+	// set everything into action
+	ui.run(callBack, (void*)&sim);
 
-   return 0;
+	return 0;
 }

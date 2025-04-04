@@ -26,4 +26,5 @@ public:
    Position projectilePath[20];
    double angle;
    double time;
+
 };

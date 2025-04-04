@@ -44,13 +44,7 @@ void Projectile::advance(double simulationTime)
    double altitude = pvt.pos.getMetersY();
    
    // Check if the projectile has hit the ground
-//   if (altitude <= 0.0)
-//   {
-//      pvt.pos.setMetersY(0.0);  // Ensure the projectile does not go below the ground
-//      pvt.v.setDX(0.0);
-//      pvt.v.setDY(0.0);
-//      return;  // Stop further processing
-//   }
+
    
    // Calculate drag
    double c = accelerationFromForce(
@@ -83,14 +77,14 @@ void Projectile::advance(double simulationTime)
    pvt.t = simulationTime;
    flightPath.push_back(pvt);
    
-   cout << "\nPosition: " << flightPath
+   /*cout << "\nPosition: " << flightPath
       .back().pos
       .getPixelsX() << ", " << flightPath
       .back().pos
       .getPixelsY();
    cout << "\nVelocity: " << flightPath.back().v.getDX() << ", " << flightPath.back().v.getDY();
    cout << "\nTime: " << flightPath.back().t;
-   cout << endl;
+   cout << endl;*/
 }
 
 // draw
