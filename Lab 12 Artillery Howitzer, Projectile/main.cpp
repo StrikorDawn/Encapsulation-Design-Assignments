@@ -25,118 +25,129 @@ using namespace std;
  **************************************/
 void callBack(const Interface* pUI, void* p)
 {
-   // Cast the void pointer into our Simulator object.
-   Simulator* pSim = (Simulator*)p;
+	// Cast the void pointer into our Simulator object.
+	Simulator* pSim = (Simulator*)p;
+	static bool isHit = false;
+	static bool isFiring = false;
 
-   // Process user input for howitzer movement
-   if (pUI->isRight())
-      pSim->howitzer.rotate(0.05);
-   if (pUI->isLeft())
-      pSim->howitzer.rotate(-0.05);
+	// Process user input for howitzer movement
+	if (pUI->isRight())
+		pSim->howitzer.rotate(0.05);
+	if (pUI->isLeft())
+		pSim->howitzer.rotate(-0.05);
 
-   if (pUI->isUp())
-      pSim->howitzer.raise(0.003);
-   if (pUI->isDown())
-      pSim->howitzer.raise(-0.003);
+	if (pUI->isUp())
+		pSim->howitzer.raise(0.003);
+	if (pUI->isDown())
+		pSim->howitzer.raise(-0.003);
 
-   // Add a flag to check if the projectile is in flight
-   static bool isFiring = false;
+	// Add a flag to check if the projectile is in flight
 
-   // Fire the projectile when space is pressed, but only if not already firing
-   if (pUI->isSpace() && !isFiring)
-   {
-      pSim->time = 0.0;
-      pSim->projectile.reset();
-      pSim->projectile.fire(pSim->howitzer.getPosition(),
-         pSim->howitzer.getElevation(),
-         pSim->howitzer.getMuzzleVelocity(),
-         pSim->time);
+	// Fire the projectile when space is pressed, but only if not already firing
+	if (pUI->isSpace() && !isFiring)
+	{
+		pSim->time = 0.0;
+		pSim->projectile.reset();
+		pSim->projectile.fire(pSim->howitzer.getPosition(),
+			pSim->howitzer.getElevation(),
+			pSim->howitzer.getMuzzleVelocity(),
+			pSim->time);
 
-      // Set the firing flag to true to prevent firing until projectile lands
-      isFiring = true;
-   }
+		// Set the firing flag to true to prevent firing until projectile lands
+		isFiring = true;
+		isHit = false;
+	}
 
-   // Advance game time
-   pSim->time += 0.5;
+	// Advance game time
+	pSim->time += 0.5;
 
-   // Check if the bullet is still in the air (if its Y position is above ground level)
-   bool isFlying = true;
-   if (pSim->projectile.getPosition().getMetersY() >= pSim->ground.getElevationMeters(pSim->projectile.getPosition()))
-   {
-      pSim->projectile.advance(pSim->time);
-   }
-   else
-   {
-      isFlying = false;
-   }
+	// Check if the bullet is still in the air (if its Y position is above ground level)
+	bool isFlying = true;
+	if (pSim->projectile.getPosition().getMetersY() >= pSim->ground.getElevationMeters(pSim->projectile.getPosition()))
+	{
+		pSim->projectile.advance(pSim->time);
+	}
+	else
+	{
+		isFlying = false;
+	}
 
-   // Now check if the bullet has hit the ground
-   if (!isFlying)
-   {
-      // Bullet has landed, reset the firing flag to allow another shot
-      isFiring = false;
+	// Now check if the bullet has hit the ground
+	if (!isFlying)
+	{
+		// Bullet has landed, reset the firing flag to allow another shot
+		isFiring = false;
 
-      // Increase the acceptable distance for the target area (e.g., 10 meters instead of 5 meters)
-      if (pSim->projectile.getPosition().getMetersX() >= (pSim->ground.getTarget().getMetersX() - 150) &&
-         pSim->projectile.getPosition().getMetersX() <= (pSim->ground.getTarget().getMetersX() + 150))
-      {
-         // Bullet is near the target area, reset ground and projectile
-         pSim->ground.reset(pSim->posHowitzer);
-         pSim->projectile.reset();
+		// Increase the acceptable distance for the target area (e.g., 10 meters instead of 5 meters)
+		if (pSim->projectile.getPosition().getMetersX() >= (pSim->ground.getTarget().getMetersX() - 175) &&
+			pSim->projectile.getPosition().getMetersX() <= (pSim->ground.getTarget().getMetersX() + 175))
+		{
+			// Bullet is near the target area, reset ground and projectile
+			pSim->projectile.reset();
+			pSim->ground.reset(pSim->howitzer.getPosition());
+			isHit = true;
+		}
+		else
+		{
+			// Bullet hit the ground but not near the target, only reset the projectile
+			pSim->projectile.reset();
+		}
+	}
 
-			pSim->howitzer.setPosition(pSim->posHowitzer);
-      }
-      else
-      {
-         // Bullet hit the ground but not near the target, only reset the projectile
-         pSim->projectile.reset();
-      }
-   }
+	// Shift old positions in the projectilePath array so the trail is preserved
+	for (int i = 19; i > 0; i--)
+	{
+		pSim->projectilePath[i] = pSim->projectilePath[i - 1];
+	}
+	// Store the current projectile position at the beginning of the trail
+	pSim->projectilePath[0] = pSim->projectile.getPosition();
 
-   // Shift old positions in the projectilePath array so the trail is preserved
-   for (int i = 19; i > 0; i--)
-   {
-      pSim->projectilePath[i] = pSim->projectilePath[i - 1];
-   }
-   // Store the current projectile position at the beginning of the trail
-   pSim->projectilePath[0] = pSim->projectile.getPosition();
+	// Prepare for drawing text and graphics
+	ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
 
-   // Prepare for drawing text and graphics
-   ogstream gout(Position(10.0, pSim->posUpperRight.getPixelsY() - 20.0));
+	// Draw the ground and the howitzer
+	pSim->ground.draw(gout);
+	pSim->howitzer.draw(gout, pSim->time);
 
-   // Draw the ground and the howitzer
-   pSim->ground.draw(gout);
-   pSim->howitzer.draw(gout, pSim->time);
+	// Get the bullet position (most recent)
+	Position bulletPos = pSim->projectilePath[0];
+	// Compute the maximum distance in the trail using the oldest trail point (index 19)
+	double dx = pSim->projectilePath[19].getPixelsX() - bulletPos.getPixelsX();
+	double dy = pSim->projectilePath[19].getPixelsY() - bulletPos.getPixelsY();
+	double maxDistance = sqrt(dx * dx + dy * dy);
 
-   // Get the bullet position (most recent)
-   Position bulletPos = pSim->projectilePath[0];
-   // Compute the maximum distance in the trail using the oldest trail point (index 19)
-   double dx = pSim->projectilePath[19].getPixelsX() - bulletPos.getPixelsX();
-   double dy = pSim->projectilePath[19].getPixelsY() - bulletPos.getPixelsY();
-   double maxDistance = sqrt(dx * dx + dy * dy);
+	// Set a constant maximum age value for scaling (tweak this as needed)
+	double MAX_AGE = 5.0;
 
-   // Set a constant maximum age value for scaling (tweak this as needed)
-   double MAX_AGE = 20.0;
+	// Draw the trail (indices 1 to 19)
+	for (int i = 1; i < 20; i++)
+	{
+		double diffX = pSim->projectilePath[i].getPixelsX() - bulletPos.getPixelsX();
+		double diffY = pSim->projectilePath[i].getPixelsY() - bulletPos.getPixelsY();
+		double distance = sqrt(diffX * diffX + diffY * diffY);
+		double ageValue = 0.0;
+		if (maxDistance > 0)
+			ageValue = (distance / maxDistance) * MAX_AGE;
+		gout.drawProjectile(pSim->projectilePath[i], ageValue);
+	}
 
-   // Draw the trail (indices 1 to 19)
-   for (int i = 1; i < 20; i++)
-   {
-      double diffX = pSim->projectilePath[i].getPixelsX() - bulletPos.getPixelsX();
-      double diffY = pSim->projectilePath[i].getPixelsY() - bulletPos.getPixelsY();
-      double distance = sqrt(diffX * diffX + diffY * diffY);
-      double ageValue = 0.0;
-      if (maxDistance > 0)
-         ageValue = (distance / maxDistance) * MAX_AGE;
-      gout.drawProjectile(pSim->projectilePath[i], ageValue);
-   }
+	// Draw the bullet (index 0) on top (always drawn as black since age is 0)
+	gout.drawProjectile(bulletPos, 0.0);
 
-   // Draw the bullet (index 0) on top (always drawn as black since age is 0)
-   gout.drawProjectile(bulletPos, 0.0);
+	// Draw some status text on the screen
+	gout.setf(ios::fixed | ios::showpoint);
+	gout.precision(1);
+	gout << "Time since the bullet was fired: " << pSim->time << "s\n";
+	if (isHit)
+	{
+		gout << "Target: Hit!";
+	}
+	else
+	{
+		gout << " ";
+	}
 
-   // Draw some status text on the screen
-   gout.setf(ios::fixed | ios::showpoint);
-   gout.precision(1);
-   gout << "Time since the bullet was fired: " << pSim->time << "s\n";
+
 }
 
 double Position::metersFromPixels = 40.0;
