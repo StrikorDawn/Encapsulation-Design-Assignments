@@ -13,6 +13,7 @@
 #include "simulation.h" // for SIMULATION
 #include "position.h"   // for POSITION
 #include "test.h"       // for the unit tests
+#include "iomanip"
 using namespace std;
 
 
@@ -145,18 +146,20 @@ void callBack(const Interface* pUI, void* p)
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
    double distanceFromGround = pSim->projectile.getPosition().getMetersY() - pSim->ground.getElevationMeters(pSim->projectile.getPosition()) + 300;
-   gout << "Time since the bullet was fired: " << pSim->time << "s\n";
-   gout << "Distance from ground: " << distanceFromGround << "m\n";
-   gout << "Howitzer angle: " << pSim->howitzer
-      .getElevation()
-      .getDegrees() << " degrees\n";
+   gout << setw(100) << setfill(' ') << ""
+        << "Time since the bullet was fired: " << pSim->time << "s\n";
+   gout << setw(111) << setfill(' ') << ""
+        << "Distance from ground: " << distanceFromGround << "m\n";
+   gout << setw(111) << setfill(' ') << ""
+        << "Howitzer angle: " << pSim->howitzer.getElevation().getDegrees()
+        << " degrees\n";
    if (isHit)
    {
-      gout << "Target: Hit!";
+      gout << setw(111) << setfill(' ') << "" << "Target: Hit!";
    }
    else
    {
-      gout << " ";
+      gout << setw(111) << setfill(' ') << "" << " ";
    }
    
    
