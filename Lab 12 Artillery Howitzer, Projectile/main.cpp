@@ -144,7 +144,12 @@ void callBack(const Interface* pUI, void* p)
    // Draw some status text on the screen
    gout.setf(ios::fixed | ios::showpoint);
    gout.precision(1);
+   double distanceFromGround = pSim->projectile.getPosition().getMetersY() - pSim->ground.getElevationMeters(pSim->projectile.getPosition()) + 300;
    gout << "Time since the bullet was fired: " << pSim->time << "s\n";
+   gout << "Distance from ground: " << distanceFromGround << "m\n";
+   gout << "Howitzer angle: " << pSim->howitzer
+      .getElevation()
+      .getDegrees() << " degrees\n";
    if (isHit)
    {
       gout << "Target: Hit!";
